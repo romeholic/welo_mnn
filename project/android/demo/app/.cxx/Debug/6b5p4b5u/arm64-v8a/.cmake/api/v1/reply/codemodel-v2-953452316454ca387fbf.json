@@ -1,0 +1,468 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33
+					]
+				},
+				{
+					"build" : "source/backend/vulkan",
+					"jsonFile" : "directory-source.backend.vulkan-Debug-371f0d2103b1dee5875b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/backend/vulkan",
+					"targetIndexes" : 
+					[
+						15
+					]
+				},
+				{
+					"build" : "source/backend/opencl",
+					"jsonFile" : "directory-source.backend.opencl-Debug-e9a8ba2d9a20b66cb322.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/backend/opencl",
+					"targetIndexes" : 
+					[
+						12
+					]
+				},
+				{
+					"build" : "source/backend/opengl",
+					"jsonFile" : "directory-source.backend.opengl-Debug-7701253655d90ba0dee3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/backend/opengl",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "express",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-express-Debug-d9d3d97989dc44c0c06e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "express",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "tools/converter",
+					"jsonFile" : "directory-tools.converter-Debug-248fdb92d718233e4d0c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tools/converter"
+				},
+				{
+					"build" : "tools/audio",
+					"jsonFile" : "directory-tools.audio-Debug-8bde6f0fc92475034fd3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tools/audio"
+				},
+				{
+					"build" : "source/jni",
+					"jsonFile" : "directory-source.jni-Debug-30b46c3307e071fee0f5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/jni",
+					"targetIndexes" : 
+					[
+						25
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"name" : "MNN",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "GetMNNInfo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GetMNNInfo-Debug-e1470c59350013b3aa6f.json",
+					"name" : "GetMNNInfo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "GpuInterTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GpuInterTest.out-Debug-08760b115e338b7410ef.json",
+					"name" : "GpuInterTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNN::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNN-Debug-2a9308419972699ecefa.json",
+					"name" : "MNN",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNARM64::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNARM64-Debug-c968ad09399da413162a.json",
+					"name" : "MNNARM64",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNCPU::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNCPU-Debug-90187c3f685a9e50a1da.json",
+					"name" : "MNNCPU",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNCV::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNCV-Debug-7c7cd65841a9c017e0c0.json",
+					"name" : "MNNCV",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNCore::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNCore-Debug-414910e9a2184a7cbcbb.json",
+					"name" : "MNNCore",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNMath::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNMath-Debug-9f8b3445420145baec5c.json",
+					"name" : "MNNMath",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNTransform::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNTransform-Debug-44be9504d21ed1387653.json",
+					"name" : "MNNTransform",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNUtils::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNUtils-Debug-d80efb45b96fb30869c1.json",
+					"name" : "MNNUtils",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNV2Basic.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNV2Basic.out-Debug-ca341960ee50d8a2e811.json",
+					"name" : "MNNV2Basic.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNN_Arm82::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNN_Arm82-Debug-bb1fabf98a6abed9cc41.json",
+					"name" : "MNN_Arm82",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "MNN_CL::@f399ac930e932d6604b1",
+					"jsonFile" : "target-MNN_CL-Debug-ea4b0f982344262086c2.json",
+					"name" : "MNN_CL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "MNN_Express::@5eb37d507d4501886560",
+					"jsonFile" : "target-MNN_Express-Debug-b1c5bc32556161e5e950.json",
+					"name" : "MNN_Express",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "MNN_GL::@7c22fef36165ae852cfa",
+					"jsonFile" : "target-MNN_GL-Debug-74c6d58cba03ccb0d93e.json",
+					"name" : "MNN_GL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "MNN_Vulkan::@60768e6478b2bf4c587c",
+					"jsonFile" : "target-MNN_Vulkan-Debug-02cce5512117dcfb9617.json",
+					"name" : "MNN_Vulkan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ModuleBasic.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ModuleBasic.out-Debug-52fa4e69ce352c5dfe43.json",
+					"name" : "ModuleBasic.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SequenceModuleTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SequenceModuleTest.out-Debug-2c2868e53ce5b31c3063.json",
+					"name" : "SequenceModuleTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "backendTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-backendTest.out-Debug-f4a55172b0887e09d73e.json",
+					"name" : "backendTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "checkDir.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-checkDir.out-Debug-4f24030ddcd95f69da26.json",
+					"name" : "checkDir.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "checkFile.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-checkFile.out-Debug-ba388b1ace9c425042b9.json",
+					"name" : "checkFile.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "checkInvalidValue.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-checkInvalidValue.out-Debug-a6be050e480d3909ddb0.json",
+					"name" : "checkInvalidValue.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "fuseTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-fuseTest-Debug-45d1711194ad0e94766b.json",
+					"name" : "fuseTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "getPerformance.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-getPerformance.out-Debug-b5a1503c103605c2e6f2.json",
+					"name" : "getPerformance.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mergeInplaceForCPU::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mergeInplaceForCPU-Debug-37225e384360421c4e0f.json",
+					"name" : "mergeInplaceForCPU",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "mnncore::@c5fdd661b660e84e96cc",
+					"jsonFile" : "target-mnncore-Debug-42852de4084dbe5a91f7.json",
+					"name" : "mnncore",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mobilenetTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mobilenetTest.out-Debug-acacda17f217a98dedaa.json",
+					"name" : "mobilenetTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "modelCompare.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-modelCompare.out-Debug-2a44f8fec06afa3e3cd2.json",
+					"name" : "modelCompare.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testModel.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testModel.out-Debug-73af2ce2c7ccb3a976f0.json",
+					"name" : "testModel.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testModelWithDescribe.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testModelWithDescribe.out-Debug-c5ff7528d78d576921a1.json",
+					"name" : "testModelWithDescribe.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testModel_expr.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testModel_expr.out-Debug-39a3fcc4efc28d5a5473.json",
+					"name" : "testModel_expr.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testTrain.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testTrain.out-Debug-ad9976a2c94df69e10f8.json",
+					"name" : "testTrain.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "timeProfile.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-timeProfile.out-Debug-2d40d687d22aad6028fe.json",
+					"name" : "timeProfile.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "winogradExample.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-winogradExample.out-Debug-79e38fbc4a1f2e8d5989.json",
+					"name" : "winogradExample.out",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "F:/stanley/MNN/project/android/demo/app/.cxx/Debug/6b5p4b5u/arm64-v8a",
+		"source" : "F:/stanley/MNN"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

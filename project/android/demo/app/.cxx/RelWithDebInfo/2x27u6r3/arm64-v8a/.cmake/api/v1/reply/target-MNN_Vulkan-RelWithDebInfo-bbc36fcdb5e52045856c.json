@@ -1,0 +1,1356 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "source/backend/vulkan/OFF/arm64-v8a/libMNN_Vulkan.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"add_definitions",
+			"include",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"source/backend/vulkan/CMakeLists.txt",
+			"CMakeLists.txt",
+			"source/backend/cpu/arm/CMakeLists.txt",
+			"source/backend/cpu/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 33,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 37,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 285,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 22,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 357,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 445,
+				"parent" : 4
+			},
+			{
+				"file" : 3,
+				"parent" : 8
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 37,
+				"parent" : 9
+			},
+			{
+				"file" : 2,
+				"parent" : 10
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 120,
+				"parent" : 11
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 230,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 55,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 375,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=c++11 -O3 -fvisibility-inlines-hidden -fvisibility=hidden -fomit-frame-pointer -fstrict-aliasing -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions  -O2 -g -DNDEBUG -fPIC   -fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "MNN_BUILD_FOR_ANDROID"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MNN_USE_LIB_WRAPPER"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "MNN_USE_LOGCAT"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "MNN_USE_NEON"
+				},
+				{
+					"backtrace" : 13,
+					"define" : "MNN_USE_THREAD_POOL"
+				},
+				{
+					"define" : "MNN_Vulkan_EXPORTS"
+				},
+				{
+					"backtrace" : 14,
+					"define" : "VK_USE_PLATFORM_ANDROID_KHR"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/include"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/source"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/express"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/tools"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/codegen"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/schema/current"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/3rd_party"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/3rd_party/flatbuffers/include"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/3rd_party/half"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/3rd_party/imageHelper"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "F:/stanley/MNN/3rd_party/OpenCLHeaders"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/."
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/include"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/component"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/runtime"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/schema/current"
+				},
+				{
+					"backtrace" : 18,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/image/execution"
+				},
+				{
+					"backtrace" : 18,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/image/backend"
+				},
+				{
+					"backtrace" : 18,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/image"
+				},
+				{
+					"backtrace" : 18,
+					"path" : "F:/stanley/MNN/source/backend/vulkan/image/shaders"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				2,
+				4,
+				6,
+				8,
+				10,
+				12,
+				14,
+				16,
+				18,
+				20,
+				22,
+				24,
+				26,
+				28,
+				30,
+				32,
+				36,
+				38,
+				40,
+				42,
+				44,
+				46,
+				48,
+				50,
+				52,
+				54,
+				56,
+				58,
+				60,
+				62,
+				64,
+				66,
+				68,
+				70,
+				72,
+				74,
+				76,
+				78,
+				80,
+				82,
+				144,
+				146
+			],
+			"sysroot" : 
+			{
+				"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "MNN::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "MNN_Vulkan::@60768e6478b2bf4c587c",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -Wl,--gc-sections",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "OFF\\arm64-v8a\\libMNN.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-pthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-latomic -lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+		}
+	},
+	"name" : "MNN_Vulkan",
+	"nameOnDisk" : "libMNN_Vulkan.so",
+	"paths" : 
+	{
+		"build" : "source/backend/vulkan",
+		"source" : "source/backend/vulkan"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				2,
+				4,
+				6,
+				8,
+				10,
+				12,
+				14,
+				16,
+				18,
+				20,
+				22,
+				24,
+				26,
+				28,
+				30,
+				32,
+				36,
+				38,
+				40,
+				42,
+				44,
+				46,
+				48,
+				50,
+				52,
+				54,
+				56,
+				58,
+				60,
+				62,
+				64,
+				66,
+				68,
+				70,
+				72,
+				74,
+				76,
+				78,
+				80,
+				82,
+				144,
+				146
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1,
+				3,
+				5,
+				7,
+				9,
+				11,
+				13,
+				15,
+				17,
+				19,
+				21,
+				23,
+				25,
+				27,
+				29,
+				37,
+				39,
+				41,
+				43,
+				45,
+				47,
+				49,
+				51,
+				53,
+				55,
+				57,
+				59,
+				61,
+				63,
+				65,
+				67,
+				69,
+				71,
+				73,
+				75,
+				77,
+				79,
+				81,
+				83,
+				142,
+				143,
+				145,
+				147,
+				148,
+				149,
+				150,
+				151
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				31,
+				33,
+				34,
+				35,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				123,
+				124,
+				125,
+				126,
+				127,
+				128,
+				129,
+				130,
+				131,
+				132,
+				133,
+				134,
+				135,
+				136,
+				137,
+				138,
+				139,
+				140,
+				141
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanBuffer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanBuffer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanCommandPool.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanCommandPool.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanDevice.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanDevice.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanFence.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanFence.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanFramebuffer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanFramebuffer.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanImage.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanImage.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanInstance.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanInstance.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanMemoryPool.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanMemoryPool.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanPipeline.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanPipeline.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanQueryPool.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanQueryPool.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanRenderPass.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanRenderPass.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanSemaphore.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanSemaphore.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/component/VulkanTarget.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/component/VulkanTarget.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/backend/VulkanBackend.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/backend/VulkanBackend.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/backend/VulkanTensor.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/backend/VulkanTensor.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/compiler/AllShader.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/compiler/VulkanCodeGen.py",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/compiler/VulkanShaderMap.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/compiler/getSpirv.sh",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/compiler/makeshader.py",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/compiler/makeshader_cachedesign.txt",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanArgMax.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanArgMax.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanBasicExecution.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanBasicExecution.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanBinary.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanBinary.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolution.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolution.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolution1x1.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolution1x1.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolutionImpl.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolutionImpl.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolutionWinograd.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanConvolutionWinograd.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanDeconvolution.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanDeconvolution.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanDeconvolutionDepthwise.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanDeconvolutionDepthwise.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanGridSample.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanGridSample.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanImageConverter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanImageConverter.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanInterp.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanInterp.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanLoop.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanLoop.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanMatMul.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanMatMul.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanMatrixMultier4x4.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanMatrixMultier4x4.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanPool.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanPool.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanROIPooling.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanROIPooling.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanRaster.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanRaster.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanReduce.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanReduce.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanRelu.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanRelu.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanResize.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanResize.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanScale.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanScale.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanSoftmax.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanSoftmax.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/image/execution/VulkanUnary.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/VulkanUnary.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/argmax.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/avgpool.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/binaryImage.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/binary_blit.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/blit.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/blit_image.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/buffer2Image1D.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/buffer2Image2D.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/buffer2Image3D.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/col2Im.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/convolution1x1.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/convolution1x1_c8w4.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/convolution1x1_w4.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/convolutionDepthwise.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/convolutionDepthwise_s1d1_w2.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/deconvCol2Im.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/deconvIm2Col.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/deconvolutionDepthwise.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/dwweightcopy.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/fill_image.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/gemm16x16.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/gridSampleBilinear.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/gridSampleNearest.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/headfile.json",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/im2col.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/im2col1x1.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/imageTonc4hw4.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/imageTonchw.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/macro.json",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/matmul_input.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/matmul_output.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/maxpool.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/nc4hw4Tonchw.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/nc4hw4toimage.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/nchwToimage.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/nchwTonc4hw4.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/packAsImage4x4.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/preluWithChannel.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/reduce.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/relu.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/relu6.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/resizeBilinear.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/resizeNearest.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/roipooling.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/scale.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/softmaxImage.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/unPackImage4x4.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/unaryImage.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/winogradTransformDest2_3_1.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glsl/winogradTransformSource2_3_1.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/col2ImUint8.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/gemm16x16uint8.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/im2coluint8.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/imageTonc4hw4uint.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/imageTonhwc_uint8.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/nc4hw4toimageuint.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/glslbackup/nhwcToimage_uint8.comp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/execution/spirv/gemm.spirv",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/shaders/AllShader.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/image/shaders/VulkanShaderMap.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/runtime/VulkanRuntime.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/runtime/VulkanRuntime.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/vulkan/runtime/vulkan_wrapper.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/vulkan/vk_platform.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/vulkan/vulkan.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/vulkan/vulkan_android.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/vulkan/vulkan_core.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/vulkan/vulkan/vulkan_wrapper.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

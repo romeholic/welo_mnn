@@ -1,0 +1,325 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "F:/stanley/MNN/project/android/demo/app/build/intermediates/cxx/RelWithDebInfo/3s2z6k3n/obj/arm64-v8a/checkInvalidValue.out"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"include",
+			"target_link_libraries",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"tools/cpp/CMakeLists.txt",
+			"CMakeLists.txt",
+			"source/backend/cpu/arm/CMakeLists.txt",
+			"source/backend/cpu/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 862,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 63,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 285,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 357,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 445,
+				"parent" : 0
+			},
+			{
+				"file" : 3,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 37,
+				"parent" : 8
+			},
+			{
+				"file" : 2,
+				"parent" : 9
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 120,
+				"parent" : 10
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 230,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 375,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=c++11 -O3 -fvisibility-inlines-hidden -fvisibility=hidden -fomit-frame-pointer -fstrict-aliasing -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions  -O2 -g -DNDEBUG -fPIE   -fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "MNN_BUILD_FOR_ANDROID"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MNN_USE_LOGCAT"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "MNN_USE_NEON"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "MNN_USE_THREAD_POOL"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/include"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/source"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/express"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/tools"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/codegen"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/schema/current"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/3rd_party"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/3rd_party/flatbuffers/include"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/3rd_party/half"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/3rd_party/imageHelper"
+				},
+				{
+					"backtrace" : 13,
+					"path" : "F:/stanley/MNN/3rd_party/OpenCLHeaders"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			],
+			"sysroot" : 
+			{
+				"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 4,
+			"id" : "MNN::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "MNN_GL::@7c22fef36165ae852cfa"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "MNN_CL::@f399ac930e932d6604b1"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "MNN_Vulkan::@60768e6478b2bf4c587c"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "MNN_Express::@5eb37d507d4501886560"
+		}
+	],
+	"id" : "checkInvalidValue.out::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=c++11 -O3 -fvisibility-inlines-hidden -fvisibility=hidden -fomit-frame-pointer -fstrict-aliasing -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions  -O2 -g -DNDEBUG",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments   -Wl,--gc-sections",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "express\\OFF\\arm64-v8a\\libMNN_Express.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lGLESv3",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lEGL",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "OFF\\arm64-v8a\\libMNN.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-pthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-latomic -lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+		}
+	},
+	"name" : "checkInvalidValue.out",
+	"nameOnDisk" : "checkInvalidValue.out",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "tools/cpp/checkInvalidValue.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

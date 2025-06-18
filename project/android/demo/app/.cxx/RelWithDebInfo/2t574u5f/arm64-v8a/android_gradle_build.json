@@ -1,0 +1,384 @@
+{
+  "buildFiles": [
+    "F:\\stanley\\MNN\\cmake\\macros.cmake",
+    "F:\\stanley\\MNN\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\express\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\arm82\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\cpu\\arm\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\cpu\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\cpu\\x86_x64\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\opencl\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\opengl\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\vulkan\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\jni\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\tools\\audio\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\tools\\converter\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\tools\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "F:\\stanley\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "F:\\stanley\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "GetMNNInfo::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "GetMNNInfo",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\GetMNNInfo",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "GpuInterTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "GpuInterTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\GpuInterTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "MNN::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNN",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so",
+      "runtimeFiles": []
+    },
+    "MNNARM64::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNARM64"
+    },
+    "MNNCPU::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNCPU"
+    },
+    "MNNCV::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNCV"
+    },
+    "MNNCore::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNCore"
+    },
+    "MNNMath::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNMath"
+    },
+    "MNNTransform::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNTransform"
+    },
+    "MNNUtils::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNUtils"
+    },
+    "MNNV2Basic.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNNV2Basic.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\MNNV2Basic.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "MNN_Arm82::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNN_Arm82"
+    },
+    "MNN_CL::@f399ac930e932d6604b1": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNN_CL",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "MNN_Express::@5eb37d507d4501886560": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNN_Express",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "MNN_GL::@7c22fef36165ae852cfa": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNN_GL",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "MNN_Vulkan::@60768e6478b2bf4c587c": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "MNN_Vulkan",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "ModuleBasic.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "ModuleBasic.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\ModuleBasic.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "SequenceModuleTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "SequenceModuleTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\SequenceModuleTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "backendTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "backendTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\backendTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "checkDir.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "checkDir.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\checkDir.out",
+      "runtimeFiles": []
+    },
+    "checkFile.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "checkFile.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\checkFile.out",
+      "runtimeFiles": []
+    },
+    "checkInvalidValue.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "checkInvalidValue.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\checkInvalidValue.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "fuseTest::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "fuseTest",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\fuseTest",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "getPerformance.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "getPerformance.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\getPerformance.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "mergeInplaceForCPU::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "mergeInplaceForCPU",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\mergeInplaceForCPU",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "mnncore::@c5fdd661b660e84e96cc": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "mnncore",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\jni\\OFF\\arm64-v8a\\libmnncore.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "mobilenetTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "mobilenetTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\mobilenetTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "modelCompare.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "modelCompare.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\modelCompare.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "testModel.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "testModel.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\testModel.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "testModelWithDescribe.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "testModelWithDescribe.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\testModelWithDescribe.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "testModel_expr.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "testModel_expr.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\testModel_expr.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "testTrain.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "testTrain.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\testTrain.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "timeProfile.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "timeProfile.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\timeProfile.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "winogradExample.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "winogradExample.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\2t574u5f\\obj\\arm64-v8a\\winogradExample.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\vulkan\\OFF\\arm64-v8a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opencl\\OFF\\arm64-v8a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\source\\backend\\opengl\\OFF\\arm64-v8a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\express\\OFF\\arm64-v8a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\RelWithDebInfo\\2t574u5f\\arm64-v8a\\OFF\\arm64-v8a\\libMNN.so"
+      ]
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "F:\\stanley\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "F:\\stanley\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

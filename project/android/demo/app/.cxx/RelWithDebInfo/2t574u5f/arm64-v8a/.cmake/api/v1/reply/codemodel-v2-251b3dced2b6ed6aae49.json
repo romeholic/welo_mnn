@@ -1,0 +1,468 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33
+					]
+				},
+				{
+					"build" : "source/backend/vulkan",
+					"jsonFile" : "directory-source.backend.vulkan-RelWithDebInfo-371f0d2103b1dee5875b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/backend/vulkan",
+					"targetIndexes" : 
+					[
+						15
+					]
+				},
+				{
+					"build" : "source/backend/opencl",
+					"jsonFile" : "directory-source.backend.opencl-RelWithDebInfo-e9a8ba2d9a20b66cb322.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/backend/opencl",
+					"targetIndexes" : 
+					[
+						12
+					]
+				},
+				{
+					"build" : "source/backend/opengl",
+					"jsonFile" : "directory-source.backend.opengl-RelWithDebInfo-7701253655d90ba0dee3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/backend/opengl",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "express",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-express-RelWithDebInfo-d9d3d97989dc44c0c06e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "express",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "tools/converter",
+					"jsonFile" : "directory-tools.converter-RelWithDebInfo-248fdb92d718233e4d0c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tools/converter"
+				},
+				{
+					"build" : "tools/audio",
+					"jsonFile" : "directory-tools.audio-RelWithDebInfo-8bde6f0fc92475034fd3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tools/audio"
+				},
+				{
+					"build" : "source/jni",
+					"jsonFile" : "directory-source.jni-RelWithDebInfo-30b46c3307e071fee0f5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "source/jni",
+					"targetIndexes" : 
+					[
+						25
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"name" : "MNN",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "GetMNNInfo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GetMNNInfo-RelWithDebInfo-2744b240c1cf42854ce6.json",
+					"name" : "GetMNNInfo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "GpuInterTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GpuInterTest.out-RelWithDebInfo-fb7b1b01d008347c7fdc.json",
+					"name" : "GpuInterTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNN::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNN-RelWithDebInfo-a120da583cf4c410c7ad.json",
+					"name" : "MNN",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNARM64::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNARM64-RelWithDebInfo-5e5e5a560cfcd0299bfb.json",
+					"name" : "MNNARM64",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNCPU::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNCPU-RelWithDebInfo-d5f183aab8ad50bdbaf7.json",
+					"name" : "MNNCPU",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNCV::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNCV-RelWithDebInfo-3749216e3561e85f4d1e.json",
+					"name" : "MNNCV",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNCore::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNCore-RelWithDebInfo-118dab73c6dce26bcdb8.json",
+					"name" : "MNNCore",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNMath::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNMath-RelWithDebInfo-60f510138c3c38c12b41.json",
+					"name" : "MNNMath",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNTransform::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNTransform-RelWithDebInfo-9494caef58996cd78174.json",
+					"name" : "MNNTransform",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNUtils::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNUtils-RelWithDebInfo-a5299442ba3e23216d48.json",
+					"name" : "MNNUtils",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNNV2Basic.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNNV2Basic.out-RelWithDebInfo-8744465c7bd81e6fb689.json",
+					"name" : "MNNV2Basic.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MNN_Arm82::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MNN_Arm82-RelWithDebInfo-b3e32389ee4120cb53ac.json",
+					"name" : "MNN_Arm82",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "MNN_CL::@f399ac930e932d6604b1",
+					"jsonFile" : "target-MNN_CL-RelWithDebInfo-6c075a17df52ec38bbb2.json",
+					"name" : "MNN_CL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "MNN_Express::@5eb37d507d4501886560",
+					"jsonFile" : "target-MNN_Express-RelWithDebInfo-8c76a58965f338c27d4e.json",
+					"name" : "MNN_Express",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "MNN_GL::@7c22fef36165ae852cfa",
+					"jsonFile" : "target-MNN_GL-RelWithDebInfo-6c33033a0318604551f8.json",
+					"name" : "MNN_GL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "MNN_Vulkan::@60768e6478b2bf4c587c",
+					"jsonFile" : "target-MNN_Vulkan-RelWithDebInfo-bbc36fcdb5e52045856c.json",
+					"name" : "MNN_Vulkan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ModuleBasic.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ModuleBasic.out-RelWithDebInfo-9e4b37c75d79e7c154aa.json",
+					"name" : "ModuleBasic.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SequenceModuleTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SequenceModuleTest.out-RelWithDebInfo-90058609557a8b8609c7.json",
+					"name" : "SequenceModuleTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "backendTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-backendTest.out-RelWithDebInfo-b4fc174404fa18055dd9.json",
+					"name" : "backendTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "checkDir.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-checkDir.out-RelWithDebInfo-0fd0794987e3e70d2447.json",
+					"name" : "checkDir.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "checkFile.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-checkFile.out-RelWithDebInfo-10d58aa92d112f199b94.json",
+					"name" : "checkFile.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "checkInvalidValue.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-checkInvalidValue.out-RelWithDebInfo-565d438c8014539f4872.json",
+					"name" : "checkInvalidValue.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "fuseTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-fuseTest-RelWithDebInfo-f5784e2543c8079978f4.json",
+					"name" : "fuseTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "getPerformance.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-getPerformance.out-RelWithDebInfo-956e602f6f3d794bf8bf.json",
+					"name" : "getPerformance.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mergeInplaceForCPU::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mergeInplaceForCPU-RelWithDebInfo-65ce3f22888c975e80e3.json",
+					"name" : "mergeInplaceForCPU",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "mnncore::@c5fdd661b660e84e96cc",
+					"jsonFile" : "target-mnncore-RelWithDebInfo-f77c28c1b2dc7ffcedbe.json",
+					"name" : "mnncore",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "mobilenetTest.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mobilenetTest.out-RelWithDebInfo-3c33f5bbeac1958ca70b.json",
+					"name" : "mobilenetTest.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "modelCompare.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-modelCompare.out-RelWithDebInfo-c99dba2ec2036301ab05.json",
+					"name" : "modelCompare.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testModel.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testModel.out-RelWithDebInfo-e65509827668459fb620.json",
+					"name" : "testModel.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testModelWithDescribe.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testModelWithDescribe.out-RelWithDebInfo-c8db69756c928b7cc82f.json",
+					"name" : "testModelWithDescribe.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testModel_expr.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testModel_expr.out-RelWithDebInfo-fc065e2dbc04a795d326.json",
+					"name" : "testModel_expr.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testTrain.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testTrain.out-RelWithDebInfo-baa5f1a0dd4866ddb34b.json",
+					"name" : "testTrain.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "timeProfile.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-timeProfile.out-RelWithDebInfo-40f2b2e2614e8e20b450.json",
+					"name" : "timeProfile.out",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "winogradExample.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-winogradExample.out-RelWithDebInfo-0950fc7de036c14332cc.json",
+					"name" : "winogradExample.out",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "F:/stanley/MNN/project/android/demo/app/.cxx/RelWithDebInfo/2t574u5f/arm64-v8a",
+		"source" : "F:/stanley/MNN"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

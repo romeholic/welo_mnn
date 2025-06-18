@@ -1,0 +1,14 @@
+F:\stanley\terminal_ai\alibaba_mnn\cmake\macros.cmake
+F:\stanley\terminal_ai\alibaba_mnn\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\express\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\arm82\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\cpu\arm\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\cpu\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\cpu\x86_x64\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\opencl\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\opengl\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\backend\vulkan\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\source\jni\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\tools\audio\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\tools\converter\CMakeLists.txt
+F:\stanley\terminal_ai\alibaba_mnn\tools\cpp\CMakeLists.txt

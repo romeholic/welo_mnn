@@ -1,0 +1,14 @@
+# ninja log v5
+21	998	7719178571140357	CMakeFiles/mnnllmapp.dir/crash_util.cpp.o	ab967ff93f28f607
+6	1123	7719178572047934	CMakeFiles/mnnllmapp.dir/diffusion_session.cpp.o	f37c5441a93959a6
+10	5512	7719178616448033	CMakeFiles/mnnllmapp.dir/diffusion_jni.cpp.o	6bde87eb22008b1f
+0	5613	7719178617445375	CMakeFiles/mnnllmapp.dir/llm_mnn_jni.cpp.o	21de642410a2356e
+15	6215	7719178623466213	CMakeFiles/mnnllmapp.dir/llm_session.cpp.o	61c3d207bd09dafd
+6215	6299	7719178624164340	F:/stanley/terminal_ai/alibaba_mnn/apps/Android/MnnLlmChat/app/build/intermediates/cxx/RelWithDebInfo/6u3s1n2s/obj/arm64-v8a/libmnnllmapp.so	939f0dfed7e3eb37
+0	6	0	clean	198db5da5369bd1f
+0	7	0	clean	198db5da5369bd1f
+0	6	0	clean	198db5da5369bd1f
+0	5	0	clean	198db5da5369bd1f
+0	5	0	clean	198db5da5369bd1f
+0	5	0	clean	198db5da5369bd1f
+0	6	0	clean	198db5da5369bd1f

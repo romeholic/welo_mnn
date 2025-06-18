@@ -1,0 +1,1 @@
+F:\stanley\terminal_ai\alibaba_mnn\apps\Android\MnnLlmChat\app\src\main\cpp\CMakeLists.txt

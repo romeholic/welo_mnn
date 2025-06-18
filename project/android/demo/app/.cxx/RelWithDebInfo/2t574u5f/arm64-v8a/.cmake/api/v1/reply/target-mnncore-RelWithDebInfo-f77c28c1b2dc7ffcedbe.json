@@ -1,0 +1,287 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "source/jni/OFF/arm64-v8a/libmnncore.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"add_definitions",
+			"include",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"source/jni/CMakeLists.txt",
+			"CMakeLists.txt",
+			"source/backend/cpu/arm/CMakeLists.txt",
+			"source/backend/cpu/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 4,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 285,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 357,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 445,
+				"parent" : 3
+			},
+			{
+				"file" : 3,
+				"parent" : 6
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 37,
+				"parent" : 7
+			},
+			{
+				"file" : 2,
+				"parent" : 8
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 120,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 230,
+				"parent" : 3
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 375,
+				"parent" : 3
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=c++11 -O3 -fvisibility-inlines-hidden -fvisibility=hidden -fomit-frame-pointer -fstrict-aliasing -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions  -O2 -g -DNDEBUG -fPIC   -fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 4,
+					"define" : "MNN_BUILD_FOR_ANDROID"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "MNN_USE_LOGCAT"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "MNN_USE_NEON"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "MNN_USE_THREAD_POOL"
+				},
+				{
+					"define" : "mnncore_EXPORTS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/include"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/source"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/express"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/tools"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/codegen"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/schema/current"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/3rd_party"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/3rd_party/flatbuffers/include"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/3rd_party/half"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/3rd_party/imageHelper"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "F:/stanley/MNN/3rd_party/OpenCLHeaders"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			],
+			"sysroot" : 
+			{
+				"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "MNN::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "mnncore::@c5fdd661b660e84e96cc",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -Wl,--gc-sections",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "OFF\\arm64-v8a\\libMNN.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "F:\\stanley\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\21\\liblog.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "F:\\stanley\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\21\\libjnigraphics.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-pthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-latomic -lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+		}
+	},
+	"name" : "mnncore",
+	"nameOnDisk" : "libmnncore.so",
+	"paths" : 
+	{
+		"build" : "source/jni",
+		"source" : "source/jni"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/jni/mnnnetnative.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/jni/mnnportraitnative.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

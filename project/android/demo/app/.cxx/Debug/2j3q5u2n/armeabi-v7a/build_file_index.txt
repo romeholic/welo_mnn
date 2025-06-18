@@ -1,0 +1,13 @@
+F:\stanley\MNN\cmake\macros.cmake
+F:\stanley\MNN\CMakeLists.txt
+F:\stanley\MNN\express\CMakeLists.txt
+F:\stanley\MNN\source\backend\cpu\arm\CMakeLists.txt
+F:\stanley\MNN\source\backend\cpu\CMakeLists.txt
+F:\stanley\MNN\source\backend\cpu\x86_x64\CMakeLists.txt
+F:\stanley\MNN\source\backend\opencl\CMakeLists.txt
+F:\stanley\MNN\source\backend\opengl\CMakeLists.txt
+F:\stanley\MNN\source\backend\vulkan\CMakeLists.txt
+F:\stanley\MNN\source\jni\CMakeLists.txt
+F:\stanley\MNN\tools\audio\CMakeLists.txt
+F:\stanley\MNN\tools\converter\CMakeLists.txt
+F:\stanley\MNN\tools\cpp\CMakeLists.txt

@@ -1,0 +1,378 @@
+{
+  "buildFiles": [
+    "F:\\stanley\\MNN\\cmake\\macros.cmake",
+    "F:\\stanley\\MNN\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\express\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\cpu\\arm\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\cpu\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\cpu\\x86_x64\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\opencl\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\opengl\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\backend\\vulkan\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\source\\jni\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\tools\\audio\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\tools\\converter\\CMakeLists.txt",
+    "F:\\stanley\\MNN\\tools\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "F:\\stanley\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "F:\\stanley\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "GetMNNInfo::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "GetMNNInfo",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\GetMNNInfo",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "GpuInterTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "GpuInterTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\GpuInterTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "MNN::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNN",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so",
+      "runtimeFiles": []
+    },
+    "MNNARM32::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNARM32"
+    },
+    "MNNCPU::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNCPU"
+    },
+    "MNNCV::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNCV"
+    },
+    "MNNCore::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNCore"
+    },
+    "MNNMath::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNMath"
+    },
+    "MNNTransform::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNTransform"
+    },
+    "MNNUtils::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNUtils"
+    },
+    "MNNV2Basic.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNNV2Basic.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\MNNV2Basic.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "MNN_CL::@f399ac930e932d6604b1": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNN_CL",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "MNN_Express::@5eb37d507d4501886560": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNN_Express",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "MNN_GL::@7c22fef36165ae852cfa": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNN_GL",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "MNN_Vulkan::@60768e6478b2bf4c587c": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "MNN_Vulkan",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "ModuleBasic.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "ModuleBasic.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\ModuleBasic.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "SequenceModuleTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "SequenceModuleTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\SequenceModuleTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "backendTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "backendTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\backendTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "checkDir.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "checkDir.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\checkDir.out",
+      "runtimeFiles": []
+    },
+    "checkFile.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "checkFile.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\checkFile.out",
+      "runtimeFiles": []
+    },
+    "checkInvalidValue.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "checkInvalidValue.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\checkInvalidValue.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "fuseTest::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "fuseTest",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\fuseTest",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "getPerformance.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "getPerformance.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\getPerformance.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "mergeInplaceForCPU::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "mergeInplaceForCPU",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\mergeInplaceForCPU",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "mnncore::@c5fdd661b660e84e96cc": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "mnncore",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\jni\\OFF\\armeabi-v7a\\libmnncore.so",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "mobilenetTest.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "mobilenetTest.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\mobilenetTest.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "modelCompare.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "modelCompare.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\modelCompare.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "testModel.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "testModel.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\testModel.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "testModelWithDescribe.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "testModelWithDescribe.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\testModelWithDescribe.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "testModel_expr.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "testModel_expr.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\testModel_expr.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "testTrain.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "testTrain.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\testTrain.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "timeProfile.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "timeProfile.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\timeProfile.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    },
+    "winogradExample.out::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "winogradExample.out",
+      "output": "F:\\stanley\\MNN\\project\\android\\demo\\app\\build\\intermediates\\cxx\\Debug\\6b5p4b5u\\obj\\armeabi-v7a\\winogradExample.out",
+      "runtimeFiles": [
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\vulkan\\OFF\\armeabi-v7a\\libMNN_Vulkan.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opencl\\OFF\\armeabi-v7a\\libMNN_CL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\source\\backend\\opengl\\OFF\\armeabi-v7a\\libMNN_GL.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\express\\OFF\\armeabi-v7a\\libMNN_Express.so",
+        "F:\\stanley\\MNN\\project\\android\\demo\\app\\.cxx\\Debug\\6b5p4b5u\\armeabi-v7a\\OFF\\armeabi-v7a\\libMNN.so"
+      ]
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "F:\\stanley\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "F:\\stanley\\Android\\Sdk\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

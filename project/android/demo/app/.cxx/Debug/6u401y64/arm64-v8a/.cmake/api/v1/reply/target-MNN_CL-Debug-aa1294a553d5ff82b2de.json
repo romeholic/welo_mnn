@@ -1,0 +1,2360 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "source/backend/opencl/OFF/arm64-v8a/libMNN_CL.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"add_definitions",
+			"include",
+			"include_directories",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"source/backend/opencl/CMakeLists.txt",
+			"CMakeLists.txt",
+			"source/backend/cpu/arm/CMakeLists.txt",
+			"source/backend/cpu/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 46,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 324,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 285,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 42,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 27,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 26,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 357,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 445,
+				"parent" : 4
+			},
+			{
+				"file" : 3,
+				"parent" : 11
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 37,
+				"parent" : 12
+			},
+			{
+				"file" : 2,
+				"parent" : 13
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 120,
+				"parent" : 14
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 230,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 375,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 53,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=c++11 -g -fstrict-aliasing -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions  -fno-limit-debug-info  -fPIC   -fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "CL_HPP_TARGET_OPENCL_VERSION=110"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "DEBUG"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "MNN_BUILD_FOR_ANDROID"
+				},
+				{
+					"define" : "MNN_CL_EXPORTS"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "MNN_DEBUG"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "MNN_OPENCL_SEP_BUILD"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "MNN_OPENCL_SVM_ENABLE"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "MNN_USE_LIB_WRAPPER"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "MNN_USE_LOGCAT"
+				},
+				{
+					"backtrace" : 15,
+					"define" : "MNN_USE_NEON"
+				},
+				{
+					"backtrace" : 16,
+					"define" : "MNN_USE_THREAD_POOL"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/include"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/source"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/express"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/tools"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/codegen"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/schema/current"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/3rd_party"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/3rd_party/flatbuffers/include"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/3rd_party/half"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/3rd_party/imageHelper"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/3rd_party/OpenCLHeaders"
+				},
+				{
+					"backtrace" : 18,
+					"path" : "F:/stanley/terminal_ai/alibaba_mnn/source/backend/opencl/schema/current"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				2,
+				4,
+				6,
+				8,
+				10,
+				12,
+				13,
+				14,
+				16,
+				19,
+				21,
+				23,
+				25,
+				27,
+				29,
+				31,
+				33,
+				35,
+				37,
+				39,
+				41,
+				43,
+				45,
+				47,
+				49,
+				51,
+				53,
+				55,
+				57,
+				59,
+				61,
+				63,
+				65,
+				67,
+				69,
+				71,
+				73,
+				75,
+				77,
+				79,
+				83,
+				85,
+				88,
+				89,
+				91,
+				93,
+				95,
+				97,
+				99,
+				102,
+				103,
+				106,
+				108,
+				110,
+				112,
+				113,
+				115,
+				117,
+				120,
+				121,
+				123,
+				125,
+				127,
+				130,
+				132,
+				133,
+				135,
+				137,
+				140,
+				141,
+				143,
+				145,
+				148,
+				149,
+				152,
+				153,
+				156,
+				157,
+				160,
+				162,
+				163,
+				165,
+				167,
+				171,
+				174,
+				175,
+				177,
+				180,
+				181,
+				184,
+				185,
+				188,
+				189,
+				191,
+				194,
+				195,
+				198,
+				199,
+				201,
+				204,
+				205,
+				207,
+				209,
+				212,
+				213,
+				215,
+				217,
+				219,
+				221,
+				223,
+				225,
+				227,
+				228,
+				230,
+				232,
+				234,
+				236,
+				238,
+				240,
+				242,
+				244,
+				246,
+				248,
+				250,
+				252,
+				254,
+				256,
+				258,
+				260,
+				262,
+				264,
+				266,
+				268,
+				270,
+				272,
+				274,
+				276,
+				278,
+				280,
+				282,
+				284
+			],
+			"sysroot" : 
+			{
+				"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "MNN::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "MNN_CL::@f399ac930e932d6604b1",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "OFF\\arm64-v8a\\libMNN.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-pthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-latomic -lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "F:/stanley/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+		}
+	},
+	"name" : "MNN_CL",
+	"nameOnDisk" : "libMNN_CL.so",
+	"paths" : 
+	{
+		"build" : "source/backend/opencl",
+		"source" : "source/backend/opencl"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				81,
+				82,
+				84,
+				86,
+				87,
+				90,
+				92,
+				94,
+				96,
+				98,
+				100,
+				101,
+				104,
+				105,
+				107,
+				109,
+				111,
+				114,
+				116,
+				118,
+				119,
+				122,
+				124,
+				126,
+				128,
+				129,
+				131,
+				134,
+				136,
+				138,
+				139,
+				142,
+				144,
+				146,
+				147,
+				150,
+				151,
+				154,
+				155,
+				158,
+				159,
+				161,
+				164,
+				166,
+				168,
+				170,
+				172,
+				173,
+				176,
+				178,
+				179,
+				182,
+				183,
+				186,
+				187,
+				190,
+				192,
+				193,
+				196,
+				197,
+				200,
+				202,
+				203,
+				206,
+				208,
+				210,
+				211,
+				214,
+				216,
+				218,
+				220,
+				222,
+				224,
+				226,
+				286,
+				288,
+				289
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				2,
+				4,
+				6,
+				8,
+				10,
+				12,
+				13,
+				14,
+				16,
+				19,
+				21,
+				23,
+				25,
+				27,
+				29,
+				31,
+				33,
+				35,
+				37,
+				39,
+				41,
+				43,
+				45,
+				47,
+				49,
+				51,
+				53,
+				55,
+				57,
+				59,
+				61,
+				63,
+				65,
+				67,
+				69,
+				71,
+				73,
+				75,
+				77,
+				79,
+				83,
+				85,
+				88,
+				89,
+				91,
+				93,
+				95,
+				97,
+				99,
+				102,
+				103,
+				106,
+				108,
+				110,
+				112,
+				113,
+				115,
+				117,
+				120,
+				121,
+				123,
+				125,
+				127,
+				130,
+				132,
+				133,
+				135,
+				137,
+				140,
+				141,
+				143,
+				145,
+				148,
+				149,
+				152,
+				153,
+				156,
+				157,
+				160,
+				162,
+				163,
+				165,
+				167,
+				171,
+				174,
+				175,
+				177,
+				180,
+				181,
+				184,
+				185,
+				188,
+				189,
+				191,
+				194,
+				195,
+				198,
+				199,
+				201,
+				204,
+				205,
+				207,
+				209,
+				212,
+				213,
+				215,
+				217,
+				219,
+				221,
+				223,
+				225,
+				227,
+				228,
+				230,
+				232,
+				234,
+				236,
+				238,
+				240,
+				242,
+				244,
+				246,
+				248,
+				250,
+				252,
+				254,
+				256,
+				258,
+				260,
+				262,
+				264,
+				266,
+				268,
+				270,
+				272,
+				274,
+				276,
+				278,
+				280,
+				282,
+				284
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				3,
+				5,
+				7,
+				9,
+				11,
+				15,
+				17,
+				18,
+				20,
+				22,
+				24,
+				26,
+				28,
+				30,
+				32,
+				34,
+				36,
+				38,
+				40,
+				42,
+				44,
+				46,
+				48,
+				50,
+				52,
+				54,
+				56,
+				58,
+				60,
+				62,
+				64,
+				66,
+				68,
+				70,
+				72,
+				74,
+				76,
+				78,
+				80,
+				169,
+				229,
+				231,
+				233,
+				235,
+				237,
+				239,
+				241,
+				243,
+				245,
+				247,
+				249,
+				251,
+				253,
+				255,
+				257,
+				259,
+				261,
+				263,
+				265,
+				267,
+				269,
+				271,
+				273,
+				275,
+				277,
+				279,
+				281,
+				283,
+				285,
+				287
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/.gitignore",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/CMakeLists.txt",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/BufferConvertor.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/BufferConvertor.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/BufferPool.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/BufferPool.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/ImageBufferConvertor.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/ImageBufferConvertor.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/ImagePool.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/ImagePool.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/OpenCLBackend.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/OpenCLBackend.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/OpenCLGemmTune.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/OpenCLOPRegister.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/OpenCLRunningUtils.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/OpenCLRunningUtils.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/runtime/OpenCLRuntime.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/runtime/OpenCLRuntime.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/runtime/OpenCLTuneInfo.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/core/runtime/OpenCLWrapper.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/core/runtime/OpenCLWrapper.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ArgMaxBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ArgMaxBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/AttentionBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/AttentionBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/BinaryBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/BinaryBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/CastBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/CastBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ConvBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ConvBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ConvBufLowMemoryExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ConvBufLowMemoryExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ConvBufWinograd.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ConvBufWinograd.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ConvSubgroupBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ConvSubgroupBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/DeconvBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/DeconvBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/DepthwiseConvBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/DepthwiseConvBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/DepthwiseConvSubgroupBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/DepthwiseConvSubgroupBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/GridSampleBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/GridSampleBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/GroupNormBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/GroupNormBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/Interp3DBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/Interp3DBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/InterpBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/InterpBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/LayerNormBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/LayerNormBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/LoopBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/LoopBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/MatmulBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/MatmulBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/PoolBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/PoolBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/RangeBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/RangeBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/RasterBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/RasterBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ReductionBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ReductionBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ReluBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ReluBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/ScaleBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/ScaleBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/SelectBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/SelectBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/SelfAttentionBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/SelfAttentionBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/SoftmaxBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/SoftmaxBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/SplitGeluBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/SplitGeluBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/StrassenMatmulOpenCLComputor.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/StrassenMatmulOpenCLComputor.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/buffer/UnaryBufExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/buffer/UnaryBufExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/README.md",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/argmax_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/argmax_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/attention_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/attention_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/binary.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/binary_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/binary_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/binary_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/binary_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/binary_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/buffer_convert_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/buffer_convert_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/buffer_convert_quant.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/buffer_convert_quant_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/buffer_convert_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/buffer_convert_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/buffer_to_image.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/buffer_to_image_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/cast.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/cast_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/cast_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/cast_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/conv_2d.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_c16_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_c16_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_c1_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_c1_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_int_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_int_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/conv_2d_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/copy_buffer_to_image2d.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/copy_buffer_to_image2d_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/deconv_2d.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/deconv_2d_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/depthwise_conv2d.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/depthwise_conv2d_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/depthwise_conv2d_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/depthwise_conv2d_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/depthwise_conv2d_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/depthwise_conv2d_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/depthwise_deconv2d.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/depthwise_deconv2d_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/gather_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/gather_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/gemm.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/gemm_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/gemm_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/gemm_conv1x1_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/gemm_conv1x1_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/gemm_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/gemv_conv1x1_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/gemv_conv1x1_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/glmem_convert.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/glmem_convert_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/grid_sample.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/grid_sample_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/grid_sample_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/grid_sample_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/groupnorm_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/groupnorm_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/input_transe_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/input_transe_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/interp.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/interp_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/interp_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/interp_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/layernorm.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/layernorm_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/layernorm_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/layernorm_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/loop.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/loop_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/loop_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/loop_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/matmul.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/matmul_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/matmul_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/matmul_local_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/matmul_local_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/matmul_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/matmul_params_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/matmul_params_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/nearest.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/nearest_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/opencl_codegen.py",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/opencl_source_map.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/performance.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/performance_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/pooling.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/pooling_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/pooling_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/pooling_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/pooling_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/pooling_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/range.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/range_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/range_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/range_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/raster.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/raster_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/raster_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/raster_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/reduction.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/reduction_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/reduction_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/reduction_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/roi_pooling.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/roi_pooling_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/scale.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/scale_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/scale_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/scale_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/select.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/select_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/select_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/select_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/self_attention_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/self_attention_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/softmax.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/softmax_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/softmax_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/softmax_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/splitgelu_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/splitgelu_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/strassen_binary_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/strassen_binary_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/unary.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/unary_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/unary_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/unary_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/unary_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/unary_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformDest2_3_1.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformDest2_3_1_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformDest2_5_1.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformDest2_5_1_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformSource2_3_1.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformSource2_3_1_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformSource2_5_1.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/winogradTransformSource2_5_1_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/winogradTransform_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/winogradTransform_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/cl/winogradTransform_subgroup_buf.cl",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/cl/winogradTransform_subgroup_buf_mnn_cl.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/CastExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/CastExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/CommonExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/CommonExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/ConvExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/ConvExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/ConvLowMemoryExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/ConvLowMemoryExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/ConvWinograd.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/ConvWinograd.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/DeconvExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/DeconvExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/DepthwiseConvExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/DepthwiseConvExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/DepthwiseDeconvExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/DepthwiseDeconvExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/EltwiseExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/EltwiseExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/FuseExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/FuseExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/GridSampleExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/GridSampleExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/Interp3DExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/Interp3DExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/InterpExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/InterpExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/LayerNormExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/LayerNormExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/LoopExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/LoopExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/MatmulExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/MatmulExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/MultiInputDWConvExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/MultiInputDWConvExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/MultiInputDWDeconvExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/MultiInputDWDeconvExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/PoolExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/PoolExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/RangeExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/RangeExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/RasterExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/RasterExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/ReductionExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/ReductionExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/ReluExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/ReluExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/RoiPoolingExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/RoiPoolingExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/ScaleExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/ScaleExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/SelectExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/SelectExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/SoftmaxExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/SoftmaxExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/TrainableParamExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/TrainableParamExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "source/backend/opencl/execution/image/UnaryExecution.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution/image/UnaryExecution.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/schema/CLCache.fbs",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/schema/current/CLCache_generated.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/schema/generate.sh",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "source/backend/opencl/execution",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}
