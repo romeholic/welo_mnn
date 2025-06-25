@@ -409,7 +409,7 @@ class MainActivity : AppCompatActivity(),
     }
     
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG = "WELO#MainActivity"
         init {
             System.loadLibrary("taoavatar")
         }

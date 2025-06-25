@@ -32,7 +32,7 @@ class RecognizeService(private val activity: MainActivity) {
     private val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
 
     companion object {
-        const val TAG = "OnlineRecorder"
+        const val TAG = "WELO#OnlineRecorder"
     }
 
     private val initComplete = CompletableDeferred<Boolean>()

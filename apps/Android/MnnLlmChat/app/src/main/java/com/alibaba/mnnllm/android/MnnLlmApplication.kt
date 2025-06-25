@@ -8,8 +8,6 @@ import com.alibaba.mnnllm.android.utils.CrashUtil
 import timber.log.Timber
 import android.content.Context
 
-
-
 class MnnLlmApplication : Application() {
     override fun onCreate() {
         super.onCreate()

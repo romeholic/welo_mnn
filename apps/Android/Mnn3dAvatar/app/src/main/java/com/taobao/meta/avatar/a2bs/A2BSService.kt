@@ -78,7 +78,7 @@ class A2BSService {
     }
 
     companion object {
-        private const val TAG = "A2BSService"
+        private const val TAG = "WELO#A2BSService"
 
         init {
             System.loadLibrary("mnn_a2bs")

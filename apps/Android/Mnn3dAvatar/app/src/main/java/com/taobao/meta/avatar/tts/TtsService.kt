@@ -86,7 +86,7 @@ class TtsService {
     private external fun nativeProcess(nativePtr: Long, text: String, id: Int): ShortArray
 
     companion object {
-        private const val TAG = "TtsService"
+        private const val TAG = "WELO#TtsService"
     }
 
 }

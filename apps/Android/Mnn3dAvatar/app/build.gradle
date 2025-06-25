@@ -50,6 +50,12 @@ android {
         jvmTarget = "17"
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Welo_TaoAvatar-${variant.buildType.name}-v${variant.versionName}.apk"
+        }
+    }
+
     defaultConfig {
         applicationId  "com.taobao.meta.avatar"
         minSdk 26
@@ -80,6 +86,10 @@ android {
     androidResources {
         additionalParameters '--warn-manifest-validation'
     }
+    buildFeatures {
+        viewBinding true
+    }
+    buildToolsVersion '35.0.0'
 }
 
 ext {
@@ -104,4 +114,7 @@ dependencies {
     implementation "com.liulishuo.okdownload:okhttp:${okdownload_version}"
     implementation "com.liulishuo.okdownload:filedownloader:${okdownload_version}"
     implementation "com.liulishuo.okdownload:ktx:${okdownload_version}"
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'com.google.android.material:material:1.12.0'
 }

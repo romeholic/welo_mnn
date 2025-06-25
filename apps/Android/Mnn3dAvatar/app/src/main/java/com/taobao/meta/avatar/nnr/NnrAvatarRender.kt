@@ -226,7 +226,7 @@ class NnrAvatarRender(
 
     companion object {
 
-        const val TAG = "NnrAvatarRender"
+        const val TAG = "WELO#NnrAvatarRender"
 
         @JvmStatic
         private external fun nativeCreateNNR(): Long

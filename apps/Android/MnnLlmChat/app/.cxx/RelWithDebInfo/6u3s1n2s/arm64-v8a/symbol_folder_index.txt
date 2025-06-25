@@ -1,1 +1,0 @@
-F:\stanley\terminal_ai\alibaba_mnn\apps\Android\MnnLlmChat\app\build\intermediates\cxx\RelWithDebInfo\6u3s1n2s\obj\arm64-v8a

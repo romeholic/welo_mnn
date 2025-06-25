@@ -32,7 +32,7 @@ import kotlin.coroutines.resume
 class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActivity) {
 
     companion object {
-        const val TAG = "AudioBlendShapePlayer"
+        const val TAG = "WELO#AudioBlendShapePlayer"
         const val DEBUG_VERBOSE = false
     }
     private var audioChunksPlayer:AudioChunksPlayer? = null

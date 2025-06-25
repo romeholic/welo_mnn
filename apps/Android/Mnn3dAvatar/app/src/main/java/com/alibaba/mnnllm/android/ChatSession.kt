@@ -178,6 +178,6 @@ class ChatSession @JvmOverloads constructor(
 
     companion object {
 
-        const val TAG: String = "ChatSession"
+        const val TAG: String = "WELO#ChatSession"
     }
 }

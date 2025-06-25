@@ -260,7 +260,7 @@ class AvatarTextureView(context: Context?, attrs: AttributeSet?) :
     }
 
     companion object {
-        private const val TAG = "AvatarTextureView"
+        private const val TAG = "WELO#AvatarTextureView"
         private const val TOUCH_DISTANCE_THRESHOLD = 10.0f
     }
 }
