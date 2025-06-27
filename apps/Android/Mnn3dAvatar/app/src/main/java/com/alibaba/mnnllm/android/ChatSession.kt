@@ -75,13 +75,14 @@ class ChatSession @JvmOverloads constructor(
 
     fun generate(input: String, progressListener: GenerateProgressListener): HashMap<String, Any> {
         synchronized(this) {
-            Log.d(TAG, "MNN_DEBUG submit$input")
+            Log.d(TAG, "MNN_DEBUG generate submit$input")
             mGenerating = true
             val result = submitNative(nativePtr, input, keepHistory, progressListener)
             mGenerating = false
             if (mReleaseRequeted) {
                 release()
             }
+            Log.d(TAG, "MNN_DEBUG generate return$result")
             return result
         }
     }

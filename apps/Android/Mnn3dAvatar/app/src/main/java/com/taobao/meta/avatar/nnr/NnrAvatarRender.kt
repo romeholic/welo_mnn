@@ -202,13 +202,16 @@ class NnrAvatarRender(
             }
             val startTime = System.currentTimeMillis()
             val playingStatus = audioBlendShapePlayer?.update()
-//            Log.v(TAG, "isPlaying: ${audioBlendShapePlayer?.isPlaying} " +
-//                    ".currentTimeMills ${audioBlendShapePlayer?.currentTime} "  +
-//                    "totalTimeMills: ${audioBlendShapePlayer?.totalTime} " +
-//                    "isBuffering: ${audioBlendShapePlayer?.isBuffering} " +
-//                        "position ${audioBlendShapePlayer?.currentHeadPosition}  " +
-//                "currentPlayingText: ${audioBlendShapePlayer?.currentPlayingText}"
-//            )
+/*            if (audioBlendShapePlayer?.isPlaying == true) {
+                Log.v(
+                    TAG, "isPlaying: ${audioBlendShapePlayer?.isPlaying} " +
+                            ".currentTimeMills ${audioBlendShapePlayer?.currentTime} " +
+                            "totalTimeMills: ${audioBlendShapePlayer?.totalTime} " +
+                            "isBuffering: ${audioBlendShapePlayer?.isBuffering} " +
+                            "position ${audioBlendShapePlayer?.currentHeadPosition}  " +
+                            "currentPlayingText: ${audioBlendShapePlayer?.currentPlayingText}"
+                )
+            }*/
             this.updateNNRScene(avatarTextureView.cameraCtrlData!!,
                 audioBlendShapePlayer?.isPlaying?:false,
                 audioBlendShapePlayer?.currentTime?:0L,
@@ -218,7 +221,7 @@ class NnrAvatarRender(
                 playingStatus?.smoothToTalkPercent?:-1f,
                 -1)
             this.render()
-//            Log.v(TAG, "updateNNRScene cost ${System.currentTimeMillis() - startTime} ms")
+            //Log.v(TAG, "updateNNRScene cost ${System.currentTimeMillis() - startTime} ms")
             return true
         }
         return false

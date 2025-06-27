@@ -247,21 +247,21 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
     }
 
     fun playStreamText(currentText: String?) {
-        Log.d(TAG, "processText playStreamText: #${currentText}#")
+        //Log.d(TAG, "processText playStreamText: #${currentText}#")
         if (currentText == null) {
             playText(nextSegmentText, nextSegmentId++, true)
             return
         }
         val delimiters = "[.,!。，！？?\n、：；:]"
         if (currentText.contains(delimiters.toRegex())) {
-            Log.d(TAG, "is delimeter")
+            //Log.d(TAG, "is delimeter")
             if (nextSegmentText.isNotEmpty() && segmentTokenCount >= 3) {
                 playText(nextSegmentText, nextSegmentId++, false)
                 nextSegmentText = ""
                 segmentTokenCount = 0
             }
         } else {
-            Log.d(TAG, "is not delimeter")
+            //Log.d(TAG, "is not delimeter")
             nextSegmentText += currentText
             segmentTokenCount += 1
         }
@@ -288,7 +288,7 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             AudioToBlendShapeData())
         sessionScope?.launch {
             val processTtsStartTime = System.currentTimeMillis()
-            Log.d(TAG, "processTextInner TTS begin $id $text begin")
+            //Log.d(TAG, "processTextInner TTS begin $id $text begin")
             ensureActive()
             ttsService.setCurrentIndex(audioBlendShape.id)
             var audioData = ShortArray(0)
@@ -304,7 +304,7 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             }
             if (audioData.isEmpty()) {
                 lastId = id -1
-                Log.d(TAG, "processTextInner: $id $text audioData is empty")
+                //Log.d(TAG, "processTextInner: $id $text audioData is empty")
                 return@launch
             }
             audioBlendShape.audio = audioData
@@ -312,12 +312,12 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             val processTtsEndTime = System.currentTimeMillis()
             val processTtsDuration = processTtsEndTime - processTtsStartTime
             val rtf = processTtsDuration.toFloat()/ 1000 / (audioData.size / audioChunksPlayer!!.sampleRate.toFloat())
-            Log.d(TAG, "processTextInner TTS  $id $text end duration: $processTtsDuration rtf: $rtf")
+            //Log.d(TAG, "processTextInner TTS  $id $text end duration: $processTtsDuration rtf: $rtf")
             val a2bsData = a2bsService.process(audioBlendShape.id, audioData, audioChunksPlayer?.sampleRate!!)
-            Log.d(TAG, "processTextInner A2BS  $id  end duration: ${System.currentTimeMillis() - processTtsEndTime}")
+            //Log.d(TAG, "processTextInner A2BS  $id  end duration: ${System.currentTimeMillis() - processTtsEndTime}")
             audioBlendShape.a2bs = a2bsData
             ensureActive()
-            Log.d(TAG, "processTextInner: $id $text end")
+            //Log.d(TAG, "processTextInner: $id $text end")
             addAudioBlendShape(audioBlendShape)
             readyTimeMap[audioBlendShape.id] = System.currentTimeMillis()
         }

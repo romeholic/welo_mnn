@@ -1,0 +1,7 @@
+<!-- network_security_config.xml -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">139.159.132.197</domain>
+    </domain-config>
+</network-security-config>
