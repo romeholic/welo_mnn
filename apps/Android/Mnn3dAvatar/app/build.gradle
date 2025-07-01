@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
 }
 
 task downloadAndUnzipNativeLibs {
@@ -98,13 +99,10 @@ ext {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1"
-
     implementation "io.ktor:ktor-client-core:2.3.3"
     implementation "io.ktor:ktor-client-okhttp:2.3.3"
     implementation "io.ktor:ktor-client-content-negotiation:2.3.3"
     implementation "io.ktor:ktor-serialization-kotlinx-json:2.3.3"
-
 
     implementation 'com.google.android.material:material:1.12.0'
 

@@ -1,11 +1,20 @@
 package com.taobao.meta.avatar.llm
 
-import android.R.attr.level
 import android.util.Log
+
 import com.alibaba.mls.api.ApplicationProvider
 import com.alibaba.mnnllm.android.ChatService
 import com.alibaba.mnnllm.android.ChatSession
+
 import com.taobao.meta.avatar.settings.MainSettings
+
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.cancellable
@@ -13,23 +22,24 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.withContext
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonPrimitive
+
+import io.ktor.client.HttpClient
+import io.ktor.client.statement.bodyAsChannel
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.post
+import io.ktor.client.request.url
+import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
-import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
-import kotlinx.coroutines.flow.*
-import kotlinx.serialization.json.*
-import io.ktor.client.statement.*
-import io.ktor.utils.io.*
-import kotlinx.coroutines.*
+
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
 
 class LlmService {
-
     private var chatSession: ChatSession? = null
     private var stopRequested = false
     private var sessionId: String = "Session ${System.currentTimeMillis()}" // 生成唯一会话ID
@@ -216,4 +226,3 @@ class LlmService {
         private const val TAG = "WELOO#LLMService"
     }
 }
-
