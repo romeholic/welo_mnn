@@ -266,7 +266,7 @@ class MainActivity : AppCompatActivity(),
         audioBendShapePlayer?.startNewSession(answerSession)
         lifecycleScope.launch {
             val callingSessionId = this@MainActivity.callingSessionId
-            llmService.generateFromCloud(text).collect { pair ->
+            llmService.generateFlow(text).collect { pair ->
                 audioBendShapePlayer?.playStreamText(pair.first)
                 if (pair.first != null) {
                     llmPresenter.onLlmTextUpdate(pair.first!!, callingSessionId)
