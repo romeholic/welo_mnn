@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FlowRequest(
     @SerialName("files") val files: List<String> = emptyList(), // 如果没有文件，传空列表
-    @SerialName("inputs") val inputs: Inputs
+    @SerialName("inputs") val inputs: FlowInputs
 )
 
 @Serializable
-data class Inputs(
+data class FlowInputs(
     @SerialName("input_value") val input_value: String,
     @SerialName("session") val session: String
 )

@@ -30,6 +30,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.post
 import io.ktor.client.request.url
 import io.ktor.client.request.setBody
+import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 
 import io.ktor.http.ContentType
@@ -66,7 +67,7 @@ class LlmService {
         chatSession?.updatePrompt(MainSettings.getLlmPrompt(ApplicationProvider.get()))
     }
 
-    // 从端侧已下载的大模型生成信息
+    // 默认从端侧已下载的大模型生成信息
     fun generate(text: String): Flow<Pair<String?, String>> {
         val result = StringBuilder()
         return channelFlow {
@@ -156,7 +157,6 @@ class LlmService {
         }
     }
 
-
     // 将 Unicode 编码转换为中文
     fun getDecodesData(text: String): String {
         val decodedText = text.replace(Regex("\\\\u([0-9a-fA-F]{4})")) { matchResult ->
@@ -166,7 +166,7 @@ class LlmService {
         return decodedText
     }
 
-    fun generateFromCloud(text: String): Flow<Pair<String?, String>> {
+    fun generateFlow(text: String): Flow<Pair<String?, String>> {
         val result = StringBuilder()
         val parser = JsonStreamParser() // 流式JSON解析器
         return channelFlow<Pair<String?, String>> {
@@ -184,7 +184,7 @@ class LlmService {
             try {
                 val requestBody = FlowRequest(
                     files = emptyList(),
-                    inputs = Inputs(
+                    inputs = FlowInputs(
                         input_value = text,
                         session = sessionId
                     )
@@ -269,6 +269,78 @@ class LlmService {
                 Log.d(TAG, "| 最终结果内容: $result")
             }
     }
+
+    fun generateFromCloud(text: String): Flow<Pair<String?, String>> = channelFlow {
+        Log.d(TAG, "===== 非流式云端请求开始 =====")
+        Log.d(TAG, "| 输入文本: $text")
+        Log.d(TAG, "| Session ID: $sessionId")
+
+        val client = HttpClient(OkHttp) {
+            install(ContentNegotiation) {
+                json(sharedJson)
+            }
+            expectSuccess = true
+        }
+
+        try {
+            val requestBody = AIChatRequest(
+                input_value = text,
+                session_id = sessionId, // 复用原sessionId
+                tweaks = null
+            )
+
+            Log.d(TAG, "请求体: ${sharedJson.encodeToString(AIChatRequest.serializer(), requestBody)}")
+
+            // 3. 发送POST请求到非流式接口
+            val response: HttpResponse = client.post {
+                url("http://192.168.111.10:7860/api/v1/run/e3e07c37-49d7-44b7-be70-1ed17ea44851?stream=false")
+                contentType(ContentType.Application.Json)
+                setBody(requestBody)
+            }
+            Log.d(TAG, "收到响应: ${response.status}")
+
+            // 4. 解析完整响应为AIChatResponse
+            val aiResponse = response.body<AIChatResponse>()
+            Log.d(TAG, "响应解析完成: 包含 ${aiResponse.outputs.size} 个输出项")
+
+            // 5. 提取核心文本内容
+            val fullResult = StringBuilder()
+            var firstChunk: String? = null
+
+            // 遍历outputs，提取每个OutputDetail中的message文本
+            aiResponse.outputs.forEachIndexed { outputIndex, output ->
+                output.outputs.forEachIndexed { detailIndex, detail ->
+                    // 核心文本通常在 results.message.text 或 outputs.message.message 中
+                    val content = detail.results.message.text
+                        ?: detail.outputs.message.message
+                        ?: ""
+
+                    if (content.isNotBlank()) {
+                        Log.d(TAG, "提取到内容: $content")
+                        fullResult.append(content)
+                        // 记录第一个非空内容（用于Pair的第一个元素）
+                        if (firstChunk == null) firstChunk = content
+                    }
+                }
+            }
+
+            // 6. 发送结果
+            val finalResult = fullResult.toString()
+            send(Pair(firstChunk, finalResult))
+
+        } catch (e: Exception) {
+            Log.e(TAG, "请求异常: ${e.message}", e)
+            throw e
+        } finally {
+            client.close()
+            Log.d(TAG, "HTTP客户端已关闭")
+        }
+
+    }.onCompletion { cause ->
+        Log.d(TAG, "===== 非流式云端请求完成 =====")
+        Log.d(TAG, "| 完成状态: ${if (cause == null) "正常完成" else "异常取消: ${cause.message}"}")
+    }
+
 
     fun requestStop() {
         stopRequested = true
