@@ -30,6 +30,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.post
 import io.ktor.client.request.url
 import io.ktor.client.request.setBody
+import io.ktor.client.request.headers
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 
@@ -198,6 +199,9 @@ class LlmService {
                     url("http://192.168.111.10:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct")
                     contentType(ContentType.Application.Json)
                     setBody(requestBody)
+                    headers {
+                        append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZjU2NTdkYi04OGExLTRkZWUtOTJmNC1kY2UwOGU4OGU1YTIiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgzMDcwMDU1fQ.9BNiYmvpvMifCMdVQyCWEhFyML-IpN9IY_iDFJWFAKg")
+                    }
                 }
 
                 Log.d(TAG, "收到响应: ${response.status}")
@@ -209,7 +213,7 @@ class LlmService {
                     Log.w(TAG, "响应状态码非成功: ${response.status}")
                 }
 
-                // 响应流处理
+                // 响应流读取
                 val responseFlow = flow<String> {
                     val channel = response.bodyAsChannel()
                     Log.d(TAG, "开始读取响应体流")
@@ -231,6 +235,7 @@ class LlmService {
                     Log.d(TAG, "响应体流读取完成，共 $chunkCount 个块")
                 }
 
+                // 响应流处理
                 responseFlow
                     .filter { it.isNotBlank() }
                     .flatMapConcat { chunk ->
@@ -243,7 +248,7 @@ class LlmService {
                         }
                     }
                     .mapNotNull { jsonString ->
-                        parseFlowResponse(jsonString)
+                        parseFlowResponse(jsonString) // 解析出单块文本
                     }
                     .collect { content ->
                         if (content.isBlank()) {
@@ -263,6 +268,7 @@ class LlmService {
             }
         }.cancellable()
             .onCompletion { cause ->
+                // 流结束后，发送完整结果
                 Log.d(TAG, "===== 云端请求完成 =====")
                 Log.d(TAG, "| 完成状态: ${if (cause == null) "正常完成" else "异常取消: ${cause.message}"}")
                 Log.d(TAG, "| 最终结果长度: ${result.length}")
@@ -296,6 +302,9 @@ class LlmService {
                 url("http://192.168.111.10:7860/api/v1/run/e3e07c37-49d7-44b7-be70-1ed17ea44851?stream=false")
                 contentType(ContentType.Application.Json)
                 setBody(requestBody)
+                headers {
+                    append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZjU2NTdkYi04OGExLTRkZWUtOTJmNC1kY2UwOGU4OGU1YTIiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgzMDcwMDU1fQ.9BNiYmvpvMifCMdVQyCWEhFyML-IpN9IY_iDFJWFAKg")
+                }
             }
             Log.d(TAG, "收到响应: ${response.status}")
 
