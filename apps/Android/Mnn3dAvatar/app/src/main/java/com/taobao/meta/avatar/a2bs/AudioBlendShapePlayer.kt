@@ -67,6 +67,9 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
     private var totalAudioBsFrame = 0
     private var lastId = -1
 
+    // 保存上一次处理的完整文本
+    private var lastProcessedText = ""
+
     class PlayingStatus {
         var isBuffering: Boolean = true
         var smoothToIdlePercent = -1f
@@ -247,23 +250,51 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
     }
 
     fun playStreamText(currentText: String?) {
-        //Log.d(TAG, "processText playStreamText: #${currentText}#")
+        Log.d(TAG, "playStreamText: currentText=#${currentText}#")
         if (currentText == null) {
-            playText(nextSegmentText, nextSegmentId++, true)
-            return
-        }
-        val delimiters = "[.,!。，！？?\n、：；:]"
-        if (currentText.contains(delimiters.toRegex())) {
-            //Log.d(TAG, "is delimeter")
-            if (nextSegmentText.isNotEmpty() && segmentTokenCount >= 3) {
-                playText(nextSegmentText, nextSegmentId++, false)
+            // 处理最终文本
+            if (nextSegmentText.isNotEmpty()) {
+                playText(nextSegmentText, nextSegmentId++, true)
                 nextSegmentText = ""
                 segmentTokenCount = 0
+                lastProcessedText = currentText ?: ""
             }
+            return
+        }
+
+        // 处理空字符串或纯空格
+        val trimmedText = currentText.trim()
+        if (trimmedText.isEmpty()) return
+
+        // 计算增量文本
+        val addedText = if (trimmedText.startsWith(lastProcessedText)) {
+            trimmedText.substring(lastProcessedText.length)
         } else {
-            //Log.d(TAG, "is not delimeter")
-            nextSegmentText += currentText
-            segmentTokenCount += 1
+            // 如果不匹配则使用完整新文本
+            Log.w(TAG, "新文本不以前面的文本开头，可能服务端重置了回复")
+            trimmedText
+        }
+
+        if (addedText.isEmpty()) {
+            Log.d(TAG, "没有新增文本需要处理")
+            return
+        }
+
+        // 更新已处理文本
+        lastProcessedText = trimmedText
+
+        // 检查增量文本中是否包含分隔符
+        val delimiters = "[.,!。，！？?\n、：；:]"
+        val hasDelimiter = delimiters.toRegex().containsMatchIn(addedText)
+
+        if (hasDelimiter) {
+            Log.d(TAG, "增量文本包含分隔符，准备播放: $addedText")
+            // 直接播放增量文本，不需要累积
+            playText(addedText, nextSegmentId++, false)
+        } else {
+            Log.d(TAG, "增量文本无分隔符，追加到缓存: $addedText")
+            // 如果没有分隔符，可以选择累积到下一次一起播放或者立即播放
+            playText(addedText, nextSegmentId++, false)
         }
     }
 
@@ -288,7 +319,7 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             AudioToBlendShapeData())
         sessionScope?.launch {
             val processTtsStartTime = System.currentTimeMillis()
-            //Log.d(TAG, "processTextInner TTS begin $id $text begin")
+            Log.d(TAG, "processTextInner TTS begin $id $text begin")
             ensureActive()
             ttsService.setCurrentIndex(audioBlendShape.id)
             var audioData = ShortArray(0)
@@ -304,7 +335,7 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             }
             if (audioData.isEmpty()) {
                 lastId = id -1
-                //Log.d(TAG, "processTextInner: $id $text audioData is empty")
+                Log.d(TAG, "processTextInner: $id $text audioData is empty")
                 return@launch
             }
             audioBlendShape.audio = audioData
@@ -312,12 +343,12 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             val processTtsEndTime = System.currentTimeMillis()
             val processTtsDuration = processTtsEndTime - processTtsStartTime
             val rtf = processTtsDuration.toFloat()/ 1000 / (audioData.size / audioChunksPlayer!!.sampleRate.toFloat())
-            //Log.d(TAG, "processTextInner TTS  $id $text end duration: $processTtsDuration rtf: $rtf")
+            Log.d(TAG, "processTextInner TTS  $id $text end duration: $processTtsDuration rtf: $rtf")
             val a2bsData = a2bsService.process(audioBlendShape.id, audioData, audioChunksPlayer?.sampleRate!!)
-            //Log.d(TAG, "processTextInner A2BS  $id  end duration: ${System.currentTimeMillis() - processTtsEndTime}")
+            Log.d(TAG, "processTextInner A2BS  $id  end duration: ${System.currentTimeMillis() - processTtsEndTime}")
             audioBlendShape.a2bs = a2bsData
             ensureActive()
-            //Log.d(TAG, "processTextInner: $id $text end")
+            Log.d(TAG, "processTextInner: $id $text end")
             addAudioBlendShape(audioBlendShape)
             readyTimeMap[audioBlendShape.id] = System.currentTimeMillis()
         }
