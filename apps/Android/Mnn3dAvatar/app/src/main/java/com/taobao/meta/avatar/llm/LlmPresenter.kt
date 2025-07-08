@@ -47,6 +47,7 @@ class LlmPresenter(private val textResponse: TextView) {
             if (callingSessionId != currentSessionId) {
                 return@launch
             }
+            android.util.Log.d("WELOO#LlmPresenter", "onLlmTextUpdate called with text: $totalText")
             addMessage("ai", totalText)
         }
     }

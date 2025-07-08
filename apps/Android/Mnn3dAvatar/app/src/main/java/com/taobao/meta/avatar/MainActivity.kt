@@ -266,10 +266,26 @@ class MainActivity : AppCompatActivity(),
         audioBendShapePlayer?.startNewSession(answerSession)
         lifecycleScope.launch {
             val callingSessionId = this@MainActivity.callingSessionId
+            val fullResponse = StringBuilder() // 缓存完整结果
+            var isEndReceived = false
             llmService.generateFlow(text).collect { pair ->
-                audioBendShapePlayer?.playStreamText(pair.first)
-                if (pair.first != null) {
-                    llmPresenter.onLlmTextUpdate(pair.first!!, callingSessionId)
+                if (isEndReceived) {
+                    return@collect
+                }
+
+                val partialText = pair.first
+                if (partialText != null) {
+                    fullResponse.append(partialText) // 累积片段
+                    // 实时触发虚拟人的嘴型动画
+                    audioBendShapePlayer?.playStreamText(partialText)
+                }
+
+                //Log.d(TAG, "pair.second value: ${pair.second}")
+                // 只有当结果完全返回后，才更新UI
+                if (pair.second == "true") {
+                    isEndReceived = true
+                    Log.d(TAG, "isEnd, update ui")
+                    llmPresenter.onLlmTextUpdate(fullResponse.toString(), callingSessionId)
                 }
             }
         }.apply {

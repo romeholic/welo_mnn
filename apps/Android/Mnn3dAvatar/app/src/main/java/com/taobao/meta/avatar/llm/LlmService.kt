@@ -42,6 +42,8 @@ import io.ktor.serialization.kotlinx.json.json
 class LlmService {
     private var chatSession: ChatSession? = null
     private var stopRequested = false
+
+    private var isEndReceived = false
     private var sessionId: String = "Session ${System.currentTimeMillis()}" // 生成唯一会话ID
 
     private val sharedJson = Json {
@@ -101,24 +103,31 @@ class LlmService {
 
     private fun parseFlowResponse(jsonString: String): String? {
         if (jsonString.isBlank()) {
-            Log.w(TAG, "空JSON字符串，跳过解析")
+            //Log.w(TAG, "空JSON字符串，跳过解析")
             return null
         }
-        return try {
+        try {
             val response = sharedJson.decodeFromString<FlowResponse>(jsonString)
+            //Log.d(TAG, "解析出的 event: ${response.event}")
             if (response.event == "add_message") {
-                response.data.text?.replace("\\\\u", "\\u")?.takeIf { it.isNotBlank() }
+                val text = response.data.text
+                //Log.d(TAG, "解析出的 text: $text")
+                return text?.takeIf { it.isNotBlank() }
+            } else if (response.event == "end") {
+                //Log.d(TAG, "收到结束响应块: $jsonString")
+                isEndReceived = true
             } else {
-                null
+                //Log.d(TAG, "收到未知事件响应块: ${response.event}")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "JSON解析错误: ${e.message}\nJSON内容: ${getDecodesData(jsonString)}")
-            null
+            //Log.e(TAG, "JSON解析错误: ${e.message}\nJSON内容: ${getDecodesData(jsonString)}")
         }
+        return null
     }
 
     class JsonStreamParser {
         private val buffer = StringBuilder()
+        private val parsedJsonSet = mutableSetOf<String>()  // 记录已经解析过的JSON数据
 
         fun parseChunk(chunk: String): List<String> {
             buffer.append(chunk)
@@ -126,14 +135,20 @@ class LlmService {
 
             while (true) {
                 val start = buffer.indexOf("{")
+                if (start == -1) {
+                    break
+                }
                 val end = findMatchingBracket(buffer.toString(), start)
 
-                if (start == -1 || end == -1) {
+                if (end == -1) {
                     break
                 }
 
                 val json = buffer.substring(start, end + 1)
-                results.add(json)
+                if (!parsedJsonSet.contains(json)) { // 检查是否已经解析过
+                    results.add(json)
+                    parsedJsonSet.add(json) // 记录已解析的JSON
+                }
 
                 if (end + 1 < buffer.length) {
                     buffer.delete(0, end + 1)
@@ -168,8 +183,9 @@ class LlmService {
     }
 
     fun generateFlow(text: String): Flow<Pair<String?, String>> {
-        val result = StringBuilder()
         val parser = JsonStreamParser() // 流式JSON解析器
+        var finalResult: String? = null
+
         return channelFlow<Pair<String?, String>> {
             Log.d(TAG, "===== 云端请求开始 =====")
             Log.d(TAG, "| 输入文本: $text")
@@ -205,7 +221,6 @@ class LlmService {
                 }
 
                 Log.d(TAG, "收到响应: ${response.status}")
-                Log.d(TAG, "响应头: ${response.headers}")
 
                 if (response.status.isSuccess()) {
                     Log.d(TAG, "响应状态码成功: ${response.status}")
@@ -223,11 +238,8 @@ class LlmService {
                         val packet = channel.readRemaining(DEFAULT_BUFFER_SIZE.toLong())
                         if (packet.remaining > 0) {
                             chunkCount++
-                            val text = packet.readText() // 原始文本 可能包含Unicode 编码
-                            Log.d(TAG, "收到响应块 #$chunkCount (${getDecodesData(text).length} 字符): ${getDecodesData(text)}")
-                            emit(text) //这里仍然发送原始文本，只修改日志显示
-                        } else {
-                            Log.d(TAG, "收到空响应块 #$chunkCount")
+                            val text = packet.readText()
+                            emit(text)
                         }
                         packet.release()
                     }
@@ -242,23 +254,33 @@ class LlmService {
                         flow {
                             val jsonList = parser.parseChunk(chunk)
                             for (json in jsonList) {
-                                Log.d(TAG, "解析出完整JSON: ${getDecodesData(json)}")
                                 emit(json)
                             }
                         }
                     }
                     .mapNotNull { jsonString ->
-                        parseFlowResponse(jsonString) // 解析出单块文本
+                        parseFlowResponse(jsonString)
                     }
                     .collect { content ->
-                        if (content.isBlank()) {
-                            Log.d(TAG, "忽略空内容")
+                        if (isEndReceived) {
                             return@collect
                         }
+                        if (content.isBlank()) {
+                            return@collect
+                        }
+
                         Log.d(TAG, "收集到文本: $content")
-                        result.append(content)
-                        send(Pair(content, result.toString()))
+                        finalResult = content
+
+                        send(Pair(content, content))
                     }
+
+                // 发送最终结果
+                if (finalResult != null) {
+                    Log.d(TAG, "发送最终结果: $finalResult")
+                    send(Pair(null, finalResult!!))
+                }
+
             } catch (e: Exception) {
                 Log.e(TAG, "请求异常: ${e.message}")
                 throw e
@@ -268,11 +290,10 @@ class LlmService {
             }
         }.cancellable()
             .onCompletion { cause ->
-                // 流结束后，发送完整结果
                 Log.d(TAG, "===== 云端请求完成 =====")
                 Log.d(TAG, "| 完成状态: ${if (cause == null) "正常完成" else "异常取消: ${cause.message}"}")
-                Log.d(TAG, "| 最终结果长度: ${result.length}")
-                Log.d(TAG, "| 最终结果内容: $result")
+                Log.d(TAG, "| 最终结果长度: ${finalResult?.length ?: 0}")
+                Log.d(TAG, "| 最终结果内容: $finalResult")
             }
     }
 
