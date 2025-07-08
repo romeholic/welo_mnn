@@ -30,6 +30,7 @@ import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMI
 import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -266,26 +267,38 @@ class MainActivity : AppCompatActivity(),
         audioBendShapePlayer?.startNewSession(answerSession)
         lifecycleScope.launch {
             val callingSessionId = this@MainActivity.callingSessionId
-            val fullResponse = StringBuilder() // 缓存完整结果
             var isEndReceived = false
+
             llmService.generateFlow(text).collect { pair ->
                 if (isEndReceived) {
                     return@collect
                 }
 
                 val partialText = pair.first
+                val fullText = pair.second
+
+                // 处理中间文本（实时更新UI）
                 if (partialText != null) {
-                    fullResponse.append(partialText) // 累积片段
-                    // 实时触发虚拟人的嘴型动画
+                    Log.d(TAG, "收到中间文本: $partialText")
+
+                    // 更新UI显示中间文本
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        llmPresenter.onLlmTextUpdate(partialText, callingSessionId)
+                    }
+
+                    // 触发虚拟人的嘴型动画
                     audioBendShapePlayer?.playStreamText(partialText)
                 }
 
-                //Log.d(TAG, "pair.second value: ${pair.second}")
-                // 只有当结果完全返回后，才更新UI
-                if (pair.second == "true") {
+                // 处理最终文本
+                if (partialText == null) {
+                    Log.d(TAG, "收到最终文本: $fullText")
                     isEndReceived = true
-                    Log.d(TAG, "isEnd, update ui")
-                    llmPresenter.onLlmTextUpdate(fullResponse.toString(), callingSessionId)
+
+                    // 更新UI显示最终文本
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        llmPresenter.onLlmTextUpdate(fullText, callingSessionId)
+                    }
                 }
             }
         }.apply {
