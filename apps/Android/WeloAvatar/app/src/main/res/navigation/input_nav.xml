@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/input_nag"
+    app:startDestination="@id/fragment_voice_input">
+    <fragment
+        android:id="@+id/fragment_voice_input"
+        android:name="com.taobao.meta.avatar.widget.VoiceInputFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_voice_to_text"
+            app:destination="@id/fragment_text_input" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_text_input"
+        android:name="com.taobao.meta.avatar.widget.TextInputFragment"
+        android:label="Text Input">
+        <action
+            android:id="@+id/action_text_to_voice"
+            app:destination="@id/fragment_voice_input" />
+    </fragment>
+</navigation>

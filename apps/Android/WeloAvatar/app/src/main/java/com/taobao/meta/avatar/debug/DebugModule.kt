@@ -44,7 +44,7 @@ class DebugModule {
             return
         }
         if (MHConfig.DEBUG_SCREEN_SHOT) {
-            activity.mainView.viewMask.visibility = View.GONE
+//            activity.mainView.viewMask.visibility = View.GONE
             return
         }
         this.activity = activity

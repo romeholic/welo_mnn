@@ -2,16 +2,12 @@
 // Copyright (c) 2024 Alibaba Group Holding Limited All rights reserved.
 
 package com.taobao.meta.avatar.a2bs
-import android.bluetooth.BluetoothClass.Device
 import android.util.Log
 import com.alibaba.mnnllm.android.utils.LogUtils
-import com.taobao.meta.avatar.MHConfig
-import com.taobao.meta.avatar.debug.DebugModule
 import com.taobao.meta.avatar.MainActivity
 import com.taobao.meta.avatar.audio.AudioChunksPlayer
-import com.taobao.meta.avatar.nnr.NnrAvatarRender
+import com.taobao.meta.avatar.debug.DebugModule
 import com.taobao.meta.avatar.tts.TtsService
-import com.taobao.meta.avatar.utils.DeviceUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,7 +25,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.coroutines.resume
 
-class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActivity) {
+class AudioBlendShapePlayer(activity: MainActivity) {
 
     companion object {
         const val TAG = "WELO#AudioBlendShapePlayer"
@@ -90,7 +86,7 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
     private val playingStatus = PlayingStatus()
 
     init {
-        nnrAvatarRender.setAudioBlendShapePlayer(this)
+//        nnrAvatarRender.setAudioBlendShapePlayer(this)
     }
 
     fun startNewSession(sessionId: Long) {
