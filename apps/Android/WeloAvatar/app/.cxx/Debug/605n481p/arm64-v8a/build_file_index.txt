@@ -1,3 +1,0 @@
-F:\stanley\terminal_ai\welo_mnn\apps\Android\WeloAvatar\app\src\main\CMakeLists.txt
-F:\stanley\terminal_ai\welo_mnn\apps\Android\WeloAvatar\app\src\main\cpp\a2bs\CMakeLists.txt
-F:\stanley\terminal_ai\welo_mnn\apps\Android\WeloAvatar\app\src\main\cpp\tts\CMakeLists.txt
