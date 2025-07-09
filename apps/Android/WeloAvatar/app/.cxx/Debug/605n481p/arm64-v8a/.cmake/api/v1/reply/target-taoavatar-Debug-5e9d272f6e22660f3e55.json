@@ -1,0 +1,317 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/build/intermediates/cxx/Debug/605n481p/obj/arm64-v8a/libtaoavatar.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 94,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 106,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -std=c++17 -Wall                      -DVK_USE_PLATFORM_ANDROID_KHR -fno-limit-debug-info  -fPIC"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "taoavatar_EXPORTS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/taoavatar"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/PRIVATE"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/3rd_party"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/3rd_party/glm"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/tts/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/audio2bs/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/jni"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/project/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/a2bs_droid"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/common"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/tts_droid"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/cpp/a2bs/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/../../../../../../include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/../../../../../../tools/audio/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/../../../../../../transformers/llm/engine/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "F:/stanley/terminal_ai/welo_mnn/apps/Android/WeloAvatar/app/src/main/libs/NNR/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9
+			],
+			"sysroot" : 
+			{
+				"path" : "F:/stanley/Android/Sdk/ndk/27.2.12479018/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "mnn_a2bs::@8ea9ec1a974fa3f53105"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mnn_tts_SDK::@06a307329077c139d374"
+		}
+	],
+	"id" : "taoavatar::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-landroid",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\libs\\NNR\\lib\\arm64-v8a\\libnnrruntime.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libmnn_a2bs.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libmnn_tts_SDK.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-landroid",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\libs\\MNN\\lib\\arm64-v8a\\libMNN.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-latomic -lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "F:/stanley/Android/Sdk/ndk/27.2.12479018/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+		}
+	},
+	"name" : "taoavatar",
+	"nameOnDisk" : "libtaoavatar.so",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/a2bs_droid/a2bs_service.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/a2bs_droid/a2bs_service_jni.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/common/file_loader.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/common/file_utils.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/llm_droid/llm_mnn_jni.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/tts_droid/tts_service.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "cpp/tts_droid/tts_service_jni.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "jni/jni_utils.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "jni/nnr_avatar_render.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "jni/nnr_avatar_render_jni.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

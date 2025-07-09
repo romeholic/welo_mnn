@@ -1,0 +1,50 @@
+{
+  "buildFiles": [
+    "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\CMakeLists.txt",
+    "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\cpp\\a2bs\\CMakeLists.txt",
+    "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\cpp\\tts\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "F:\\stanley\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\.cxx\\Debug\\605n481p\\arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "F:\\stanley\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\.cxx\\Debug\\605n481p\\arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "mnn_tts_SDK::@06a307329077c139d374": {
+      "artifactName": "mnn_tts_SDK",
+      "abi": "arm64-v8a",
+      "output": "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libmnn_tts_SDK.so",
+      "runtimeFiles": [
+        "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\libs\\MNN\\lib\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "mnn_a2bs::@8ea9ec1a974fa3f53105": {
+      "artifactName": "mnn_a2bs",
+      "abi": "arm64-v8a",
+      "output": "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libmnn_a2bs.so",
+      "runtimeFiles": [
+        "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\libs\\MNN\\lib\\arm64-v8a\\libMNN.so"
+      ]
+    },
+    "taoavatar::@6890427a1f51a3e7e1df": {
+      "artifactName": "taoavatar",
+      "abi": "arm64-v8a",
+      "output": "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libtaoavatar.so",
+      "runtimeFiles": [
+        "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\libs\\NNR\\lib\\arm64-v8a\\libnnrruntime.so",
+        "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libmnn_a2bs.so",
+        "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\build\\intermediates\\cxx\\Debug\\605n481p\\obj\\arm64-v8a\\libmnn_tts_SDK.so",
+        "F:\\stanley\\terminal_ai\\welo_mnn\\apps\\Android\\WeloAvatar\\app\\src\\main\\libs\\MNN\\lib\\arm64-v8a\\libMNN.so"
+      ]
+    }
+  }
+}
