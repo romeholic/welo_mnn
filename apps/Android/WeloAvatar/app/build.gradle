@@ -54,7 +54,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "Welo_TaoAvatar-${variant.buildType.name}-v${variant.versionName}.apk"
+            outputFileName = "WeloAvatar-${variant.buildType.name}-v${variant.versionName}.apk"
         }
     }
 
