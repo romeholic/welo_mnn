@@ -63,8 +63,19 @@ class AudioBlendShapePlayer(activity: MainActivity) {
     private var totalAudioBsFrame = 0
     private var lastId = -1
 
-    // 保存上一次处理的完整文本
-    private var lastProcessedText = ""
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>> add for speech optimization start
+    // 句子结束符（用于断句）
+    private val SENTENCE_DELIMITERS = Regex("[。！？!?\n]")
+    // 需过滤的特殊字符（不朗读）
+    private val SPECIAL_CHARS = Regex("[,，:：;；*_\\[\\](){}“”‘’\"'`~]")
+    // 最小/最大句子长度（控制分段大小）
+    private val MIN_SENTENCE_LENGTH = 5
+    private val MAX_SENTENCE_LENGTH = 300
+    // 缓存待处理文本
+    private val pendingText = StringBuilder()
+    // 记录已处理的完整文本（用于计算增量）
+    private var lastProcessedFullText = ""
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<< add for speech optimization end
 
     class PlayingStatus {
         var isBuffering: Boolean = true
@@ -245,53 +256,98 @@ class AudioBlendShapePlayer(activity: MainActivity) {
         listeners.add(listener)
     }
 
-    fun playStreamText(currentText: String?) {
-        Log.d(TAG, "playStreamText: currentText=#${currentText}#")
-        if (currentText == null) {
-            // 处理最终文本
-            if (nextSegmentText.isNotEmpty()) {
-                playText(nextSegmentText, nextSegmentId++, true)
-                nextSegmentText = ""
-                segmentTokenCount = 0
-                lastProcessedText = currentText ?: ""
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>> add for speech optimization start
+    /** 处理剩余未完成的句子 */
+    private fun flushPendingText() {
+        val remaining = pendingText.toString().trim()
+        if (remaining.isNotEmpty() && remaining.length >= MIN_SENTENCE_LENGTH) {
+            playText(remaining, nextSegmentId++, true)
+        }
+        pendingText.clear()
+    }
+
+    /** 强制拆分过长文本（无结束符时） */
+    private fun splitAndPlay(text: String, forceSplit: Boolean) {
+        if (!forceSplit) return
+        val splitIndex = minOf(MAX_SENTENCE_LENGTH, text.length)
+        val sentence = text.substring(0, splitIndex)
+        playText(sentence, nextSegmentId++, false)
+
+        // 剩余文本继续缓存
+        pendingText.clear()
+        pendingText.append(text.substring(splitIndex))
+    }
+    /** 处理缓存中的文本，按句子结束符拆分 */
+    private fun processPendingSentences() {
+        val text = pendingText.toString()
+        if (text.isEmpty()) return
+
+        // 查找所有句子结束符的位置
+        val delimiterMatches = SENTENCE_DELIMITERS.findAll(text)
+        if (delimiterMatches.none()) {
+            // 无结束符但文本过长：强制分段
+            if (text.length >= MAX_SENTENCE_LENGTH) {
+                splitAndPlay(text, forceSplit = true)
             }
             return
         }
 
-        // 处理空字符串或纯空格
-        val trimmedText = currentText.trim()
-        if (trimmedText.isEmpty()) return
+        // 按结束符拆分并播放完整句子
+        var lastEnd = 0
+        delimiterMatches.forEach { match ->
+            val sentenceEnd = match.range.last + 1 // 包含结束符本身
+            val sentence = text.substring(lastEnd, sentenceEnd)
+            lastEnd = sentenceEnd
 
-        // 计算增量文本
-        val addedText = if (trimmedText.startsWith(lastProcessedText)) {
-            trimmedText.substring(lastProcessedText.length)
-        } else {
-            // 如果不匹配则使用完整新文本
-            Log.w(TAG, "新文本不以前面的文本开头，可能服务端重置了回复")
-            trimmedText
+            // 过滤过短句子（避免单个字符）
+            if (sentence.length >= MIN_SENTENCE_LENGTH) {
+                playText(sentence, nextSegmentId++, false)
+            }
         }
 
-        if (addedText.isEmpty()) {
-            Log.d(TAG, "没有新增文本需要处理")
+        // 保留未处理的剩余文本（未到句子结束符）
+        if (lastEnd < text.length) {
+            pendingText.clear()
+            pendingText.append(text.substring(lastEnd))
+        } else {
+            pendingText.clear()
+        }
+    }
+
+    fun playStreamText(currentText: String?) {
+        Log.d(TAG, "playStreamText: currentText=#${currentText}#")
+        if (currentText == null) {
+            // 处理最终剩余文本
+            flushPendingText()
             return
         }
 
-        // 更新已处理文本
-        lastProcessedText = trimmedText
+        // 1. 清洗文本：移除特殊字符、替换换行为空格
+        val cleanedText = currentText
+            .replace(SPECIAL_CHARS, "") // 过滤不朗读的特殊字符
+            .replace("\n", " ") // 换行替换为空格，避免中断
+            .trim()
 
-        // 检查增量文本中是否包含分隔符
-        val delimiters = "[.,!。，！？?\n、：；:]"
-        val hasDelimiter = delimiters.toRegex().containsMatchIn(addedText)
+        if (cleanedText.isEmpty()) return
 
-        if (hasDelimiter) {
-            Log.d(TAG, "增量文本包含分隔符，准备播放: $addedText")
-            // 直接播放增量文本，不需要累积
-            playText(addedText, nextSegmentId++, false)
+        // 2. 计算增量文本（只处理新增内容）
+        val addedText = if (cleanedText.startsWith(lastProcessedFullText)) {
+            cleanedText.substring(lastProcessedFullText.length)
         } else {
-            Log.d(TAG, "增量文本无分隔符，追加到缓存: $addedText")
-            // 如果没有分隔符，可以选择累积到下一次一起播放或者立即播放
-            playText(addedText, nextSegmentId++, false)
+            Log.w(TAG, "文本不匹配，可能服务端重置了回复")
+            cleanedText // 全量处理新文本
         }
+
+        if (addedText.isEmpty()) return
+
+        // 3. 更新已处理文本记录
+        lastProcessedFullText = cleanedText
+
+        // 4. 追加到待处理缓存
+        pendingText.append(addedText)
+
+        // 5. 按句子结束符分段处理
+        processPendingSentences()
     }
 
     fun playText(text:String, id: Int, is_last:Boolean) {
@@ -305,17 +361,24 @@ class AudioBlendShapePlayer(activity: MainActivity) {
             return
         }
 
-        Log.d(TAG, "playText: ${text} id: ${id} isEnd:${is_last}")
+        // 确认文本干净
+        val finalText = text.replace(SPECIAL_CHARS, "").trim()
+        if (finalText.isEmpty()) {
+            Log.d(TAG, "过滤后文本为空，跳过播放: $text")
+            return
+        }
+
+        Log.d(TAG, "playText: ${finalText} id: ${id} isEnd:${is_last}")
         val audioBlendShape = AudioBlendShape(
             id,
             is_last,
-            text,
+            finalText,
             ShortArray(0),
             null,
             AudioToBlendShapeData())
         sessionScope?.launch {
             val processTtsStartTime = System.currentTimeMillis()
-            Log.d(TAG, "processTextInner TTS begin $id $text begin")
+            Log.d(TAG, "processTextInner TTS begin $id $finalText begin")
             ensureActive()
             ttsService.setCurrentIndex(audioBlendShape.id)
             var audioData = ShortArray(0)
@@ -331,7 +394,7 @@ class AudioBlendShapePlayer(activity: MainActivity) {
             }
             if (audioData.isEmpty()) {
                 lastId = id -1
-                Log.d(TAG, "processTextInner: $id $text audioData is empty")
+                Log.d(TAG, "processTextInner: $id $finalText audioData is empty")
                 return@launch
             }
             audioBlendShape.audio = audioData
@@ -339,16 +402,17 @@ class AudioBlendShapePlayer(activity: MainActivity) {
             val processTtsEndTime = System.currentTimeMillis()
             val processTtsDuration = processTtsEndTime - processTtsStartTime
             val rtf = processTtsDuration.toFloat()/ 1000 / (audioData.size / audioChunksPlayer!!.sampleRate.toFloat())
-            Log.d(TAG, "processTextInner TTS  $id $text end duration: $processTtsDuration rtf: $rtf")
+            Log.d(TAG, "processTextInner TTS  $id $finalText end duration: $processTtsDuration rtf: $rtf")
             val a2bsData = a2bsService.process(audioBlendShape.id, audioData, audioChunksPlayer?.sampleRate!!)
             Log.d(TAG, "processTextInner A2BS  $id  end duration: ${System.currentTimeMillis() - processTtsEndTime}")
             audioBlendShape.a2bs = a2bsData
             ensureActive()
-            Log.d(TAG, "processTextInner: $id $text end")
+            Log.d(TAG, "processTextInner: $id $finalText end")
             addAudioBlendShape(audioBlendShape)
             readyTimeMap[audioBlendShape.id] = System.currentTimeMillis()
         }
     }
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<< add for speech optimization end
 
     private suspend fun addAudioBlendShape(audioBlendShape: AudioBlendShape) {
         totalAudioBsFrame += audioBlendShape.a2bs.frame_num
