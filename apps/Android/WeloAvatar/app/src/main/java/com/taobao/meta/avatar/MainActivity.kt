@@ -357,6 +357,7 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
                     isEndReceived = true
 //                    viewModel.receivedMessage(fullText)
                     viewModel.receivedStatus(true)
+                    startRecord()
                     // 更新UI显示最终文本
                     lifecycleScope.launch(Dispatchers.Main) {
 //                        llmPresenter.onLlmTextUpdate(fullText, callingSessionId)

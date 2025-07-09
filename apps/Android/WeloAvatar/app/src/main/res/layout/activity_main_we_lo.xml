@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<!--    <com.taobao.meta.avatar.nnr.AvatarTextureView-->
+<!--        android:id="@+id/surface_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+<!--    <ImageView-->
+<!--        android:id="@+id/img_place_holder"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/welo_icon"-->
+<!--        tools:ignore="ContentDescription" />-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        tools:context=".MainActivityWeLoActivity"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/input_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/button_toggle_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/input_nav" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/button_toggle_text"
+            android:layout_width="@dimen/dp_68"
+            android:layout_height="@dimen/dp_68"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_50"
+            android:visibility="visible"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="@dimen/dp_34"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/button_toggle_text_image"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
+                android:layout_gravity="center"
+                android:src="@drawable/menu_icon" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/button_end_call"
+            android:layout_width="@dimen/dp_68"
+            android:layout_height="@dimen/dp_68"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_50"
+            android:foreground="?attr/selectableItemBackground"
+            android:visibility="visible"
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="@dimen/dp_34"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
+                android:layout_gravity="center"
+                android:src="@drawable/key_bord_icon" />
+        </androidx.cardview.widget.CardView>
+
+        <com.taobao.meta.avatar.widget.WaveformView
+            android:id="@+id/waveFormView"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_46"
+            android:layout_marginStart="@dimen/dp_14"
+            android:layout_marginEnd="@dimen/dp_14"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/button_toggle_text"
+            app:layout_constraintLeft_toRightOf="@id/button_toggle_text"
+            app:layout_constraintRight_toLeftOf="@+id/button_end_call"
+            app:layout_constraintTop_toTopOf="@id/button_toggle_text" />
+
+        <EditText
+            android:id="@+id/key_bord_input"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_46"
+            android:layout_marginStart="@dimen/dp_14"
+            android:layout_marginEnd="@dimen/dp_14"
+            android:background="@drawable/out_put_background"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/button_toggle_text"
+            app:layout_constraintLeft_toRightOf="@id/button_toggle_text"
+            app:layout_constraintRight_toLeftOf="@+id/button_end_call"
+            app:layout_constraintTop_toTopOf="@id/button_toggle_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
