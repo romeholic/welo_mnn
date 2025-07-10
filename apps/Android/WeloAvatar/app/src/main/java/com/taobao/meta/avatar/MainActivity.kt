@@ -347,6 +347,9 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
                     lifecycleScope.launch(Dispatchers.Main) {
 //                        llmPresenter.onLlmTextUpdate(partialText, callingSessionId)
                     }
+
+                    // 触发虚拟人的嘴型动画
+                    audioBendShapePlayer?.playStreamText(partialText)
                 }else{
                     Log.d(TAG, "当前会话结束")
                 }
