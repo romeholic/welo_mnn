@@ -1,6 +1,5 @@
 package com.taobao.meta.avatar.widget
 
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,35 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.taobao.meta.avatar.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentTextInputBinding
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * 文本输入
  * A simple [Fragment] subclass.
- * Use the [TextInputFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewModel>() {
-    private var param1: String? = null
-    private var param2: String? = null
     private val adapter: MessageAdapter by lazy { MessageAdapter() }
 
     private var messageData: MessageData? = null
     private var responsePosition: Int = -1
     private var messages: MutableList<MessageData>? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate: VoiceInputFragment created")
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -56,7 +37,15 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
         }
         adapter.observeHeightChanges(object : MessageAdapter.OnHeightChangedListener {
             override fun onHeightChanged(oldHeight: Int, newHeight: Int) {
-                scrollToBottom()
+                if (newHeight > oldHeight) {
+                    // 当高度增加时，滚动到底部
+                    scrollToBottom()
+                } else {
+                    // 当高度减少时，保持在当前消息位置
+                    if (responsePosition != -1 && responsePosition < adapter.getItemCount()) {
+                        binding.recyclerView.scrollToPosition(responsePosition)
+                    }
+                }
             }
         })
         loadMessages()
@@ -65,7 +54,6 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
     override fun observeViewModel() {
         viewModel.sendData.observe(viewLifecycleOwner) { message ->
             if (message.isNotEmpty()) {
-                Log.d(TAG, "Received message: $message")
                 sendMessage(message)
             }
         }
@@ -109,11 +97,11 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
                     messageData!!.text = message
                     it[responsePosition] = messageData!!
                     // 通知适配器数据已更改，带payload优化
-                    adapter.notifyItemChanged(responsePosition)
-//                    binding.recyclerView.post {
+                    adapter.notifyItemChanged(responsePosition, "textChanged")
+//                    binding.recyclerView.postDelayed({
 //                        // 确保滚动到最新消息
 //                        scrollToBottom()
-//                    }
+//                    }, 400)
                 }
             }
         }
@@ -176,24 +164,6 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TextInputFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TextInputFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-
         private const val currentUserId = "user1"
         private const val TAG = "TextInputFragment"
     }

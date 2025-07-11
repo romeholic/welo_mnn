@@ -37,6 +37,7 @@ class DownloadModule(private val context: Activity) {
     private var lastProgressBytes: Long = 0
     private val downloadListener = object : DownloadListener {
         override fun onDownloadStart(modelId: String) {
+            downloadCallback?.onDownloadStart()
         }
 
         override fun onDownloadFailed(modelId: String, e: Exception) {

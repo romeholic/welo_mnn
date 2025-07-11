@@ -107,12 +107,7 @@ class MessageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
         fun updateMessageText(message: MessageData) {
-            Log.d("MessageAdapter", "updateMessageText: ${message.text}")
             messageTextView.text = message.text
-            messageTextView.animate().alpha(0.8f).setDuration(150).withEndAction {
-                messageTextView.text = message.text
-                messageTextView.animate().alpha(1.0f).duration = 150
-            }.start()
             onScrollToBottom(messageTextView)
         }
     }
@@ -121,8 +116,7 @@ class MessageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (textResponse.visibility != TextView.VISIBLE || textResponse.layout == null) {
             return
         }
-        val scrollAmount =
-            textResponse.layout.getLineTop(textResponse.lineCount) - textResponse.height
+        val scrollAmount = textResponse.layout.getLineTop(textResponse.lineCount) - textResponse.height
         if (scrollAmount > 0) {
             textResponse.scrollTo(
                 0,

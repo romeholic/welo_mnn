@@ -31,7 +31,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
     private lateinit var navController: NavController
     private var isVoiceInput = true
-    private lateinit var llmService: LlmService
     private lateinit var downloadManager: DownloadModule
 
     companion object {
@@ -47,7 +46,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
 
     private fun loadLLMModel() {
         lifecycleScope.launch {
-            llmService.init(MHConfig.LLM_MODEL_DIR)
         }
     }
 
@@ -58,7 +56,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         downloadManager.setDownloadCallback(this)
         MHConfig.BASE_DIR = downloadManager.getDownloadPath()
 
-        llmService = LlmService()
         loadLLMModel()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.input_container) as NavHostFragment
@@ -73,16 +70,11 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
 
     private fun processAsrText(inputText: String){
         lifecycleScope.launch {
-            llmService.generate(inputText).collect { pair ->
-                pair.first?.let {
-                    viewModel.receivedMessage(it)
-                }
-            }
         }
     }
 
     private fun initListener() {
-        viewBinding.root.viewTreeObserver.addOnGlobalLayoutListener {
+       /* viewBinding.root.viewTreeObserver.addOnGlobalLayoutListener {
             val rect = Rect()
             viewBinding.root.getWindowVisibleDisplayFrame(rect)
             val screenHeight = viewBinding.root.rootView.height
@@ -128,7 +120,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                 viewModel.sendMessage(inputMessage)
 
             }
-        }
+        }*/
         viewBinding.waveFormView.setOnClickListener {
             viewModel.sendMessage("这是一个测试消息")
             it.postDelayed({

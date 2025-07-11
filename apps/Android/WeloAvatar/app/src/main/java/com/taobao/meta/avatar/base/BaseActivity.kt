@@ -7,6 +7,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -22,7 +24,11 @@ abstract class BaseActivity <VB : ViewBinding, VM : ViewModel> : AppCompatActivi
     protected val viewModel: VM by lazy {
         ViewModelProvider(this, createViewModelFactory())[getViewModelClass()]
     }
-
+    private val navBarHeight: Int
+        get() {
+            val insets = ViewCompat.getRootWindowInsets(viewBinding.root)
+            return insets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,19 +63,19 @@ abstract class BaseActivity <VB : ViewBinding, VM : ViewModel> : AppCompatActivi
     // 由子类实现观察ViewModel数据的方法
     protected abstract fun observeViewModel()
 
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        if (ev.action == MotionEvent.ACTION_DOWN) {
-            val view = currentFocus
-            if (view is EditText) {
-                val outRect = Rect()
-                view.getGlobalVisibleRect(outRect)
-                if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
-                    view.clearFocus()
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(view.windowToken, 0)
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev)
-    }
+//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+//        if (ev.action == MotionEvent.ACTION_DOWN) {
+//            val view = currentFocus
+//            if (view is EditText) {
+//                val outRect = Rect()
+//                view.getGlobalVisibleRect(outRect)
+//                if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+//                    view.clearFocus()
+//                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+//                }
+//            }
+//        }
+//        return super.dispatchTouchEvent(ev)
+//    }
 }

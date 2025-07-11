@@ -1,17 +1,13 @@
 package com.taobao.meta.avatar
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Rect
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.marginBottom
@@ -28,15 +24,15 @@ import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 import com.taobao.meta.avatar.debug.DebugModule
 import com.taobao.meta.avatar.download.DownloadCallback
 import com.taobao.meta.avatar.download.DownloadModule
-import com.taobao.meta.avatar.llm.LlmPresenter
 import com.taobao.meta.avatar.llm.LlmService
-import com.taobao.meta.avatar.nnr.AvatarTextureView
-import com.taobao.meta.avatar.nnr.NnrAvatarRender
 import com.taobao.meta.avatar.record.RecordPermission
 import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMISSION
 import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
+import com.taobao.meta.avatar.widget.InputMode
 import com.taobao.meta.avatar.widget.MessageViewModel
+import com.taobao.meta.avatar.widget.TextStreamResponse
+import com.taobao.meta.avatar.widget.setupHideKeyboardOnOutsideTouch
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -73,14 +69,14 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
     private var chatSessionJobs = mutableSetOf<Job>()
     private lateinit var downloadManager: DownloadModule
 
-    private val navBarHeight: Int
-        get() {
-            val insets = ViewCompat.getRootWindowInsets(viewBinding.root)
-            return insets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
-        }
     private lateinit var navController: NavController
     private var isVoiceInput = true
     private var isRecording = false
+
+    /**
+     * 当前请求是否结束
+     */
+    private var isEndReceived = true
 
     override fun createBinding(): ActivityMainWeLoBinding {
         return ActivityMainWeLoBinding.inflate(layoutInflater)
@@ -92,9 +88,43 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
         navController = navHostFragment.navController
         init()
         initListener()
+        val debugModule = DebugModule()
+        debugModule.setupDebug(this)
     }
 
     override fun observeViewModel() {
+        lifecycleScope.launch {
+            // 观察状态变化
+            viewModel.aiResponseFlow.collect { response ->
+                when (response) {
+                    is TextStreamResponse.Connecting -> {
+                        println("正在连接到流...")
+                        isEndReceived = false
+                        inputStatusImage(InputMode.Typing)
+                    }
+                    is TextStreamResponse.Connected -> {
+                        println("已连接到流")
+                    }
+                    is TextStreamResponse.Data -> {
+                        audioBendShapePlayer?.playStreamText(response.text)
+                        println("流读取中: ${response.text}")
+                    }
+                    is TextStreamResponse.Completed -> {
+                        startRecord()
+                        println("流读取完成")
+                    }
+                    is TextStreamResponse.Cancelled -> {
+                        startRecord()
+                        println("流已取消")
+                    }
+                    is TextStreamResponse.Error -> {
+                        startRecord()
+                        println("流错误: ${response.message}")
+                    }
+                    is TextStreamResponse.Idle -> Unit // 初始状态，无需操作
+                }
+            }
+        }
 
     }
     private fun init(){
@@ -106,13 +136,17 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
         a2bsService = A2BSService()
         ttsService = TtsService()
 //        llmPresenter = LlmPresenter(mainView.textResponse)
-        llmService = LlmService()
+//        llmService = LlmService()
         recognizeService = RecognizeService(this)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         if (downloadManager.isDownloadComplete() && !DebugModule.DEBUG_DISABLE_SERVICE_AUTO_START) {
             lifecycleScope.launch {
                 setupServices()
             }
+        }
+        Log.d(TAG, "init: download complete: ${downloadManager.isDownloadComplete()}")
+        if (!downloadManager.isDownloadComplete()){
+            onDownloadClicked()
         }
     }
     private fun initListener() {
@@ -121,7 +155,7 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
             viewBinding.root.getWindowVisibleDisplayFrame(rect)
             val screenHeight = viewBinding.root.rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            val marginBottom = viewBinding.buttonEndCall.marginBottom
+            val marginBottom = viewBinding.inputStateChange.marginBottom
 
             if (keypadHeight > screenHeight * 0.15) {
                 // 键盘弹出，编辑框上移
@@ -132,47 +166,52 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
             }
 
         }
-        viewBinding.buttonToggleText.setOnClickListener {
-            if (isVoiceInput){
-                viewBinding.waveFormView.startAnimation()
-            }else{
+        viewBinding.inputModelChange.setOnClickListener {
+            if (!isVoiceInput) {
                 navController.navigate(R.id.action_text_to_voice)
                 viewBinding.waveFormView.visibility = View.VISIBLE
                 viewBinding.keyBordInput.visibility = View.GONE
                 isVoiceInput = true
                 startRecord()
-            }
-        }
-        viewBinding.buttonEndCall.setOnClickListener {
-            if (isVoiceInput){
-                stopAnswer()
+                inputStatusImage(InputMode.Text)
+            }else{
+                stopRecord()
+                inputStatusImage(InputMode.Voice)
                 navController.navigate(R.id.action_voice_to_text)
-                viewBinding.waveFormView.stopAnimation()
                 viewBinding.waveFormView.visibility = View.GONE
                 viewBinding.keyBordInput.visibility = View.VISIBLE
                 isVoiceInput = false
+            }
+        }
+        viewBinding.inputStateChange.setOnClickListener {
+            Log.d(TAG, "buttonEndCall clicked, chatStatus: $chatStatus isEndReceived:$isEndReceived isVoiceInput:$isVoiceInput")
+            if (!isEndReceived){
+                isEndReceived = true
+                viewModel.closeRequest(callingSessionId.toString())
+                if (isVoiceInput){
+                    startRecord()
+                }
             }else{
                 val inputMessage = viewBinding.keyBordInput.text.trim().toString()
                 if (inputMessage.isEmpty()) return@setOnClickListener
+//                viewBinding.inputStateChange.setupHideKeyboardOnOutsideTouch(this)
                 viewBinding.keyBordInput.apply {
                     text.clear()
-                    processAsrText(inputMessage)
+                    processChatRequest(inputMessage)
                 }
             }
         }
         viewBinding.waveFormView.setOnClickListener {
             if (isRecording) {
                 stopRecord()
-                viewBinding.waveFormView.stopAnimation()
             } else {
                 startRecord()
-                viewBinding.waveFormView.startAnimation()
             }
         }
     }
     private fun stopAnswer() {
         Log.d(TAG, "stopAnswer")
-        llmService.requestStop()
+//        llmService.requestStop()
 //        llmPresenter.stop()
         audioBendShapePlayer?.stop()
     }
@@ -239,7 +278,7 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
     }
 
     private fun onChatServiceStarted() {
-        llmService.startNewSession()
+//        llmService.startNewSession()
         lifecycleScope.launch {
             delay(2000)
             val welcomeText = getString(R.string.llm_welcome_text)
@@ -304,7 +343,7 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
                 if (chatStatus == ChatStatus.STATUS_CALLING) {
                     stopRecord()
                     lifecycleScope.launch {
-                        processAsrText(text)
+                        processChatRequest(text)
                     }
                 }
             }
@@ -317,60 +356,70 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
         return initComplete.isCompleted
     }
 
-    private fun processAsrText(text:String) {
-        answerSession++;
-        Log.d(TAG, "onRecognizeText: $text sessionId: $answerSession")
-        lifecycleScope.launch {
-//            llmPresenter.onUserTextUpdate(text)
-            viewModel.sendMessage(text)
-        }
-//        llmPresenter.start()
+    private fun processChatRequest(text: String) {
+        answerSession++
         audioBendShapePlayer?.startNewSession(answerSession)
         lifecycleScope.launch {
-            val callingSessionId = this@MainActivity.callingSessionId
-            var isEndReceived = false
-
-            llmService.generateFlow(text).collect { pair ->
-                if (isEndReceived) {
-                    return@collect
-                }
-
-                val partialText = pair.first
-                val fullText = pair.second
-
-                // 处理中间文本（实时更新UI）
-                if (partialText != null) {
-                    Log.d(TAG, "收到中间文本: $partialText")
-                    viewModel.receivedMessage(partialText)
-
-                    // 更新UI显示中间文本
-                    lifecycleScope.launch(Dispatchers.Main) {
-//                        llmPresenter.onLlmTextUpdate(partialText, callingSessionId)
-                    }
-
-                    // 触发虚拟人的嘴型动画
-                    audioBendShapePlayer?.playStreamText(partialText)
-                }else{
-                    Log.d(TAG, "当前会话结束")
-                }
-
-                // 处理最终文本
-                if (partialText == null) {
-                    Log.d(TAG, "收到最终文本: $fullText")
-                    isEndReceived = true
-//                    viewModel.receivedMessage(fullText)
-                    viewModel.receivedStatus(true)
-                    startRecord()
-                    // 更新UI显示最终文本
-                    lifecycleScope.launch(Dispatchers.Main) {
-//                        llmPresenter.onLlmTextUpdate(fullText, callingSessionId)
-                    }
-                }
-            }
-        }.apply {
-            chatSessionJobs.add(this)
+            viewModel.sendMessage(text)
+            viewModel.receivedMessage(text,callingSessionId.toString())
         }
     }
+
+//    private fun processAsrText(text:String) {
+//        inputStatusImage(InputMode.Typing)
+//        answerSession++
+//        Log.d(TAG, "onRecognizeText: $text sessionId: $answerSession")
+//        isEndReceived = false
+//        lifecycleScope.launch {
+////            llmPresenter.onUserTextUpdate(text)
+//            viewModel.sendMessage(text)
+//        }
+////        llmPresenter.start()
+//        audioBendShapePlayer?.startNewSession(answerSession)
+//        lifecycleScope.launch {
+//            val callingSessionId = this@MainActivity.callingSessionId
+//
+//            llmService.generateFlow(text).collect { pair ->
+//                if (isEndReceived) {
+//                    return@collect
+//                }
+//
+//                val partialText = pair.first
+//                val fullText = pair.second
+//
+//                // 处理中间文本（实时更新UI）
+//                if (partialText != null) {
+//                    Log.d(TAG, "收到中间文本: $partialText")
+//                    viewModel.receivedMessage(partialText)
+//
+//                    // 更新UI显示中间文本
+//                    lifecycleScope.launch(Dispatchers.Main) {
+////                        llmPresenter.onLlmTextUpdate(partialText, callingSessionId)
+//                    }
+//
+//                    // 触发虚拟人的嘴型动画
+//                    audioBendShapePlayer?.playStreamText(partialText)
+//                }else{
+//                    Log.d(TAG, "当前会话结束")
+//                }
+//
+//                // 处理最终文本
+//                if (partialText == null) {
+//                    Log.d(TAG, "收到最终文本: $fullText")
+//                    isEndReceived = true
+////                    viewModel.receivedMessage(fullText)
+//                    viewModel.receivedStatus(true)
+//                    if (isVoiceInput) {
+//                        startRecord()
+//                    } else {
+//                        inputStatusImage(InputMode.Text)
+//                    }
+//                }
+//            }
+//        }.apply {
+//            chatSessionJobs.add(this)
+//        }
+//    }
 
     fun getAudioBlendShapePlayer():AudioBlendShapePlayer? {
         return audioBendShapePlayer
@@ -447,7 +496,7 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
 
 
     private suspend fun loadLLMModel() {
-        llmService.init(MHConfig.LLM_MODEL_DIR)
+//        llmService.init(MHConfig.LLM_MODEL_DIR)
     }
 
     private suspend fun loadTTSModel() {
@@ -464,34 +513,56 @@ class MainActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
     }
 
     fun stopRecord() {
+        Log.d(TAG, "stopRecord:$isVoiceInput")
         recognizeService.stopRecord()
         viewBinding.waveFormView.stopAnimation()
         isRecording = false
     }
 
     fun startRecord() {
-        Log.d(TAG, "startRecord")
-        recognizeService.startRecord()
-        viewBinding.waveFormView.startAnimation()
-        isRecording = true
+        Log.d(TAG, "startRecord:$isVoiceInput")
+        if (isVoiceInput){
+            recognizeService.startRecord()
+            viewBinding.waveFormView.startAnimation()
+            isRecording = true
+        }else{
+            viewModel.receivedStatus(true)
+        }
+        inputStatusImage(InputMode.Send)
+    }
+
+    private fun inputStatusImage(mode: InputMode) {
+        when (mode) {
+            is InputMode.Voice -> viewBinding.inputModelChange.setImageResource(R.drawable.audio_line)
+            is InputMode.Text ->  viewBinding.inputModelChange.setImageResource(R.drawable.key_bord)
+            is InputMode.Typing ->  viewBinding.inputStateChange.setImageResource(R.drawable.stop_line)
+            is InputMode.Send -> {
+                viewBinding.inputStateChange.setImageResource(R.drawable.send_icon)
+                isEndReceived = true
+            }
+        }
     }
 
     override fun onDownloadStart() {
         Log.d(TAG, "Download started")
+        viewBinding.loadingText.visibility = View.VISIBLE
     }
 
     override fun onDownloadProgress(progress: Double, currentBytes: Long, totalBytes: Long, speedInfo:String) {
+
     }
 
     override fun onDownloadComplete(success: Boolean, file: File?) {
         Log.d(TAG, "Download completed: $success")
         lifecycleScope.launch {
+            viewBinding.loadingText.visibility = View.GONE
             setupServices()
         }
     }
 
     override fun onDownloadError(error: Exception?) {
         Log.e(TAG, "Download error", error)
+        viewBinding.loadingText.visibility = View.GONE
     }
     companion object {
         private const val TAG = "WELO#MainActivity"
