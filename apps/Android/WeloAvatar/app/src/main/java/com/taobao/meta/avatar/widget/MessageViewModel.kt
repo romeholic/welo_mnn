@@ -11,11 +11,18 @@ import com.taobao.meta.avatar.llm.FlowRequest
 import com.taobao.meta.avatar.utils.StringUtil
 import io.ktor.http.headers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,11 +31,8 @@ import kotlin.coroutines.cancellation.CancellationException
 class MessageViewModel : ViewModel() {
 
     private val TAG = "MessageViewModel"
-    private val _sendData = MutableLiveData<String>()
-    val sendData: LiveData<String> = _sendData
-
-    private val _receivedData = MutableLiveData<String>()
-    val receivedData: LiveData<String> = _receivedData
+    private val _sendData = MutableSharedFlow<String>(replay = 0)
+    val sendData: SharedFlow<String> = _sendData.asSharedFlow()
 
     private val _receivedStatus = MutableLiveData<Boolean>()
     val receivedStatus: LiveData<Boolean> = _receivedStatus
@@ -38,31 +42,33 @@ class MessageViewModel : ViewModel() {
     val aiResponseFlow: StateFlow<TextStreamResponse> = _aiResponseFlow.asStateFlow()
 
     // 收集到的完整文本
-    private val _collectedText = MutableLiveData<String>("")
-    val collectedText: LiveData<String> = _collectedText
+    private val _collectedText = MutableSharedFlow<String>(replay = 0)
+    val collectedText: SharedFlow<String> = _collectedText.asSharedFlow()
+
+    private val _requestId = MutableStateFlow("")
+    val requestId: StateFlow<String> = _requestId.asStateFlow()
 
     private var chatSessionJobs = mutableSetOf<Job>()
 
     fun sendMessage(message: String) {
-        if (message.isNotEmpty()) {
-            _sendData.value = message
+        viewModelScope.launch {
+            if (message.isNotEmpty()) {
+                _sendData.emit(message)
+            }
         }
     }
 
-    fun receivedMessage(message: String) {
-        if (message.isNotEmpty()) {
-            _receivedData.value = message
-        }
-    }
     fun receivedStatus(status: Boolean) {
         _receivedStatus.value = status
     }
 
-    fun receivedMessage(text: String,requestId: String){
+    fun receivedMessage(text: String, requestId: String){
+        Log.d(TAG, "receivedMessage: $text, requestId: $requestId")
+
         viewModelScope.launch {
+            _requestId.value = requestId
             // 重置状态
             _aiResponseFlow.value = TextStreamResponse.Connecting
-            _collectedText.value = ""
             val requestBody = FlowRequest(
                 files = emptyList(),
                 inputs = FlowInputs(
@@ -81,42 +87,23 @@ class MessageViewModel : ViewModel() {
                 _aiResponseFlow.value = TextStreamResponse.Error(it.message ?: "未知错误")
             }.collect { response ->
                 when (response) {
-                    is TextStreamResponse.Connecting -> {
-                        _aiResponseFlow.value = response
-                    }
-
-                    is TextStreamResponse.Connected -> {
-                        _aiResponseFlow.value = response
-                    }
                     is TextStreamResponse.Data -> {
                         // 数据处理移至IO调度器
                         withContext(Dispatchers.IO) {
                             val json = StringUtil.getDecodesData(response.text)
                             val message = StringUtil.parseFlowResponse(json)
-
                             message?.let {
                                 _aiResponseFlow.value = TextStreamResponse.Data(it)
                                 withContext(Dispatchers.Main){
-                                    _receivedData.value = it
-                                    // 累加收集的文本
-                                    _collectedText.value += it
+                                    _collectedText.emit(it)
                                 }
                             }
                         }
                     }
-
-                    is TextStreamResponse.Completed -> {
+                    else -> {
+                        // 其他状态直接更新
                         _aiResponseFlow.value = response
                     }
-
-                    is TextStreamResponse.Cancelled -> {
-                        _aiResponseFlow.value = response
-                    }
-
-                    is TextStreamResponse.Error -> {
-                        _aiResponseFlow.value = response
-                    }
-                    is TextStreamResponse.Idle -> Unit
                 }
 
             }
@@ -130,7 +117,6 @@ class MessageViewModel : ViewModel() {
         // 重置状态
         _aiResponseFlow.value = TextStreamResponse.Idle
         KtorFlowNetworkManager.instance.cancelRequest(requestId)
-        _collectedText.value = ""
         _receivedStatus.value = true
     }
 

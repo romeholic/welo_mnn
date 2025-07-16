@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FF555555" /> <!-- 滑块颜色 -->
+    <corners android:radius="4dp" />    <!-- 滑块圆角 -->
+    <size android:width="4dp" />        <!-- 滑块宽度 -->
+</shape>

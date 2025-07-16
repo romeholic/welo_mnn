@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_32"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".widget.AiLanguageFragment">
+    <TextView
+        android:id="@+id/ai_language_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/dp_32"
+        android:text="@string/ai_language" />
+
+    <NumberPicker
+        android:id="@+id/language_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_32" />
+
+</LinearLayout>

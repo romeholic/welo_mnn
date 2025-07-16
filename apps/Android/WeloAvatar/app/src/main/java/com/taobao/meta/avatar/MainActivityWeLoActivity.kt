@@ -123,9 +123,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }*/
         viewBinding.waveFormView.setOnClickListener {
             viewModel.sendMessage("这是一个测试消息")
-            it.postDelayed({
-                viewModel.receivedMessage("反馈给第一条的消息")
-            },2000)
         }
     }
 

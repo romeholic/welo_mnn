@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_guide"
+    app:startDestination="@id/languageSettingFragment">
+
+    <fragment
+        android:id="@+id/languageSettingFragment"
+        android:name="com.taobao.meta.avatar.widget.AiLanguageFragment"
+        android:label="fragment_language_setting"
+        tools:layout="@layout/fragment_ai_language" >
+        <action
+            android:id="@+id/action_languageSettingFragment_to_aiTypeFragment"
+            app:destination="@id/aiTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aiTypeFragment"
+        android:name="com.taobao.meta.avatar.widget.AiTypeFragment"
+        android:label="fragment_ai_type"
+        tools:layout="@layout/fragment_ai_type" >
+        <action
+            android:id="@+id/action_aiTypeFragment_to_languageSettingFragment"
+            app:destination="@id/languageSettingFragment" />
+        <action
+            android:id="@+id/action_aiTypeFragment_to_aiImageFragment"
+            app:destination="@id/aiImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aiImageFragment"
+        android:name="com.taobao.meta.avatar.widget.AiImageFragment"
+        android:label="fragment_ai_image"
+        tools:layout="@layout/fragment_ai_image" >
+        <action
+            android:id="@+id/action_aiImageFragment_to_aiTypeFragment"
+            app:destination="@id/aiTypeFragment" />
+    </fragment>
+
+</navigation>

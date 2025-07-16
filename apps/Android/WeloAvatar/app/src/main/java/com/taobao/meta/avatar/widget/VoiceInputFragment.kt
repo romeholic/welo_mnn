@@ -1,5 +1,7 @@
 package com.taobao.meta.avatar.widget
 
+import android.animation.Animator
+import android.annotation.SuppressLint
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,9 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import com.taobao.meta.avatar.R
 import com.taobao.meta.avatar.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentVoiceInputBinding
 import com.taobao.meta.avatar.llm.LlmPresenter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 语音输入
@@ -18,6 +29,8 @@ import com.taobao.meta.avatar.llm.LlmPresenter
  */
 class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewModel>() {
     private lateinit var llmPresenter: LlmPresenter
+    private var currentChatId: String = ""
+    private val animationRes = listOf("animation_1.json","animation_2.json","animation_3.json","animation_4.json")
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -26,29 +39,86 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
         return FragmentVoiceInputBinding.inflate(inflater, container, false)
     }
 
+    @SuppressLint("ResourceType")
     override fun initView() {
         llmPresenter = LlmPresenter(binding.tvOutput)
         binding.tvOutput.movementMethod = ScrollingMovementMethod()
+        ImageLoader.getInstance(requireContext()).loadGif(R.drawable.anim_voice_input, binding.animationView)
+    }
+
+    private fun startAnimation(){
+//        binding.animationView.setAnimation(animationRes[Random.nextInt(4)])
+//        binding.animationView.playAnimation()
+//        binding.animationView.addAnimatorListener(object : Animator.AnimatorListener {
+//            override fun onAnimationStart(animation: Animator) {}
+//            override fun onAnimationEnd(animation: Animator) {}
+//            override fun onAnimationCancel(animation: Animator) {}
+//            override fun onAnimationRepeat(animation: Animator) {}
+//        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop called")
+        ImageLoader.getInstance(requireContext()).pauseGif(binding.animationView)
+        binding.tvInput.text = ""   // 清空输入文本
+        binding.tvOutput.text = ""  // 清空输出文本
+        binding.tvOutput.visibility = View.GONE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ImageLoader.getInstance(requireContext()).clear(binding.animationView)
     }
 
     override fun observeViewModel() {
-        viewModel.sendData.observe(viewLifecycleOwner) { message ->
-            if (message.isNotEmpty()) {
-                Log.d(TAG, "Received message: $message")
-                if (binding.tvInput.text.isNotEmpty()){
-                    binding.tvInput.text = ""
+        lifecycleScope.launch {
+            //输入的内容
+            viewModel.sendData.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            ) .onEach { message ->
+                withContext(Dispatchers.Main) {
+                    if (message.isNotEmpty()) {
+                        if (binding.tvInput.isGone) {
+                            binding.tvInput.visibility = View.VISIBLE
+                        }
+                        if (binding.tvInput.text.isNotEmpty()){
+                            binding.tvInput.text = ""
+                        }
+                        binding.tvInput.text = message
+                    }
                 }
-                binding.tvInput.text = message
-            }
-        }
-        viewModel.receivedData.observe(viewLifecycleOwner){message ->
-            if (message.isNotEmpty()) {
-                Log.d(TAG, "Received message: $message")
-                if (binding.tvOutput.isGone) {
-                    binding.tvOutput.visibility = View.VISIBLE
-                }
-                llmPresenter.onLlmTextUpdate(message, 0L)
-            }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+            viewModel.collectedText.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            )
+                .onEach { message ->
+                    if (message.isNotEmpty()) {
+                        if (binding.tvOutput.isGone) {
+                            binding.tvOutput.visibility = View.VISIBLE
+                        }
+                        llmPresenter.onLlmTextUpdate(message, 0L)
+                    }
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+            viewModel.collectedText.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            )
+                .onEach { message ->
+                    if (currentChatId != message) {
+                        currentChatId = message
+                        binding.tvOutput.text = ""  // 清空输出文本
+                    }
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
 

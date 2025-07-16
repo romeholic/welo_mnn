@@ -7,13 +7,13 @@ import android.view.View
 import androidx.core.graphics.toColorInt
 
 class WaveformView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null ) : View(context, attrs) {
-    private val barCount = 24
-    private val barWidth = 11f
+    private val barCount = 48
+    private val barWidth = 4f
     private val barSpace = 8f
     private val maxBarHeight = 100f
     private val minBarHeight = 20f
     private val barRadius = 8f
-    private val barColor = "#2196F3".toColorInt()
+    private val barColor = "#90CAF9".toColorInt()
     private val barColorLight = "#90CAF9".toColorInt()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 

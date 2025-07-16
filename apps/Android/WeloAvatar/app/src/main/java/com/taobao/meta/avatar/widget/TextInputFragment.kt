@@ -2,11 +2,23 @@ package com.taobao.meta.avatar.widget
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taobao.meta.avatar.MainActivity
 import com.taobao.meta.avatar.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentTextInputBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 文本输入
@@ -19,6 +31,7 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
     private var messageData: MessageData? = null
     private var responsePosition: Int = -1
     private var messages: MutableList<MessageData>? = null
+    private var currentChatId: String = ""
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -35,39 +48,44 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
             }
             setHasFixedSize(true)
         }
-        adapter.observeHeightChanges(object : MessageAdapter.OnHeightChangedListener {
-            override fun onHeightChanged(oldHeight: Int, newHeight: Int) {
-                if (newHeight > oldHeight) {
-                    // 当高度增加时，滚动到底部
-                    scrollToBottom()
-                } else {
-                    // 当高度减少时，保持在当前消息位置
-                    if (responsePosition != -1 && responsePosition < adapter.getItemCount()) {
-                        binding.recyclerView.scrollToPosition(responsePosition)
-                    }
-                }
-            }
-        })
-        loadMessages()
     }
 
     override fun observeViewModel() {
-        viewModel.sendData.observe(viewLifecycleOwner) { message ->
-            if (message.isNotEmpty()) {
-                sendMessage(message)
-            }
-        }
-        viewModel.receivedData.observe(viewLifecycleOwner) { message ->
-            if (message.isNotEmpty()) {
-                receivedMessage(message)
-            }
-        }
-        viewModel.receivedStatus.observe(viewLifecycleOwner) {
-            if (it) {
-                Log.d(TAG, "Received status: $it")
-                messageData = null
-                responsePosition = -1
-                messages = null
+        lifecycleScope.launch {
+            //输入的内容
+            viewModel.sendData.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            ) .onEach { message ->
+                withContext(Dispatchers.Main) {
+                    if (message.isNotEmpty()) {
+                        sendMessage(message)
+                    }
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+            // 收集AI响应数据
+            viewModel.collectedText.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            ).onEach { message ->
+                    delay(100) // 模拟延迟，确保消息收集完成
+                    withContext(Dispatchers.Main) {
+                        if (message.isNotEmpty()) {
+                            if (message.isNotEmpty()) {
+                                receivedMessage(message)
+                            }
+                        }
+                    }
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
+            viewModel.requestId.collect { string ->
+                if (currentChatId != string) {
+                    currentChatId = string
+                    // 清空之前的消息数据
+                    messageData = null
+                    responsePosition = -1
+                    messages = null
+                }
             }
         }
     }
@@ -98,10 +116,6 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
                     it[responsePosition] = messageData!!
                     // 通知适配器数据已更改，带payload优化
                     adapter.notifyItemChanged(responsePosition, "textChanged")
-//                    binding.recyclerView.postDelayed({
-//                        // 确保滚动到最新消息
-//                        scrollToBottom()
-//                    }, 400)
                 }
             }
         }
@@ -110,8 +124,6 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
     private fun scrollToBottom() {
         binding.recyclerView.postOnAnimation {
             if (adapter.getItemCount() > 0) {
-                // 使用LayoutManager的scrollToPositionWithOffset方法
-                // 确保最后一个Item完全可见
                 val layoutManager = binding.recyclerView.layoutManager as? LinearLayoutManager
                 layoutManager?.scrollToPositionWithOffset(adapter.getItemCount() - 1, 0)
             }
@@ -131,36 +143,6 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
             adapter.addMessage(messageData)
             scrollToBottom()
         }
-    }
-
-    private fun loadMessages() {
-        // 从服务器或本地数据库加载历史消息
-        // 示例数据
-        val messages: MutableList<MessageData> = ArrayList()
-
-        messages.add(
-            MessageData(
-                "1",
-                "你好！",
-                System.currentTimeMillis() - 3600000,
-                "user2",
-                "张三",
-                true
-            )
-        )
-        messages.add(
-            MessageData(
-                "2",
-                "你好，有什么可以帮你的吗？！",
-                System.currentTimeMillis() - 3600000,
-                currentUserId,
-                "张三",
-                false
-            )
-        )
-
-        adapter.setMessages(messages)
-        scrollToBottom()
     }
 
     companion object {

@@ -5,4 +5,5 @@ sealed class InputMode {
     object Text : InputMode()
     object Typing : InputMode()
     object Send : InputMode()
+    object VoiceInput : InputMode()
 }

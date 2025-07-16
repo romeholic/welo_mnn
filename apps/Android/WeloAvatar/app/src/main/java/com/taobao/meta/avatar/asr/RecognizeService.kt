@@ -100,6 +100,9 @@ class RecognizeService(private val activity: MainActivity) {
 
     private fun processSamples() {
         Log.i(TAG, "processing samples")
+        if (recognizer == null){
+            return
+        }
         val stream = recognizer!!.createStream("")
         val interval = 0.1 // i.e., 100 ms
         val bufferSize = (interval * sampleRateInHz).toInt() // in samples
@@ -146,10 +149,8 @@ class RecognizeService(private val activity: MainActivity) {
                     utteranceCount += 1
 //                    Log.i(TAG, "Utterance RTF = ${"%.3f".format(rtf)} over ${"%.2f".format(T_audio)}s audio")
                     recognizer!!.reset(stream)
-                    if (text.isNotEmpty()) {
-                        onRecognizeText?.invoke(text)
-                        Log.d(TAG, "recognize text: $text")
-                    }
+                    onRecognizeText?.invoke(text)
+                    Log.d(TAG, "recognize text: $text")
                     utteranceProcTimeNs = 0
                     utteranceAudioTimeSec = 0.0
                 }

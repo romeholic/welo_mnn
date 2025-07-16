@@ -21,8 +21,8 @@
     <string name="wait_install_apk">please wait for download complete and install</string>
     <string name="get_update_info_failed">get update info failed</string>
     <string name="no_update">No update available</string>
-    <string name="llm_prompt_default" >Your name is Tao, you are a helpful assistant.</string>
-    <string name="llm_welcome_text" >Hello, I am Tao.</string>
+    <string name="llm_prompt_default">Your name is Tao, you are a helpful assistant.</string>
+    <string name="llm_welcome_text">Hello, I am Tao.</string>
     <string name="download_model">Download Resources</string>
     <string name="download_progress">%1$s/%2$s Downloaded\n Speed: %3$s</string>
     <string name="downloading">Downloading…</string>
@@ -33,5 +33,30 @@
     <string name="check_for_update_summary" />
     <string name="inference_by_mnn">Inference Local by MNN</string>
     <string name="record_permission_denied">Record permission denied, please grant it</string>
-
+    <string name="ai_type_desc">您即将定制专属AI伙伴的性格特质，请从以下维度中至少选择3项进行组合</string>
+    <string name="ai_type_title">选择你想要的追随者类型</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="ai_type_list">
+        <item>支持者</item>
+        <item>粉丝</item>
+        <item>批评家</item>
+        <item>乐观主义者</item>
+        <item>悲观主义者</item>
+        <item>顾问</item>
+        <item>危言耸听者</item>
+        <item>现实主义者</item>
+        <item>有远见者</item>
+    </string-array>
+    <string name="ai_language">选择你想要的追随者语言</string>
+    <string-array name="ai_language_list">
+        <item>普通话</item>
+        <item>粤语</item>
+        <item>English</item>
+        <item>日语</item>
+        <item>四川话</item>
+        <item>河南话</item>
+        <item>北京话</item>
+    </string-array>
+    <string name="ai_image">请选取追随者形象</string>
+    <string name="ai_image_desc">我将以你选择的形象与你互动</string>
 </resources>
