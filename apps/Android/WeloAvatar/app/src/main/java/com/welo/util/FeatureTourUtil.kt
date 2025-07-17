@@ -2,16 +2,20 @@ package com.welo.util
 
 import FeatureTour
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.util.Log
 import com.taobao.meta.avatar.MainActivity
 import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 
 object FeatureTourUtil {
+    /**
+     * 功能引导是否完成
+     */
     private const val FEATURE_TOUR_KEY = "feature_tour_key"
     @SuppressLint("StaticFieldLeak")
     private lateinit var featureTour: FeatureTour
 
-    fun featureTour(activity: MainActivity, viewBinding: ActivityMainWeLoBinding) {
+    fun featureTour(activity: Activity, viewBinding: ActivityMainWeLoBinding) {
         if (PreferenceUtil.get().getBoolean(FEATURE_TOUR_KEY)){
             Log.d("FeatureTourUtil", "功能引导已显示，跳过")
             return

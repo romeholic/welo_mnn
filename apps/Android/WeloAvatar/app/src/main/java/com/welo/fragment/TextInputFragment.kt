@@ -71,9 +71,7 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
                     delay(100) // 模拟延迟，确保消息收集完成
                     withContext(Dispatchers.Main) {
                         if (message.isNotEmpty()) {
-                            if (message.isNotEmpty()) {
-                                receivedMessage(message)
-                            }
+                            receivedMessage(message)
                         }
                     }
                 }.launchIn(viewLifecycleOwner.lifecycleScope)

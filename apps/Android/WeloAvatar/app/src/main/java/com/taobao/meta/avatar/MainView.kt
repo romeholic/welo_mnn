@@ -5,6 +5,7 @@ package com.taobao.meta.avatar
 
 import android.content.Intent
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -145,6 +146,7 @@ class MainView(private val mainActivity: MainActivity, val callback:MainViewCall
     }
 
     fun updateDownloadStatus(downloaded: Boolean) {
+        Log.d("", "updateDownloadStatus: downloaded=$downloaded")
         if (downloaded) {
             buttonDownload.visibility = View.GONE
             textDownloadProgress.visibility = View.GONE

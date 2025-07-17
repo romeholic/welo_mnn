@@ -44,7 +44,7 @@ class DebugModule {
             return
         }
         if (MHConfig.DEBUG_SCREEN_SHOT) {
-//            activity.mainView.viewMask.visibility = View.GONE
+            activity.mainView.viewMask.visibility = View.GONE
             return
         }
         this.activity = activity
@@ -249,8 +249,8 @@ class DebugModule {
             "为这座城市描绘出另一番景象。",
         ).forEach {
             CoroutineScope(Dispatchers.Default).launch {
-               Log.d(TAG, "generate tts in thread: ${Thread.currentThread().name}")
-               tts.processSherpa(it, 0)
+                Log.d(TAG, "generate tts in thread: ${Thread.currentThread().name}")
+                tts.processSherpa(it, 0)
             }
         }
 //        val audioChunksPlayer = AudioChunksPlayer()

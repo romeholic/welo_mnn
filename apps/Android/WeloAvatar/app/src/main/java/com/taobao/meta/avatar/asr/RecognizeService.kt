@@ -4,6 +4,7 @@
 package com.taobao.meta.avatar.asr
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.media.AudioFormat
 import android.media.AudioRecord
@@ -17,7 +18,6 @@ import com.k2fsa.sherpa.mnn.getEndpointConfig
 import com.k2fsa.sherpa.mnn.getFeatureConfig
 import com.k2fsa.sherpa.mnn.getModelConfig
 import com.k2fsa.sherpa.mnn.getOnlineLMConfig
-import com.taobao.meta.avatar.MainActivity
 import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMISSION
 import com.taobao.meta.avatar.utils.DeviceUtils
 import kotlinx.coroutines.CompletableDeferred
@@ -27,7 +27,7 @@ import kotlinx.coroutines.async
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
-class RecognizeService(private val activity: MainActivity) {
+class RecognizeService(private val activity: Activity) {
 
     private val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
 

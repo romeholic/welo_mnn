@@ -19,7 +19,7 @@
             tools:ignore="UnusedAttribute" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivityWeLoActivity"
             android:configChanges="locale|orientation|keyboardHidden"
             android:exported="true"
             android:screenOrientation="portrait"

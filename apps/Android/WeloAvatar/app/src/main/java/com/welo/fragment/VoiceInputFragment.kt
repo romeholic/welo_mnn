@@ -11,13 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.taobao.meta.avatar.R
-import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentVoiceInputBinding
 import com.taobao.meta.avatar.llm.LlmPresenter
+import com.welo.base.BaseFragment
 import com.welo.base.ImageLoader
+import com.welo.util.LoadScreenAnimUtil
 import com.welo.viewmodel.MessageViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -44,18 +45,7 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
     override fun initView() {
         llmPresenter = LlmPresenter(binding.tvOutput)
         binding.tvOutput.movementMethod = ScrollingMovementMethod()
-        ImageLoader.Companion.getInstance(requireContext()).loadGif(R.drawable.anim_voice_input, binding.animationView)
-    }
-
-    private fun startAnimation(){
-//        binding.animationView.setAnimation(animationRes[Random.nextInt(4)])
-//        binding.animationView.playAnimation()
-//        binding.animationView.addAnimatorListener(object : Animator.AnimatorListener {
-//            override fun onAnimationStart(animation: Animator) {}
-//            override fun onAnimationEnd(animation: Animator) {}
-//            override fun onAnimationCancel(animation: Animator) {}
-//            override fun onAnimationRepeat(animation: Animator) {}
-//        })
+        LoadScreenAnimUtil.instance.init(requireContext(), binding.animationView)
     }
 
     override fun onPause() {
@@ -102,6 +92,7 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
                 Lifecycle.State.STARTED
             )
                 .onEach { message ->
+                    delay(100)
                     if (message.isNotEmpty()) {
                         if (binding.tvOutput.isGone) {
                             binding.tvOutput.visibility = View.VISIBLE
