@@ -1,6 +1,5 @@
-package com.taobao.meta.avatar.widget
+package com.welo.fragment
 
-import android.animation.Animator
 import android.annotation.SuppressLint
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -13,9 +12,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.taobao.meta.avatar.R
-import com.taobao.meta.avatar.base.BaseFragment
+import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentVoiceInputBinding
 import com.taobao.meta.avatar.llm.LlmPresenter
+import com.welo.base.ImageLoader
+import com.welo.viewmodel.MessageViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -43,7 +44,7 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
     override fun initView() {
         llmPresenter = LlmPresenter(binding.tvOutput)
         binding.tvOutput.movementMethod = ScrollingMovementMethod()
-        ImageLoader.getInstance(requireContext()).loadGif(R.drawable.anim_voice_input, binding.animationView)
+        ImageLoader.Companion.getInstance(requireContext()).loadGif(R.drawable.anim_voice_input, binding.animationView)
     }
 
     private fun startAnimation(){
@@ -65,7 +66,7 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
     override fun onStop() {
         super.onStop()
         Log.d(TAG, "onStop called")
-        ImageLoader.getInstance(requireContext()).pauseGif(binding.animationView)
+        ImageLoader.Companion.getInstance(requireContext()).pauseGif(binding.animationView)
         binding.tvInput.text = ""   // 清空输入文本
         binding.tvOutput.text = ""  // 清空输出文本
         binding.tvOutput.visibility = View.GONE
@@ -73,7 +74,7 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
 
     override fun onDestroy() {
         super.onDestroy()
-        ImageLoader.getInstance(requireContext()).clear(binding.animationView)
+        ImageLoader.Companion.getInstance(requireContext()).clear(binding.animationView)
     }
 
     override fun observeViewModel() {

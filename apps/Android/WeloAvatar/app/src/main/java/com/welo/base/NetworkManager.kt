@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.base
 
 import android.util.Log
 import io.ktor.client.HttpClient

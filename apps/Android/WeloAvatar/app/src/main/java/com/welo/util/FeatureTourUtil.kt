@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.util
 
 import FeatureTour
 import android.annotation.SuppressLint

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".MainActivityWeLoActivity">
+        tools:context="com.welo.MainActivityWeLoActivity">
 
 
         <androidx.fragment.app.FragmentContainerView
@@ -38,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
-        <com.taobao.meta.avatar.widget.WaveformView
+        <com.welo.widget.WaveformView
             android:id="@+id/waveFormView"
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_46"

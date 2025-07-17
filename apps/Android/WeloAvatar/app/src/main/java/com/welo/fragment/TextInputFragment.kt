@@ -1,18 +1,17 @@
-package com.taobao.meta.avatar.widget
+package com.welo.fragment
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taobao.meta.avatar.MainActivity
-import com.taobao.meta.avatar.base.BaseFragment
+import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentTextInputBinding
+import com.welo.adapter.MessageAdapter
+import com.welo.entity.MessageData
+import com.welo.viewmodel.MessageViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn

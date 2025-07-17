@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.viewmodel
 
 import androidx.lifecycle.ViewModel
 

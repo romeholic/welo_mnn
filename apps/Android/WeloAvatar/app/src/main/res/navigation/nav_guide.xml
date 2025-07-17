@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/languageSettingFragment"
-        android:name="com.taobao.meta.avatar.widget.AiLanguageFragment"
+        android:name="com.welo.fragment.AiLanguageFragment"
         android:label="fragment_language_setting"
         tools:layout="@layout/fragment_ai_language" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/aiTypeFragment"
-        android:name="com.taobao.meta.avatar.widget.AiTypeFragment"
+        android:name="com.welo.fragment.AiTypeFragment"
         android:label="fragment_ai_type"
         tools:layout="@layout/fragment_ai_type" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/aiImageFragment"
-        android:name="com.taobao.meta.avatar.widget.AiImageFragment"
+        android:name="com.welo.fragment.AiImageFragment"
         android:label="fragment_ai_image"
         tools:layout="@layout/fragment_ai_image" >
         <action

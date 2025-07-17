@@ -117,7 +117,25 @@ class AudioBlendShapePlayer(activity: MainActivity) {
             }
         sessionScope = CoroutineScope(executor.asCoroutineDispatcher() + SupervisorJob(sessionJob))
         MainScope().launch {
-            processAudioBlendShapes()
+            try {
+                Log.d(TAG, "开始播放协程，sessionId: $sessionId")
+                processAudioBlendShapes()
+                Log.d(TAG, "播放协程正常结束，sessionId: $sessionId")
+            } catch (e: CancellationException) {
+                Log.w(TAG, "播放协程被取消，sessionId: $sessionId, 原因: ${e.message}")
+                // 可以选择在这里重置状态或通知监听器
+                withContext(Dispatchers.Main) {
+                    listeners.forEach { it.onPlayEnd() }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "播放协程发生未知异常，sessionId: $sessionId", e)
+                // 处理其他异常，如网络错误、资源不足等
+                withContext(Dispatchers.Main) {
+                    listeners.forEach { it.onPlayEnd() }
+                }
+            } finally {
+                Log.i(TAG, "播放协程最终状态: sessionId: $sessionId, stopped: $stopped")
+            }
         }
     }
 

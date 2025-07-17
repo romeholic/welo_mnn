@@ -23,7 +23,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import com.taobao.meta.avatar.R
-import com.taobao.meta.avatar.widget.dpToPx
+import com.welo.base.dpToPx
 
 /**
  * 应用内功能引导组件，用于高亮显示特定视图并提供引导信息

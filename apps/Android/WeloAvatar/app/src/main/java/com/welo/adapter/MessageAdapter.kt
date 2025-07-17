@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.taobao.meta.avatar.R
-
+import com.welo.base.observeHeightChanges
+import com.welo.entity.MessageData
 
 class MessageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

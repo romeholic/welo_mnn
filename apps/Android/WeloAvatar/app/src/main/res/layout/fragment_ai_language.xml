@@ -6,7 +6,7 @@
     android:padding="@dimen/dp_32"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".widget.AiLanguageFragment">
+    tools:context="com.welo.fragment.AiLanguageFragment">
     <TextView
         android:id="@+id/ai_language_text"
         android:layout_width="match_parent"

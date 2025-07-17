@@ -1,17 +1,16 @@
-package com.taobao.meta.avatar.widget
+package com.welo.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.taobao.meta.avatar.llm.FlowInputs
 import com.taobao.meta.avatar.llm.FlowRequest
 import com.taobao.meta.avatar.utils.StringUtil
-import io.ktor.http.headers
+import com.welo.base.KtorFlowNetworkManager
+import com.welo.base.TextStreamResponse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,13 +19,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.cancellation.CancellationException
 
 class MessageViewModel : ViewModel() {
 
@@ -78,7 +72,7 @@ class MessageViewModel : ViewModel() {
             )
             val url =
                 "http://192.168.111.10:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct"
-            KtorFlowNetworkManager.instance.streamTextPost(
+            KtorFlowNetworkManager.Companion.instance.streamTextPost(
                 requestId,
                 url,
                 requestBody,
@@ -116,7 +110,7 @@ class MessageViewModel : ViewModel() {
     fun closeRequest(requestId: String) {
         // 重置状态
         _aiResponseFlow.value = TextStreamResponse.Idle
-        KtorFlowNetworkManager.instance.cancelRequest(requestId)
+        KtorFlowNetworkManager.Companion.instance.cancelRequest(requestId)
         _receivedStatus.value = true
     }
 

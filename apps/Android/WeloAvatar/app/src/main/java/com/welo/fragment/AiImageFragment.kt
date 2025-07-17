@@ -1,15 +1,13 @@
-package com.taobao.meta.avatar.widget
+package com.welo.fragment
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.taobao.meta.avatar.R
-import com.taobao.meta.avatar.base.BaseFragment
+import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentAiImageBinding
+import com.welo.viewmodel.GuideViewModel
 
 
 /**

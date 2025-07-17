@@ -1,18 +1,17 @@
-package com.taobao.meta.avatar.widget
+package com.welo.fragment
 
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.taobao.meta.avatar.R
-import com.taobao.meta.avatar.base.BaseFragment
+import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentAiTypeBinding
+import com.welo.viewmodel.GuideViewModel
+import com.welo.base.setColorText
 
 /**
  * 追随者类型

@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.entity
 
 data class MessageData(
     val id: String,

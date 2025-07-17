@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.base
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import java.io.File
 
 /**
  * Glide图片加载工具类
@@ -40,7 +41,7 @@ class ImageLoader private constructor(private val context: Context){
     fun loadImage(url: String, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadImageInternal(url, imageView, options)
 
-    fun loadImage(filePath: java.io.File, imageView: ImageView, options: Options.() -> Unit = {}) =
+    fun loadImage(filePath: File, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadImageInternal(filePath, imageView, options)
 
     fun loadImage(@DrawableRes resId: Int, imageView: ImageView, options: Options.() -> Unit = {}) =
@@ -54,7 +55,7 @@ class ImageLoader private constructor(private val context: Context){
     fun loadGif(url: String, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadGifInternal(url, imageView, options)
 
-    fun loadGif(filePath: java.io.File, imageView: ImageView, options: Options.() -> Unit = {}) =
+    fun loadGif(filePath: File, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadGifInternal(filePath, imageView, options)
 
     fun loadGif(@RawRes resId: Int, imageView: ImageView, options: Options.() -> Unit = {}) =

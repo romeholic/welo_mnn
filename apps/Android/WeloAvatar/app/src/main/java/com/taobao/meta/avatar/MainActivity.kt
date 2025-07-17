@@ -20,7 +20,7 @@ import com.taobao.meta.avatar.MHConfig.A2BS_MODEL_DIR
 import com.taobao.meta.avatar.a2bs.A2BSService
 import com.taobao.meta.avatar.a2bs.AudioBlendShapePlayer
 import com.taobao.meta.avatar.asr.RecognizeService
-import com.taobao.meta.avatar.base.BaseActivity
+import com.welo.base.BaseActivity
 import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 import com.taobao.meta.avatar.download.DownloadCallback
 import com.taobao.meta.avatar.download.DownloadModule
@@ -28,11 +28,11 @@ import com.taobao.meta.avatar.record.RecordPermission
 import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMISSION
 import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
-import com.taobao.meta.avatar.widget.FeatureTourUtil
-import com.taobao.meta.avatar.widget.InputMode
-import com.taobao.meta.avatar.widget.MessageViewModel
-import com.taobao.meta.avatar.widget.PreferenceUtil
-import com.taobao.meta.avatar.widget.TextStreamResponse
+import com.welo.util.FeatureTourUtil
+import com.welo.util.InputMode
+import com.welo.viewmodel.MessageViewModel
+import com.welo.util.PreferenceUtil
+import com.welo.base.TextStreamResponse
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async

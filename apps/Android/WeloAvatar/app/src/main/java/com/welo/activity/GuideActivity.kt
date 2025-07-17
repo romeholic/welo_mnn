@@ -1,15 +1,11 @@
-package com.taobao.meta.avatar.widget
+package com.welo.activity
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.taobao.meta.avatar.R
-import com.taobao.meta.avatar.base.BaseActivity
 import com.taobao.meta.avatar.databinding.ActivityGuideBinding
+import com.welo.base.BaseActivity
+import com.welo.viewmodel.GuideViewModel
 
 class GuideActivity : BaseActivity<ActivityGuideBinding, GuideViewModel>() {
     private lateinit var navController: NavController

@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.WindowManager
 import android.widget.ImageView
+import com.welo.base.ImageLoader
 
 @SuppressLint("ClickableViewAccessibility")
 class FloatingIcon(private val context: Context) {

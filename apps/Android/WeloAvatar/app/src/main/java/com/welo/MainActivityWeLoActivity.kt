@@ -1,25 +1,24 @@
-package com.taobao.meta.avatar
+package com.welo
 
-import android.graphics.Rect
 import android.util.Log
-import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.marginBottom
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.alibaba.mls.api.ApplicationProvider
-import com.taobao.meta.avatar.base.BaseActivity
+import com.taobao.meta.avatar.MHConfig
+import com.taobao.meta.avatar.R
+import com.welo.base.BaseActivity
 import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 import com.taobao.meta.avatar.download.DownloadCallback
 import com.taobao.meta.avatar.download.DownloadModule
-import com.taobao.meta.avatar.llm.LlmService
-import com.taobao.meta.avatar.widget.MessageViewModel
+import com.welo.viewmodel.MessageViewModel
 import kotlinx.coroutines.launch
 import java.io.File
 
-class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(), DownloadCallback{
+class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
+    DownloadCallback {
 
     /**
      * 底部导航栏高度

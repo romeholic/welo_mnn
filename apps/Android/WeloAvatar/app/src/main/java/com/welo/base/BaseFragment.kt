@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.base
+package com.welo.base
 
 import android.graphics.Color
 import android.graphics.PorterDuff

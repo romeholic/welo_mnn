@@ -6,7 +6,7 @@
     android:gravity="center_vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".widget.AiTypeFragment">
+    tools:context="com.welo.fragment.AiTypeFragment">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

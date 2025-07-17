@@ -1,4 +1,4 @@
-package com.taobao.meta.avatar.widget
+package com.welo.fragment
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.taobao.meta.avatar.R
-import com.taobao.meta.avatar.base.BaseFragment
+import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentAiLanguageBinding
+import com.welo.viewmodel.GuideViewModel
+import com.welo.base.setColorText
+import com.welo.base.setOnScrollFinishedListener
 
 
 /**
@@ -38,7 +41,7 @@ class AiLanguageFragment : BaseFragment<FragmentAiLanguageBinding, GuideViewMode
             textColor = Color.WHITE
             dividerDrawable = null
             selectionDividerHeight = 0
-            setOnScrollFinishedListener(500L) {selectedValue ->
+            setOnScrollFinishedListener(500L) { selectedValue ->
                 val selectedOption = options[selectedValue]
                 Toast.makeText(context, "选择了: $selectedOption", Toast.LENGTH_SHORT).show()
                 navController.navigate(R.id.action_languageSettingFragment_to_aiTypeFragment)

@@ -1,6 +1,7 @@
-package com.taobao.meta.avatar.widget
+package com.welo.widget
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
@@ -62,7 +63,7 @@ class WaveformView @JvmOverloads constructor(context: Context, attrs: AttributeS
         stopAnimation()
     }
 
-    override fun onDraw(canvas: android.graphics.Canvas) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val centerY = height / 2f
         val startX = (width - (barCount * barWidth + (barCount - 1) * barSpace)) / 2f
