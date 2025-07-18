@@ -9,17 +9,13 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.marginBottom
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.alibaba.mls.api.ApplicationProvider
-import com.taobao.meta.avatar.MHConfig.A2BS_MODEL_DIR
-import com.taobao.meta.avatar.a2bs.A2BSService
+import com.alibaba.mnnllm.android.utils.FileUtils
 import com.taobao.meta.avatar.asr.RecognizeService
-import com.welo.base.BaseActivity
 import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 import com.taobao.meta.avatar.download.DownloadCallback
 import com.taobao.meta.avatar.download.DownloadModule
@@ -27,15 +23,16 @@ import com.taobao.meta.avatar.record.RecordPermission
 import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMISSION
 import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
-import com.welo.util.FeatureTourUtil
-import com.welo.util.InputMode
-import com.welo.viewmodel.MessageViewModel
-import com.welo.util.PreferenceUtil
+import com.welo.base.BaseActivity
 import com.welo.base.TextStreamResponse
 import com.welo.base.setupHideKeyboardOnOutsideTouch
 import com.welo.util.AudioBlendShapePlayerUtil
+import com.welo.util.FeatureTourUtil
+import com.welo.util.InputMode
 import com.welo.util.LoadScreenAnimUtil
+import com.welo.util.PreferenceUtil
 import com.welo.util.ScenarioSealed
+import com.welo.viewmodel.MessageViewModel
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -53,10 +50,8 @@ import kotlin.system.exitProcess
 //    STATUS_CALLING,
 //}
 
-class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(),
-    MainView.MainViewCallback, DownloadCallback {
+class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(), DownloadCallback {
 
-    private var a2bsService: A2BSService? = null
     private var ttsService: TtsService? = null
     private var memoryMonitor: MemoryMonitor? = null
     private var audioBendShapePlayer: AudioBlendShapePlayerUtil? = null
@@ -90,7 +85,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         PreferenceUtil.init(this)
         init()
         initListener()
-        FeatureTourUtil.featureTour(this, viewBinding)
     }
 
     override fun observeViewModel() {
@@ -99,11 +93,17 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
             viewModel.aiResponseFlow.collect { response ->
                 when (response) {
                     is TextStreamResponse.Connecting -> {
+                        if (isVoiceInput){
+                            LoadScreenAnimUtil.instance.loadScreenAnim(ScenarioSealed.Loading)
+                        }
                         println("正在连接到流...")
                         isEndReceived = false
                         inputStatusImage(InputMode.Typing)
                     }
                     is TextStreamResponse.Connected -> {
+                        if (isVoiceInput){
+                            LoadScreenAnimUtil.instance.loadScreenAnim(ScenarioSealed.VoiceOutput)
+                        }
                         println("已连接到流")
                     }
                     is TextStreamResponse.Data -> {
@@ -146,7 +146,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         MHConfig.BASE_DIR = downloadManager.getDownloadPath()
         memoryMonitor = MemoryMonitor(this)
         memoryMonitor!!.startMonitoring()
-        a2bsService = A2BSService()
         ttsService = TtsService()
         recognizeService = RecognizeService(this)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -190,7 +189,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                 if (isVoiceInput && isEndReceived) {
                     startRecord()
                     LoadScreenAnimUtil.instance.loadScreenAnim(ScenarioSealed.VoiceInput)
-                    stopAnswer()
                 }
                 true // ✅ 消费长按事件
             }
@@ -254,21 +252,20 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
     }
 
-    override fun onEndCall() {
+    fun onEndCall() {
         Log.d(TAG, "onEndCall")
         chatStatus = ChatStatus.STATUS_IDLE
-//        showSystemBarsCompat()
         cancelAllJobs()
         stopAnswer()
         stopRecord()
         audioBendShapePlayer?.stop()
     }
 
-    override fun onStopAnswerClicked() {
+     fun onStopAnswerClicked() {
         stopAnswer()
     }
 
-    override fun onStartButtonClicked() {
+     fun onStartButtonClicked() {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 RecordPermission.permissions[0]
@@ -296,7 +293,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
     }
 
-    override fun onDownloadClicked() {
+     fun onDownloadClicked() {
         lifecycleScope.launch {
             downloadManager.download()
         }
@@ -313,22 +310,8 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
     }
 
-    fun hideSystemBarsCompat() {
-        val decorView = window.decorView
-        val insetsController = WindowInsetsControllerCompat(window, decorView)
-        insetsController.hide(WindowInsetsCompat.Type.systemBars())
-        insetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-    }
-
-    private fun showSystemBarsCompat() {
-        val decorView = window.decorView
-        val insetsController = WindowInsetsControllerCompat(window, decorView)
-        insetsController.show(WindowInsetsCompat.Type.systemBars())
-        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
-    }
-
     private suspend fun setupServices() {
+        FeatureTourUtil.featureTour(this, viewBinding)
         if (initComplete.isCompleted) {
             return
         }
@@ -392,7 +375,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         audioBendShapePlayer?.startNewSession(answerSession)
         lifecycleScope.launch {
             viewModel.sendMessage(text)
-            viewModel.receivedMessage(text,callingSessionId.toString())
+            viewModel.receivedMessage(text,callingSessionId)
         }
     }
 
@@ -409,6 +392,9 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
             }
 
             override fun onPlayEnd() {
+                if (isVoiceInput){
+                    LoadScreenAnimUtil.instance.loadScreenAnim()
+                }
                 Log.d(TAG, "onPlayEnd: chatStatus: $chatStatus")
             }
         })
@@ -416,10 +402,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
 
     private suspend fun setupRecognizeService() {
         recognizeService.initRecognizer()
-    }
-
-    fun getA2bsService(): A2BSService {
-        return a2bsService!!
     }
 
     override fun onStart() {
@@ -476,8 +458,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         ttsService!!.init(MHConfig.TTS_MODEL_DIR)
     }
 
-    private suspend fun loadA2BSModel() {
-        a2bsService!!.init(A2BS_MODEL_DIR, this)
+    private fun loadA2BSModel() {
         createAudioBlendShapePlayer()
     }
 
@@ -524,7 +505,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         isEndReceived = true
         if (isVoiceInput){
             inputStatusImage(InputMode.VoiceInput)
-            LoadScreenAnimUtil.instance.loadScreenAnim()
         }else{
             viewModel.receivedStatus(true)
             inputStatusImage(InputMode.Send)
@@ -539,8 +519,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                 viewBinding.inputStateChange.setImageResource(R.drawable.stop_line)
                 if (!isVoiceInput) {
                     viewBinding.keyBordInput.isEnabled = false
-                } else {
-                    LoadScreenAnimUtil.instance.loadScreenAnim(ScenarioSealed.VoiceOutput)
                 }
             }
             is InputMode.Send -> {
@@ -562,7 +540,10 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
     }
 
     override fun onDownloadProgress(progress: Double, currentBytes: Long, totalBytes: Long, speedInfo:String) {
-
+        lifecycleScope.launch {
+            viewBinding.loadingText.text = getString(R.string.download_progress,
+                FileUtils.formatFileSize(currentBytes), FileUtils.formatFileSize(totalBytes), speedInfo)
+        }
     }
 
     override fun onDownloadComplete(success: Boolean, file: File?) {

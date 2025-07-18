@@ -1,9 +1,8 @@
-package com.taobao.meta.avatar.utils
+package com.welo.util
 
 import android.util.Log
 import com.taobao.meta.avatar.llm.FlowResponse
 import kotlinx.serialization.json.Json
-import retrofit2.http.Tag
 
 object StringUtil {
     private const val TAG = "StringUtil"

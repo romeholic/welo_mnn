@@ -30,7 +30,7 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
     private var messageData: MessageData? = null
     private var responsePosition: Int = -1
     private var messages: MutableList<MessageData>? = null
-    private var currentChatId: String = ""
+    private var currentChatId: Long = 0L
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -75,9 +75,9 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
                         }
                     }
                 }.launchIn(viewLifecycleOwner.lifecycleScope)
-            viewModel.requestId.collect { string ->
-                if (currentChatId != string) {
-                    currentChatId = string
+            viewModel.requestId.collect { value ->
+                if (currentChatId != value) {
+                    currentChatId = value
                     // 清空之前的消息数据
                     messageData = null
                     responsePosition = -1

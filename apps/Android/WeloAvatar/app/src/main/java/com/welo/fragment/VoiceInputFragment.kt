@@ -31,8 +31,9 @@ import kotlinx.coroutines.withContext
  */
 class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewModel>() {
     private lateinit var llmPresenter: LlmPresenter
-    private var currentChatId: String = ""
-    private val animationRes = listOf("animation_1.json","animation_2.json","animation_3.json","animation_4.json")
+    private var currentChatId: Long = 0L
+    private val animationRes =
+        listOf("animation_1.json", "animation_2.json", "animation_3.json", "animation_4.json")
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -64,7 +65,9 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
 
     override fun onDestroy() {
         super.onDestroy()
-        ImageLoader.Companion.getInstance(requireContext()).clear(binding.animationView)
+        runCatching {
+            ImageLoader.Companion.getInstance(requireContext()).clear(binding.animationView)
+        }
     }
 
     override fun observeViewModel() {
@@ -73,13 +76,13 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
             viewModel.sendData.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle,
                 Lifecycle.State.STARTED
-            ) .onEach { message ->
+            ).onEach { message ->
                 withContext(Dispatchers.Main) {
                     if (message.isNotEmpty()) {
                         if (binding.tvInput.isGone) {
                             binding.tvInput.visibility = View.VISIBLE
                         }
-                        if (binding.tvInput.text.isNotEmpty()){
+                        if (binding.tvInput.text.isNotEmpty()) {
                             binding.tvInput.text = ""
                         }
                         binding.tvInput.text = message
@@ -92,25 +95,23 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
                 Lifecycle.State.STARTED
             )
                 .onEach { message ->
-                    delay(100)
-                    if (message.isNotEmpty()) {
-                        if (binding.tvOutput.isGone) {
-                            binding.tvOutput.visibility = View.VISIBLE
+                    delay(10)
+                    withContext(Dispatchers.Main) {
+                        if (message.isNotEmpty()) {
+                            if (binding.tvOutput.isGone) {
+                                binding.tvOutput.visibility = View.VISIBLE
+                            }
+                            llmPresenter.onLlmTextUpdate(message, currentChatId.toLong())
                         }
-                        llmPresenter.onLlmTextUpdate(message, 0L)
                     }
                 }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-            viewModel.collectedText.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            )
-                .onEach { message ->
-                    if (currentChatId != message) {
-                        currentChatId = message
-                        binding.tvOutput.text = ""  // 清空输出文本
-                    }
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
+            viewModel.requestId.collect { value ->
+                llmPresenter.setCurrentSessionId(value)
+                if (currentChatId != value) {
+                    currentChatId = value
+                }
+            }
         }
     }
 

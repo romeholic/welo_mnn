@@ -3,11 +3,12 @@
 package com.taobao.meta.avatar.download
 
 import android.app.Activity
+import android.os.Environment
 import android.util.Log
 import com.alibaba.mls.api.download.DownloadInfo
 import com.alibaba.mls.api.download.DownloadListener
-import com.alibaba.mls.api.download.RepoDownloadSate
 import com.alibaba.mls.api.download.ModelDownloadManager
+import com.alibaba.mls.api.download.RepoDownloadSate
 import com.alibaba.mnnllm.android.utils.FileUtils.formatFileSize
 import com.taobao.meta.avatar.debug.DebugModule.Companion.DEBUG_USE_PRIVATE
 
@@ -20,11 +21,11 @@ class DownloadModule(private val context: Activity) {
     //define the minimal repos to download
     private val reposToDownload = listOf(
         "taobao-mnn/Qwen2.5-1.5B-Instruct-MNN",
-        "taobao-mnn/UniTalker-MNN",
-        "taobao-mnn/bert-vits2-MNN",
-        "taobao-mnn/TaoAvatar-NNR-MNN",
-        "taobao-mnn/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20",
-        "taobao-mnn/sherpa-mnn-streaming-zipformer-en-2023-02-21"
+        "taobao-mnn/UniTalker-MNN",//通用对话模型：可能支持多轮对话、知识问答等功能，同样经过 MNN 优化
+        "taobao-mnn/bert-vits2-MNN",//语音合成模型
+        "taobao-mnn/TaoAvatar-NNR-MNN", // 数字人模型
+        "taobao-mnn/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20",//流式语音识别模型，支持中英文双语
+        "taobao-mnn/sherpa-mnn-streaming-zipformer-en-2023-02-21" //流式语音识别模型，仅支持英文
     )
 
     private val finishedSet = mutableSetOf<String>()
@@ -37,7 +38,7 @@ class DownloadModule(private val context: Activity) {
     private var lastProgressBytes: Long = 0
     private val downloadListener = object : DownloadListener {
         override fun onDownloadStart(modelId: String) {
-//            downloadCallback?.onDownloadStart()
+            downloadCallback?.onDownloadStart()
         }
 
         override fun onDownloadFailed(modelId: String, e: Exception) {
@@ -117,6 +118,9 @@ class DownloadModule(private val context: Activity) {
     }
 
     fun getDownloadPath(): String {
+        val sdCardDir = Environment.getExternalStorageDirectory()
+        val sdCardPath = sdCardDir.absolutePath
+        Log.d(TAG, "getDownloadPath： ${context.filesDir.absolutePath} sdCardPath：$sdCardPath DEBUG_USE_PRIVATE：$DEBUG_USE_PRIVATE")
         if (DEBUG_USE_PRIVATE) {
             return context.filesDir.absolutePath + "/metahuman"
         } else {

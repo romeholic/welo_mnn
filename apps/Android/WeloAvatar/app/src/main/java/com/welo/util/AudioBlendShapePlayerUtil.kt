@@ -161,9 +161,6 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
 
     // 核心播放逻辑（移除动画同步等待）
     private suspend fun processAudioBlendShapes() {
-        if (DebugModule.DEBUG_DISABLE_A2BS) {
-            return
-        }
         try {
             while (!stopped) {
                 val nextAbs = getNextAudioBlendShape()
@@ -202,7 +199,8 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
                     audioChunksPlayer?.playChunk(nextAbs.audio)
                     Log.d(TAG, "PlayAudio end: ${nextAbs.id}")
                 }
-                if (nextAbs.is_last || nextAbs.id == lastId) {
+                Log.d(TAG," PlayAudio next: ${nextAbs.id} is_last: ${nextAbs.is_last} size:${audioBlendShapeMap.size}")
+                if (nextAbs.is_last || nextAbs.id == lastId ||(nextAbs.id != 0 && nextAbs.id == audioBlendShapeMap.size -1)) {
                     Log.d(TAG, "PlayAudio is last: ${nextAbs.id}")
                     waitAudioComplete(audioChunksPlayer!!.currentSize())
                     Log.d(TAG, "PlayAudio last wait complete ${nextAbs.id}")
@@ -258,7 +256,6 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
                 playText(sentence, nextSegmentId++, false)
             }
         }
-
         if (lastEnd < text.length) {
             pendingText.clear()
             pendingText.append(text.substring(lastEnd))
@@ -296,27 +293,17 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
     }
 
     // 文本转音频（移除A2BS处理）
-    fun playText(text: String, id: Int, is_last: Boolean) {
-        if (DebugModule.DEBUG_DISABLE_A2BS) {
-            sessionScope?.launch {
-                withContext(Dispatchers.Default) {
-                    ttsService.processSherpa(text, id)
-                }
-            }
-            Log.d(TAG, "stop..")
-            return
-        }
-
+    fun playText(text: String, id: Int, isLast: Boolean) {
         val finalText = text.replace(SPECIAL_CHARS, "").trim()
         if (finalText.isEmpty()) {
             Log.d(TAG, "过滤后文本为空，跳过播放: $text")
             return
         }
 
-        Log.d(TAG, "playText: ${finalText} id: ${id} isEnd:${is_last}")
+        Log.d(TAG, "playText: $finalText id: $id isEnd:${isLast}")
         // 音频数据对象（移除动画相关参数）
         val audioBlendShape = AudioBlendShape(
-            id, is_last, finalText, ShortArray(0), null, AudioToBlendShapeData()
+            id, isLast, finalText, ShortArray(0), null, AudioToBlendShapeData()
         )
         sessionScope?.launch {
             val processTtsStartTime = System.currentTimeMillis()
@@ -396,7 +383,10 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
 
     // 停止逻辑（移除动画相关清理）
     fun stop() {
-        Log.d(TAG, "stop: called")
+        Log.d(TAG, "stop: called: $stopped")
+        if (stopped){
+            return
+        }
         stopped = true
         playingStatus.reset()
         sessionJob?.cancel()
@@ -416,9 +406,6 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
 
     // 简化update方法（移除动画过渡状态）
     fun update(): PlayingStatus {
-        if (DebugModule.DEBUG_DISABLE_A2BS) {
-            return playingStatus
-        }
         if (stopped) {
             return playingStatus
         }

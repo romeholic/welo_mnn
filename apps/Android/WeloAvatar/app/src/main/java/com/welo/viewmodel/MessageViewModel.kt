@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taobao.meta.avatar.llm.FlowInputs
 import com.taobao.meta.avatar.llm.FlowRequest
-import com.taobao.meta.avatar.utils.StringUtil
+import com.welo.util.StringUtil
 import com.welo.base.KtorFlowNetworkManager
 import com.welo.base.TextStreamResponse
 import kotlinx.coroutines.Dispatchers
@@ -39,8 +39,8 @@ class MessageViewModel : ViewModel() {
     private val _collectedText = MutableSharedFlow<String>(replay = 0)
     val collectedText: SharedFlow<String> = _collectedText.asSharedFlow()
 
-    private val _requestId = MutableStateFlow("")
-    val requestId: StateFlow<String> = _requestId.asStateFlow()
+    private val _requestId = MutableStateFlow(0L)
+    val requestId: StateFlow<Long> = _requestId.asStateFlow()
 
     private var chatSessionJobs = mutableSetOf<Job>()
 
@@ -56,7 +56,7 @@ class MessageViewModel : ViewModel() {
         _receivedStatus.value = status
     }
 
-    fun receivedMessage(text: String, requestId: String){
+    fun receivedMessage(text: String, requestId: Long){
         Log.d(TAG, "receivedMessage: $text, requestId: $requestId")
 
         viewModelScope.launch {
@@ -73,7 +73,7 @@ class MessageViewModel : ViewModel() {
             val url =
                 "http://192.168.111.10:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct"
             KtorFlowNetworkManager.Companion.instance.streamTextPost(
-                requestId,
+                requestId.toString(),
                 url,
                 requestBody,
             ).catch {

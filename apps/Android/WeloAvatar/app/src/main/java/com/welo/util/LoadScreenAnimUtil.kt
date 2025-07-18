@@ -42,6 +42,7 @@ class LoadScreenAnimUtil private constructor() {
             is ScenarioSealed.TextInput -> 0
             is ScenarioSealed.TextOutput -> 0
             is ScenarioSealed.Error -> R.drawable.anim_error
+            is ScenarioSealed.Loading -> R.drawable.anim_loading
         }
         // 确保在加载新资源前清理旧资源
         imageView.setImageDrawable(null)
@@ -55,6 +56,7 @@ class LoadScreenAnimUtil private constructor() {
  */
 sealed class ScenarioSealed {
     object Idle : ScenarioSealed() // 空闲状态，表示没有进行任何操作
+    object Loading : ScenarioSealed() // 加载状态，表示正在进行某些操作
     object VoiceInput : ScenarioSealed() // 语音输入
     object VoiceOutput : ScenarioSealed() // 语音输出
     object TextInput : ScenarioSealed() // 文本输入
