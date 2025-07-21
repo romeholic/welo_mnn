@@ -14,6 +14,7 @@ import com.liulishuo.okdownload.core.breakpoint.BreakpointStoreOnSQLite
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.cause.ResumeFailedCause
 import com.liulishuo.okdownload.core.dispatcher.DownloadDispatcher
+import com.welo.constant.Constants
 import java.io.File
 
 class DownloadManager(private val context: Context) {
@@ -35,11 +36,11 @@ class DownloadManager(private val context: Context) {
     private var lastProgressBytes: Long = 0
 
     fun getDownloadPath(): String {
-        return context.filesDir.absolutePath + "/metahuman"
+        return Constants.SD_CARD_PATH + "/metahuman"
     }
 
     fun getDownloadSuccessFlagPath(): String {
-        return context.filesDir.absolutePath + "/metahuman/success"
+        return Constants.SD_CARD_PATH + "/metahuman/success"
     }
 
     fun setDownloadCallback(callback: DownloadCallback) {

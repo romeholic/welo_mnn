@@ -1,9 +1,12 @@
-package com.taobao.meta.avatar
+package com.welo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Rect
+import android.os.Build
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -15,11 +18,16 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.alibaba.mls.api.ApplicationProvider
 import com.alibaba.mnnllm.android.utils.FileUtils
+import com.taobao.meta.avatar.ChatStatus
+import com.taobao.meta.avatar.MHConfig
+import com.taobao.meta.avatar.R
 import com.taobao.meta.avatar.asr.RecognizeService
 import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 import com.taobao.meta.avatar.download.DownloadCallback
 import com.taobao.meta.avatar.download.DownloadModule
 import com.taobao.meta.avatar.record.RecordPermission
+import com.taobao.meta.avatar.record.RecordPermission.MANAGE_EXTERNAL_STORAGE_REQUEST_CODE
+import com.taobao.meta.avatar.record.RecordPermission.READ_EXTERNAL_STORAGE_REQUEST_CODE
 import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMISSION
 import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
@@ -43,12 +51,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.system.exitProcess
 
-
-//enum class ChatStatus {
-//    STATUS_IDLE,
-//    STATUS_INITIALIZING,
-//    STATUS_CALLING,
-//}
 
 class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageViewModel>(), DownloadCallback {
 
@@ -379,10 +381,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
     }
 
-    fun getAudioBlendShapePlayer():AudioBlendShapePlayerUtil? {
-        return audioBendShapePlayer
-    }
-
     private fun createAudioBlendShapePlayer() {
         audioBendShapePlayer = AudioBlendShapePlayerUtil(this@MainActivityWeLoActivity)
         audioBendShapePlayer!!.addListener(object: AudioBlendShapePlayerUtil.Listener{
@@ -450,9 +448,28 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                     chatStatus = ChatStatus.STATUS_IDLE
                 }
             }
+            READ_EXTERNAL_STORAGE_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onDownloadClicked()
+                } else {
+                    Toast.makeText(this, "存储权限被拒绝", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == MANAGE_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    onDownloadClicked()
+                } else {
+                    Toast.makeText(this, "请开启权限以继续", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     private suspend fun loadTTSModel() {
         ttsService!!.init(MHConfig.TTS_MODEL_DIR)
@@ -541,7 +558,8 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
 
     override fun onDownloadProgress(progress: Double, currentBytes: Long, totalBytes: Long, speedInfo:String) {
         lifecycleScope.launch {
-            viewBinding.loadingText.text = getString(R.string.download_progress,
+            viewBinding.loadingText.text = getString(
+                R.string.download_progress,
                 FileUtils.formatFileSize(currentBytes), FileUtils.formatFileSize(totalBytes), speedInfo)
         }
     }

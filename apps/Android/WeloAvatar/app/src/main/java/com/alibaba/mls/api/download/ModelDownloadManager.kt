@@ -38,8 +38,8 @@ import com.alibaba.mls.api.ms.MsApiClient
 import com.alibaba.mls.api.ms.MsRepoInfo
 import com.alibaba.mls.api.source.ModelSources
 import com.alibaba.mls.api.source.RepoConfig
-import com.alibaba.mnnllm.android.utils.FileUtils
 import com.alibaba.mnnllm.android.utils.FileUtils.clearMmapCache
+import com.welo.constant.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +52,7 @@ import kotlin.collections.set
 
 class ModelDownloadManager (private val context: Context) {
     private var downloadListener: DownloadListener? = null
-    private val cachePath = context.filesDir.absolutePath + "/.mnnmodels"
+    private val cachePath = Constants.SD_CARD_PATH + "/.mnnmodels"
     private val modelScopeCachePath = cachePath + "/modelscope"
 
     private var hfApiClient: HfApiClient? = null

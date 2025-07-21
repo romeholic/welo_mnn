@@ -23,6 +23,7 @@ import com.alibaba.mnnllm.android.utils.FileUtils
 import com.taobao.meta.avatar.MHConfig
 import com.taobao.meta.avatar.MainActivity
 import com.taobao.meta.avatar.camera.CameraControlData
+import com.welo.constant.Constants
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -123,7 +124,7 @@ class AvatarTextureView(context: Context?, attrs: AttributeSet?) :
             if (copyResult == PixelCopy.SUCCESS) {
                 fileSaverExecutor.submit {
                     FileUtils.saveBitmapToFile(bitmap,
-                        context.filesDir.absolutePath + "/debug_frames/frame_${currentFrame}.png")
+                        Constants.SD_CARD_PATH + "/debug_frames/frame_${currentFrame}.png")
                     bitmap.recycle()
                 }
             } else {

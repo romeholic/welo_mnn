@@ -19,6 +19,7 @@ import java.util.zip.ZipFile
 import android.content.res.AssetManager
 import android.graphics.Bitmap
 import com.alibaba.mls.api.download.DownloadFileUtils
+import com.welo.constant.Constants
 import java.io.File
 
 object FileUtils {
@@ -68,13 +69,13 @@ object FileUtils {
         extension: String
     ): String {
         val path =
-            context.filesDir.absolutePath + "/" + sessionId + "/" + kind + "_" + System.currentTimeMillis() + "." + extension
+            Constants.SD_CARD_PATH + "/" + sessionId + "/" + kind + "_" + System.currentTimeMillis() + "." + extension
         ensureParentDirectoriesExist(File(path))
         return path
     }
 
     fun getSessionResourceBasePath(context: Context, sessionId: String): String {
-        return context.filesDir.absolutePath + "/" + sessionId
+        return Constants.SD_CARD_PATH + "/" + sessionId
     }
 
     fun ensureParentDirectoriesExist(file: File) {
