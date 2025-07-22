@@ -55,15 +55,12 @@ class LlmPresenter(private val textResponse: TextView) {
 
             // 获取上一次的完整文本（如果不存在则为空字符串）
             val lastFullText = sessionTexts.getOrPut(callingSessionId) { "" }
-            Log.d("WELOO#LlmPresenter", "onLlmTextUpdate: 旧文本=${lastFullText}, 新文本=${newText}")
 
             // 提取真正的增量部分
             val addedText = extractAddedText(lastFullText, newText)
 
             // 如果有新增内容，才更新UI
             if (addedText.isNotEmpty()) {
-                Log.d("WELOO#LlmPresenter", "onLlmTextUpdate show with addedText: $addedText")
-
                 // 只向UI传递新增的文本部分
                 addMessage("ai", addedText)
 

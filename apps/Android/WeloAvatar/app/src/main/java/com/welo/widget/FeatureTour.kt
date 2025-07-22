@@ -262,6 +262,8 @@ class FeatureTour(private val activity: Activity) {
                     // 设置按钮可见性
                     nextBtn.visibility = VISIBLE
                     cancelBtn.visibility = VISIBLE
+
+                    cancelBtn.visibility = if (currentStepIndex == steps.size - 1) GONE else VISIBLE
                 }
             }
         }

@@ -49,6 +49,20 @@ class LoadScreenAnimUtil private constructor() {
 
         ImageLoader.Companion.getInstance(context).loadGif(resId, imageView)
     }
+
+    fun stopScreenAnim() {
+        if (init) {
+            imageView.setImageDrawable(null)
+            ImageLoader.Companion.getInstance(context).pauseGif(imageView)
+        }
+    }
+    fun destroyScreenAnim() {
+        if (init) {
+            imageView.setImageDrawable(null)
+            ImageLoader.Companion.getInstance(context).clear(imageView )
+            init = false
+        }
+    }
 }
 
 /**

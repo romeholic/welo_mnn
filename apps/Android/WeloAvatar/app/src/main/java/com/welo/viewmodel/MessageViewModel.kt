@@ -10,6 +10,8 @@ import com.taobao.meta.avatar.llm.FlowRequest
 import com.welo.util.StringUtil
 import com.welo.base.KtorFlowNetworkManager
 import com.welo.base.TextStreamResponse
+import com.welo.entity.MessageData
+import com.welo.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -44,6 +46,46 @@ class MessageViewModel : ViewModel() {
 
     private var chatSessionJobs = mutableSetOf<Job>()
 
+    // 使用MutableStateFlow管理消息列表
+    private val _messageList = MutableStateFlow<List<MessageData>>(emptyList())
+    val messageList: StateFlow<List<MessageData>> = _messageList
+
+    /**
+     * 添加消息到列表，并根据消息ID进行去重
+     *
+     * @param message 要添加的消息
+     * @param replaceIfExists 如果已存在相同ID的消息，是否替换原消息（默认为false）
+     */
+    fun addMessage(message: MessageData, replaceIfExists: Boolean = true) {
+        LogUtil.d(TAG, "addMessage: $message")
+
+        viewModelScope.launch {
+            // 更新消息列表
+            val currentList = _messageList.value.toMutableList()
+
+            // 查找是否已存在相同ID的消息
+            val existingIndex = currentList.indexOfFirst { it.id == message.id }
+
+            if (existingIndex >= 0) {
+                // 消息已存在
+                if (replaceIfExists) {
+                    // 替换原有消息
+                    currentList[existingIndex] = message
+                    _messageList.value = currentList
+                    LogUtil.d(TAG, "消息已存在，执行替换操作: ${message.id}")
+                } else {
+                    // 忽略重复消息
+                    LogUtil.d(TAG, "忽略重复消息: ${message.id}")
+                }
+            } else {
+                // 添加新消息
+                currentList.add(message)
+                _messageList.value = currentList
+                LogUtil.d(TAG, "添加新消息: ${message.id}")
+            }
+        }
+    }
+
     fun sendMessage(message: String) {
         viewModelScope.launch {
             if (message.isNotEmpty()) {
@@ -56,7 +98,7 @@ class MessageViewModel : ViewModel() {
         _receivedStatus.value = status
     }
 
-    fun receivedMessage(text: String, requestId: Long){
+    fun receivedMessage(text: String, requestId: Long) {
         Log.d(TAG, "receivedMessage: $text, requestId: $requestId")
 
         viewModelScope.launch {
@@ -88,12 +130,13 @@ class MessageViewModel : ViewModel() {
                             val message = StringUtil.parseFlowResponse(json)
                             message?.let {
                                 _aiResponseFlow.value = TextStreamResponse.Data(it)
-                                withContext(Dispatchers.Main){
+                                withContext(Dispatchers.Main) {
                                     _collectedText.emit(it)
                                 }
                             }
                         }
                     }
+
                     else -> {
                         // 其他状态直接更新
                         _aiResponseFlow.value = response

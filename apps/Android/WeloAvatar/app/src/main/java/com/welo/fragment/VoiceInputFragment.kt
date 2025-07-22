@@ -8,21 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.taobao.meta.avatar.databinding.FragmentVoiceInputBinding
 import com.taobao.meta.avatar.llm.LlmPresenter
 import com.welo.base.BaseFragment
-import com.welo.base.ImageLoader
+import com.welo.base.observeInLifecycleWithDelay
 import com.welo.util.LoadScreenAnimUtil
 import com.welo.viewmodel.MessageViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * 语音输入
@@ -57,7 +50,7 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
     override fun onStop() {
         super.onStop()
         Log.d(TAG, "onStop called")
-        ImageLoader.Companion.getInstance(requireContext()).pauseGif(binding.animationView)
+        LoadScreenAnimUtil.instance.stopScreenAnim()
         binding.tvInput.text = ""   // 清空输入文本
         binding.tvOutput.text = ""  // 清空输出文本
         binding.tvOutput.visibility = View.GONE
@@ -66,51 +59,41 @@ class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewMo
     override fun onDestroy() {
         super.onDestroy()
         runCatching {
-            ImageLoader.Companion.getInstance(requireContext()).clear(binding.animationView)
+            LoadScreenAnimUtil.instance.destroyScreenAnim()
         }
     }
 
     override fun observeViewModel() {
         lifecycleScope.launch {
             //输入的内容
-            viewModel.sendData.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            ).onEach { message ->
-                withContext(Dispatchers.Main) {
-                    if (message.isNotEmpty()) {
-                        if (binding.tvInput.isGone) {
-                            binding.tvInput.visibility = View.VISIBLE
-                        }
-                        if (binding.tvInput.text.isNotEmpty()) {
-                            binding.tvInput.text = ""
-                        }
-                        binding.tvInput.text = message
+            viewModel.sendData.observeInLifecycleWithDelay(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    if (binding.tvInput.isGone) {
+                        binding.tvInput.visibility = View.VISIBLE
                     }
-                }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-            viewModel.collectedText.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            )
-                .onEach { message ->
-                    delay(10)
-                    withContext(Dispatchers.Main) {
-                        if (message.isNotEmpty()) {
-                            if (binding.tvOutput.isGone) {
-                                binding.tvOutput.visibility = View.VISIBLE
-                            }
-                            llmPresenter.onLlmTextUpdate(message, currentChatId.toLong())
-                        }
+                    if (binding.tvInput.text.isNotEmpty()) {
+                        binding.tvInput.text = ""
                     }
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-            viewModel.requestId.collect { value ->
-                llmPresenter.setCurrentSessionId(value)
-                if (currentChatId != value) {
-                    currentChatId = value
+                    binding.tvInput.text = it
                 }
+            }
+        }
+        // 收集AI响应数据
+        viewModel.collectedText.observeInLifecycleWithDelay(viewLifecycleOwner, 10L) {
+            if (it.isNotEmpty()) {
+                if (binding.tvOutput.isGone) {
+                    binding.tvOutput.visibility = View.VISIBLE
+                }
+                llmPresenter.onLlmTextUpdate(it, currentChatId)
+            }
+        }
+        viewModel.requestId.observeInLifecycleWithDelay(viewLifecycleOwner) {
+            llmPresenter.setCurrentSessionId(it)
+            if (currentChatId != it) {
+                currentChatId = it
+                binding.tvOutput.text = ""
+                binding.tvOutput.visibility = View.GONE
+                llmPresenter.onEndCall()
             }
         }
     }

@@ -15,7 +15,18 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.NumberPicker
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.mls.api.ApplicationProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.withContext
 
 @SuppressLint("ClickableViewAccessibility")
 fun View.setupHideKeyboardOnOutsideTouch(activity: Activity) {
@@ -118,4 +129,29 @@ fun NumberPicker.setOnScrollFinishedListener(delayMillis: Long = 200L, action: (
             runnable = null
         }
     })
+}
+/**
+ * 将Flow绑定到Lifecycle并在主线程处理数据，支持自定义延迟
+ *
+ * @param lifecycleOwner Lifecycle所有者
+ * @param minActiveState 最小活跃状态，默认为STARTED
+ * @param delayMillis 延迟时间（毫秒），默认为0（不延迟）
+ * @param action 数据处理回调
+ */
+fun <T> Flow<T>.observeInLifecycleWithDelay(
+    lifecycleOwner: LifecycleOwner,
+    delayMillis: Long = 0,
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+    action: suspend CoroutineScope.(T) -> Unit
+) {
+    flowWithLifecycle(lifecycleOwner.lifecycle, minActiveState)
+        .onEach { value ->
+            if (delayMillis > 0) {
+                delay(delayMillis) // 延迟指定时间
+            }
+            withContext(Dispatchers.Main) {
+                action(value)
+            }
+        }
+        .launchIn(lifecycleOwner.lifecycleScope)
 }

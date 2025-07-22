@@ -1,15 +1,22 @@
 package com.welo
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Build
 import android.os.Environment
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.view.marginBottom
@@ -38,6 +45,7 @@ import com.welo.util.AudioBlendShapePlayerUtil
 import com.welo.util.FeatureTourUtil
 import com.welo.util.InputMode
 import com.welo.util.LoadScreenAnimUtil
+import com.welo.util.LogUtil
 import com.welo.util.PreferenceUtil
 import com.welo.util.ScenarioSealed
 import com.welo.viewmodel.MessageViewModel
@@ -69,6 +77,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
     private lateinit var navController: NavController
     private var isVoiceInput = true
     private var isRecording = false
+    private var isLongClick = false
 
     /**
      * 当前请求是否结束
@@ -100,7 +109,6 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                         }
                         println("正在连接到流...")
                         isEndReceived = false
-                        inputStatusImage(InputMode.Typing)
                     }
                     is TextStreamResponse.Connected -> {
                         if (isVoiceInput){
@@ -136,7 +144,9 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                             println("流错误: $errorMessage")
                         }
                     }
-                    is TextStreamResponse.Idle -> Unit // 初始状态，无需操作
+                    is TextStreamResponse.Idle ->{
+                        viewBinding.inputModelChange.isEnabled = true
+                    } // 初始状态，无需操作
                 }
             }
         }
@@ -171,12 +181,11 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
 
             if (keypadHeight > screenHeight * 0.15) {
                 // 键盘弹出，编辑框上移
-                viewBinding.root.translationY = -keypadHeight.toFloat() + marginBottom
+                viewBinding.root.translationY = -keypadHeight.toFloat() + marginBottom + 6
             } else {
                 // 键盘收起，恢复原位
                 viewBinding.root.translationY = 0f
             }
-
         }
         viewBinding.inputModelChange.setOnClickListener {
             inputModelChange()
@@ -191,8 +200,21 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                 if (isVoiceInput && isEndReceived) {
                     startRecord()
                     LoadScreenAnimUtil.instance.loadScreenAnim(ScenarioSealed.VoiceInput)
+                    stopAnswer()
+                    isLongClick = true
                 }
                 true // ✅ 消费长按事件
+            }
+            setOnTouchListener { v, event ->
+                if (event.action == MotionEvent.ACTION_UP){
+                    LogUtil.d(TAG, "inputStateChange touch up: isVoiceInput:$isVoiceInput, isEndReceived:$isEndReceived")
+                    if (isVoiceInput && isLongClick) {
+                        isLongClick = false
+                        inputStatusImage(InputMode.Typing)
+                        return@setOnTouchListener true
+                    }
+                }
+                return@setOnTouchListener false
             }
             setOnClickListener {
                 Log.d(TAG, "inputStateChange clicked")
@@ -204,7 +226,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
                     }else{
                         inputStatusImage(InputMode.Send)
                     }
-
+                    stopAnswer()
                 }else{
                     val inputMessage = viewBinding.keyBordInput.text.trim().toString()
                     if (inputMessage.isEmpty()) return@setOnClickListener
@@ -235,9 +257,10 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
             viewBinding.inputStateChange.setImageResource(R.drawable.microphone)
             viewBinding.waveFormView.visibility = View.VISIBLE
             viewBinding.keyBordInput.visibility = View.GONE
-            viewBinding.keyBordInput.setupHideKeyboardOnOutsideTouch(this)
+            softInputChange()
         }
         viewModel.closeRequest(callingSessionId.toString())
+        stopAnswer()
         isEndReceived = true
     }
     private fun stopAnswer() {
@@ -260,14 +283,9 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         cancelAllJobs()
         stopAnswer()
         stopRecord()
-        audioBendShapePlayer?.stop()
     }
 
-     fun onStopAnswerClicked() {
-        stopAnswer()
-    }
-
-     fun onStartButtonClicked() {
+     fun checkRecordAudioPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 RecordPermission.permissions[0]
@@ -283,10 +301,12 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
     }
 
+    /**
+     * 模型初始化完成后，开始聊天
+     */
     private fun handleStartChatInner() {
         chatStatus = ChatStatus.STATUS_INITIALIZING
         lifecycleScope.launch {
-            setupServices()
             if (chatStatus == ChatStatus.STATUS_INITIALIZING) {
                 chatStatus = ChatStatus.STATUS_CALLING
                 callingSessionId++
@@ -345,14 +365,15 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
             awaitAll(taskA2BS, taskTTS,  taskLLM, taskRecognize)
             Log.i(TAG, "All services have been initialized")
 
-            onStartButtonClicked()
+            checkRecordAudioPermission()
             recognizeService.onRecognizeText = { text ->
                 Log.d(TAG, "onRecognizeText: $text chatStatus:$chatStatus")
                 if (text.isEmpty()){
                     stopRecord()
+                    isLongClick = false
                     runOnUiThread {
                         Toast.makeText(this@MainActivityWeLoActivity, "识别结果为空，请重新尝试", Toast.LENGTH_SHORT).show()
-                        LoadScreenAnimUtil.instance.loadScreenAnim()
+                        inputStatusImage(InputMode.VoiceInput)
                     }
                 }
                 if (chatStatus == ChatStatus.STATUS_CALLING && text.isNotEmpty()) {
@@ -367,11 +388,8 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         serviceInitializing = false
     }
 
-    fun serviceInitialized():Boolean {
-        return initComplete.isCompleted
-    }
-
     private fun processChatRequest(text: String) {
+        inputStatusImage(InputMode.Typing)
         answerSession++
         callingSessionId++
         audioBendShapePlayer?.startNewSession(answerSession)
@@ -520,11 +538,13 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         Log.d(TAG, "requestEnd: isVoiceInput:$isVoiceInput :$isRecording")
         isRecording = true
         isEndReceived = true
+        viewBinding.inputModelChange.isEnabled = true
         if (isVoiceInput){
             inputStatusImage(InputMode.VoiceInput)
         }else{
             viewModel.receivedStatus(true)
             inputStatusImage(InputMode.Send)
+            viewBinding.keyBordInput.isEnabled = true
         }
     }
 
@@ -532,11 +552,14 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         when (mode) {
             is InputMode.Voice -> viewBinding.inputModelChange.setImageResource(R.drawable.audio)
             is InputMode.Text ->  viewBinding.inputModelChange.setImageResource(R.drawable.key_bord)
-            is InputMode.Typing ->  {
+            is InputMode.Typing -> {
                 viewBinding.inputStateChange.setImageResource(R.drawable.stop_line)
                 if (!isVoiceInput) {
                     viewBinding.keyBordInput.isEnabled = false
+                } else {
+                    viewBinding.waveFormView.stopAnimation()
                 }
+                viewBinding.inputModelChange.isEnabled = false
             }
             is InputMode.Send -> {
                 viewBinding.inputStateChange.setImageResource(R.drawable.send_icon)
@@ -547,6 +570,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
             }
             is InputMode.VoiceInput ->{
                 viewBinding.inputStateChange.setImageResource(R.drawable.microphone)
+                LoadScreenAnimUtil.instance.loadScreenAnim()
             }
         }
     }
@@ -580,6 +604,16 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         private const val TAG = "WELO#MainActivity"
         init {
             System.loadLibrary("taoavatar")
+        }
+    }
+    private fun softInputChange() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isAcceptingText) {
+            // 如果软键盘已经打开，则关闭它
+            imm.hideSoftInputFromWindow(viewBinding.keyBordInput.windowToken, 0)
+        } else {
+            // 如果软键盘没有打开，则打开它
+            imm.showSoftInput(viewBinding.keyBordInput, InputMethodManager.SHOW_IMPLICIT)
         }
     }
 }

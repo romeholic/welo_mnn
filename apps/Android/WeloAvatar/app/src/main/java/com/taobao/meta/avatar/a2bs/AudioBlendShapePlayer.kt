@@ -369,7 +369,6 @@ class AudioBlendShapePlayer(nnrAvatarRender: NnrAvatarRender, activity: MainActi
             return
         }
 
-        Log.d(TAG, "playText: ${finalText} id: ${id} isEnd:${is_last}")
         val audioBlendShape = AudioBlendShape(
             id,
             is_last,

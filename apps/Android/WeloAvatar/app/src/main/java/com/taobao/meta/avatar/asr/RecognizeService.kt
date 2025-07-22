@@ -100,74 +100,122 @@ class RecognizeService(private val activity: Activity) {
 
     private fun processSamples() {
         Log.i(TAG, "processing samples")
-        if (recognizer == null){
-            return
-        }
-        val stream = recognizer!!.createStream("")
-        val interval = 0.1 // i.e., 100 ms
-        val bufferSize = (interval * sampleRateInHz).toInt() // in samples
+        // 提前检查必要条件，快速返回
+        val currentRecognizer = recognizer ?: return
+        val currentAudioRecord = audioRecord ?: return
+        if (!isRecording.get()) return
+
+        val stream = currentRecognizer.createStream("")
+        val interval = 0.05 // 50ms的间隔，比原来更频繁处理小批量数据
+        val bufferSize = (interval * sampleRateInHz).toInt()
         val buffer = ShortArray(bufferSize)
+        var utteranceStartTimeNs = 0L
 
-        while (isRecording.get() && audioRecord != null) {
-            val ret = audioRecord!!.read(buffer, 0, buffer.size)
-            if (ret > 0) {
-                chunkCount.incrementAndGet()
-                val samples = FloatArray(ret) { i -> buffer[i] / 32768.0f }
-                utteranceAudioTimeSec += ret.toDouble() / sampleRateInHz
-                val tStartProc = System.nanoTime()
-                val tAcceptStart = tStartProc
-                stream.acceptWaveform(samples, sampleRateInHz)
-                val tAcceptEnd = System.nanoTime()
-                acceptTimeNs.addAndGet(tAcceptEnd - tAcceptStart)
-                while (recognizer!!.isReady(stream)) {
-                    val tDecodeStart = System.nanoTime()
-                    recognizer!!.decode(stream)
-                    val tDecodeEnd = System.nanoTime()
-                    decodeTimeNs.addAndGet(tDecodeEnd - tDecodeStart)
-                    decodeCount.incrementAndGet()
+        // 预计算尾部填充数组，避免重复创建
+        val tailPaddingSize = (0.3 * sampleRateInHz).toInt()
+        val tailPaddings = FloatArray(tailPaddingSize)
+
+        // 复用FloatArray，减少对象创建
+        val samples = FloatArray(bufferSize)
+
+        while (isRecording.get()) {
+            val ret = currentAudioRecord.read(buffer, 0, buffer.size)
+            if (ret <= 0) {
+                // 处理读取错误或结束
+                if (ret == AudioRecord.ERROR_INVALID_OPERATION) {
+                    Log.e(TAG, "Invalid audio record operation")
+                    break
                 }
-                val tEndProc = System.nanoTime()
-                utteranceProcTimeNs += (tEndProc - tStartProc)
+                continue
+            }
 
-                val isEndpoint = recognizer!!.isEndpoint(stream)
-                var text = recognizer!!.getResult(stream).text
+            // 记录语音片段开始时间
+            if (utteranceProcTimeNs == 0L) {
+                utteranceStartTimeNs = System.nanoTime()
+            }
 
-                if (isEndpoint && recognizer!!.config.modelConfig.paraformer.encoder.isNotEmpty()) {
-                    val tailPaddings = FloatArray((0.8 * sampleRateInHz).toInt())
-                    stream.acceptWaveform(tailPaddings, sampleRateInHz)
-                    while (recognizer!!.isReady(stream)) {
-                        recognizer!!.decode(stream)
-                    }
-                    text = recognizer!!.getResult(stream).text
+            chunkCount.incrementAndGet()
+
+            // 优化：直接转换而不使用lambda，减少函数调用开销
+            for (i in 0 until ret) {
+                samples[i] = buffer[i] / 32768.0f
+            }
+
+            utteranceAudioTimeSec += ret.toDouble() / sampleRateInHz
+            val tStartProc = System.nanoTime()
+
+            // 处理音频波形
+            val tAcceptStart = tStartProc
+            stream.acceptWaveform(samples, sampleRateInHz)
+            acceptTimeNs.addAndGet(System.nanoTime() - tAcceptStart)
+
+            // 动态调整最大解码次数，根据处理速度自适应
+            var maxDecodesPerCycle = if (utteranceProcTimeNs > utteranceAudioTimeSec * 1e9) 1 else 2
+
+            // 解码处理
+            while (currentRecognizer.isReady(stream) && maxDecodesPerCycle-- > 0) {
+                val tDecodeStart = System.nanoTime()
+                currentRecognizer.decode(stream)
+                decodeTimeNs.addAndGet(System.nanoTime() - tDecodeStart)
+                decodeCount.incrementAndGet()
+            }
+
+            utteranceProcTimeNs += System.nanoTime() - tStartProc
+
+            // 检查是否到达端点
+            val isEndpoint = currentRecognizer.isEndpoint(stream)
+            var text = currentRecognizer.getResult(stream).text
+
+            if (isEndpoint && currentRecognizer.config.modelConfig.paraformer.encoder.isNotEmpty()) {
+                // 使用预创建的尾部填充数组
+                stream.acceptWaveform(tailPaddings, sampleRateInHz)
+
+                // 最后一次解码，不限制次数以确保结果完整
+                var finalDecodeCount = 0
+                while (currentRecognizer.isReady(stream) && finalDecodeCount < 3) { // 限制最大3次避免无限循环
+                    currentRecognizer.decode(stream)
+                    finalDecodeCount++
                 }
+                text = currentRecognizer.getResult(stream).text
+            }
 
-                if (isEndpoint) {
-                    val T_proc = utteranceProcTimeNs / 1_000_000_000.0
-                    val T_audio = utteranceAudioTimeSec
-                    val rtf = if (T_audio > 0) T_proc / T_audio else 0.0
-                    totalRtf += rtf
-                    utteranceCount += 1
-//                    Log.i(TAG, "Utterance RTF = ${"%.3f".format(rtf)} over ${"%.2f".format(T_audio)}s audio")
-                    recognizer!!.reset(stream)
-                    onRecognizeText?.invoke(text)
-                    Log.d(TAG, "recognize text: $text")
-                    utteranceProcTimeNs = 0
-                    utteranceAudioTimeSec = 0.0
-                }
+            if (isEndpoint) {
+                // 计算处理时间和RTF
+                val T_proc = utteranceProcTimeNs / 1_000_000_000.0
+                val T_audio = utteranceAudioTimeSec
+                val rtf = if (T_audio > 0) T_proc / T_audio else 0.0
+                totalRtf += rtf
+                utteranceCount++
+
+                // 计算总耗时并回调结果
+                val totalProcessingTimeMs = (System.nanoTime() - utteranceStartTimeNs) / 1_000_000.0
+                Log.i(TAG, "processSamples - 文本: '$text', 总耗时: ${"%.2f".format(totalProcessingTimeMs)}ms, RTF: ${"%.3f".format(rtf)}")
+
+                // 重置状态准备下一段语音
+                currentRecognizer.reset(stream)
+                onRecognizeText?.invoke(text)
+                utteranceProcTimeNs = 0
+                utteranceAudioTimeSec = 0.0
             }
         }
+
+        // 释放资源并输出统计信息
         stream.release()
-        val totalChunks = chunkCount.get().takeIf { it > 0 } ?: 1
-        val totalDecodes = decodeCount.get().takeIf { it > 0 } ?: 1
+
+        val totalChunks = chunkCount.get().coerceAtLeast(1)
+        val totalDecodes = decodeCount.get().coerceAtLeast(1)
         val avgAcceptMs = acceptTimeNs.get() / totalChunks / 1_000_000.0
         val avgDecodeMs = decodeTimeNs.get() / totalDecodes / 1_000_000.0
-        Log.i(TAG, "Average acceptWaveform: ${"%.2f".format(avgAcceptMs)} ms over $totalChunks chunks")
-        Log.i(TAG, "Average decode: ${"%.2f".format(avgDecodeMs)} ms over $totalDecodes calls")
+
+        Log.i(TAG, "平均acceptWaveform: ${"%.2f".format(avgAcceptMs)} ms ($totalChunks 次)")
+        Log.i(TAG, "平均decode: ${"%.2f".format(avgDecodeMs)} ms ($totalDecodes 次)")
 
         if (utteranceCount > 0) {
             val avgRtf = totalRtf / utteranceCount
-            Log.i(TAG, "Average RTF over $utteranceCount utterances = ${"%.3f".format(avgRtf)}")
+            Log.i(TAG, "平均RTF ($utteranceCount 段语音): ${"%.3f".format(avgRtf)}")
         }
+
+        // 重置统计变量
         acceptTimeNs.set(0)
         decodeTimeNs.set(0)
         chunkCount.set(0)

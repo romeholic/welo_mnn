@@ -249,7 +249,7 @@ fun getEndpointConfig(): EndpointConfig {
     return EndpointConfig(
         rule1 = EndpointRule(false, 2.4f, 0.0f),
         rule2 = EndpointRule(true, 1.4f, 0.0f),
-        rule3 = EndpointRule(false, 0.0f, 20.0f)
+        rule3 = EndpointRule(false, 0.0f, 60.0f)
     )
 }
 

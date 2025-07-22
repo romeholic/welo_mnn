@@ -3,21 +3,15 @@ package com.welo.fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentTextInputBinding
 import com.welo.adapter.MessageAdapter
+import com.welo.base.BaseFragment
+import com.welo.base.observeInLifecycleWithDelay
 import com.welo.entity.MessageData
 import com.welo.viewmodel.MessageViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * 文本输入
@@ -47,41 +41,35 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
             }
             setHasFixedSize(true)
         }
+        restoreMessages()
     }
 
     override fun observeViewModel() {
         lifecycleScope.launch {
             //输入的内容
-            viewModel.sendData.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            ) .onEach { message ->
-                withContext(Dispatchers.Main) {
-                    if (message.isNotEmpty()) {
-                        sendMessage(message)
-                    }
+            viewModel.sendData.observeInLifecycleWithDelay(viewLifecycleOwner){ message ->
+                if (message.isNotEmpty()) {
+                    sendMessage(message)
                 }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
+            }
             // 收集AI响应数据
-            viewModel.collectedText.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            ).onEach { message ->
-                    delay(100) // 模拟延迟，确保消息收集完成
-                    withContext(Dispatchers.Main) {
-                        if (message.isNotEmpty()) {
-                            receivedMessage(message)
-                        }
-                    }
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
-            viewModel.requestId.collect { value ->
+            viewModel.collectedText.observeInLifecycleWithDelay(viewLifecycleOwner,100L){ message ->
+                if (message.isNotEmpty()) {
+                    receivedMessage(message)
+                }
+            }
+            viewModel.requestId.observeInLifecycleWithDelay(viewLifecycleOwner) { value ->
                 if (currentChatId != value) {
                     currentChatId = value
                     // 清空之前的消息数据
                     messageData = null
                     responsePosition = -1
                     messages = null
+                }
+            }
+            viewModel.receivedStatus.observe(viewLifecycleOwner){
+                if (messageData != null) {
+                    viewModel.addMessage(messageData!!)
                 }
             }
         }
@@ -114,6 +102,7 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
                     // 通知适配器数据已更改，带payload优化
                     adapter.notifyItemChanged(responsePosition, "textChanged")
                 }
+                scrollToBottom()
             }
         }
     }
@@ -138,10 +127,18 @@ class TextInputFragment : BaseFragment<FragmentTextInputBinding, MessageViewMode
                 isSent = isSend
             )
             adapter.addMessage(messageData)
+            viewModel.addMessage(messageData)
             scrollToBottom()
         }
     }
-
+    private fun restoreMessages() {
+        // 从ViewModel获取消息列表并设置到适配器
+        val messages = viewModel.messageList.value
+        if (messages.isNotEmpty()) {
+            adapter.setMessages(messages.toMutableList())
+            scrollToBottom()
+        }
+    }
     companion object {
         private const val currentUserId = "user1"
         private const val TAG = "TextInputFragment"

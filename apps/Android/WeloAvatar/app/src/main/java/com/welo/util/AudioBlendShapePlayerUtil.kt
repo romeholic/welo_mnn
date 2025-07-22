@@ -57,14 +57,14 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
     private val waitingAudioCompleteMap = Collections.synchronizedMap(mutableMapOf<Int, suspend () -> Unit>())
 
     // 移除动画相关配置和变量
-    private val configThreadNum = 2
+    private val configThreadNum = 4
     private var lastId = -1
 
     // 文本处理相关（保留，用于TTS分段）
     private val SENTENCE_DELIMITERS = Regex("[。！？!?\n]")
     private val SPECIAL_CHARS = Regex("[,，:：;；*_\\[\\](){}“”‘’\"'`~]")
-    private val MIN_SENTENCE_LENGTH = 5
-    private val MAX_SENTENCE_LENGTH = 300
+    private val MIN_SENTENCE_LENGTH = 2
+    private val MAX_SENTENCE_LENGTH = 100
     private val pendingText = StringBuilder()
     private var lastProcessedFullText = ""
 
@@ -198,7 +198,7 @@ class AudioBlendShapePlayerUtil(activity: MainActivityWeLoActivity) {
                     Log.d(TAG, "PlayAudio end: ${nextAbs.id}")
                 }
                 Log.d(TAG," PlayAudio next: ${nextAbs.id} is_last: ${nextAbs.is_last} size:${audioBlendShapeMap.size}")
-                if (nextAbs.is_last || nextAbs.id == lastId ||(nextAbs.id != 0 && nextAbs.id == audioBlendShapeMap.size -1)) {
+                if (nextAbs.is_last || nextAbs.id == lastId) {
                     Log.d(TAG, "PlayAudio is last: ${nextAbs.id}")
                     waitAudioComplete(audioChunksPlayer!!.currentSize())
                     Log.d(TAG, "PlayAudio last wait complete ${nextAbs.id}")
