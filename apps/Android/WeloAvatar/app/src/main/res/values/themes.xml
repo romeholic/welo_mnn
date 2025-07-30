@@ -30,5 +30,7 @@
         <item name="android:statusBarColor">@color/purple_500</item>
         <item name="android:windowTranslucentStatus">false</item>
     </style>
+
+    <style name="Theme.WeloAvatar" parent="Theme.MaterialComponents.Light" />
 </resources>
 

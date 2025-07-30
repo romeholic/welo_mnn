@@ -1,11 +1,16 @@
-package com.welo.base
+package com.welo.base.net
 
 import android.util.Log
+import com.welo.util.LogUtil
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.delete
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.parameter
@@ -26,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -41,13 +47,13 @@ import java.io.InputStreamReader
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.cancellation.CancellationException
 
-class KtorFlowNetworkManager {
+class NetworkManager {
     companion object {
-        val instance: KtorFlowNetworkManager by lazy { KtorFlowNetworkManager() }
-        private const val TAG = "KtorFlowNetworkManager"
+        val instance: NetworkManager by lazy { NetworkManager() }
+        private const val TAG = "NetworkManager"
     }
-
-    private val client: HttpClient = HttpClient(OkHttp) {
+    // 基础HttpClient配置
+    private val baseClientConfig = HttpClient(OkHttp) {
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true
@@ -55,7 +61,6 @@ class KtorFlowNetworkManager {
                 ignoreUnknownKeys = true
             })
         }
-
 
         install(HttpTimeout) {
             connectTimeoutMillis = 10000
@@ -69,8 +74,26 @@ class KtorFlowNetworkManager {
             }
         }
     }
+
+    // 带日志的客户端
+    private val client: HttpClient = baseClientConfig.config {
+        install(Logging) {
+            level = LogLevel.BODY
+            logger = object : io.ktor.client.plugins.logging.Logger {
+                override fun log(message: String) {
+                    Log.d(TAG, "Ktor Log: $message")
+                }
+            }
+        }
+    }
+
+    // 不带日志的客户端，用于streamTextPost
+    private val clientWithoutLogging: HttpClient = baseClientConfig.config {
+        install(Logging) {
+            level = LogLevel.NONE // 关闭日志
+        }
+    }
     private val requestMap = ConcurrentHashMap<String, Job>()
-    // 创建一个用于发送取消事件的 MutableSharedFlow
 
     /**
      * 发送GET请求并返回Flow
@@ -111,11 +134,45 @@ class KtorFlowNetworkManager {
         headers: HeadersBuilder.() -> Unit = {}
     ): Flow<ApiResponse> = createFlowRequest(requestId) {
         client.post(url) {
+            contentType(ContentType.Application.Json)
             params?.forEach { (key, value) ->
                 parameter(key, value)
             }
             headers(headers)
             body?.let { setBody(it) }
+        }
+    }
+
+    /**
+     * 发送表单数据的POST请求并返回Flow
+     * @param requestId 请求唯一标识
+     * @param url 请求URL
+     * @param formFields 表单字段
+     * @param params 请求参数
+     * @param headers 请求头
+     * @return 返回包含ApiResponse的Flow
+     */
+    fun postForm(
+        requestId: String,
+        url: String,
+        formFields: Map<String, String>,
+        params: Map<String, String>? = null,
+        headers: HeadersBuilder.() -> Unit = {}
+    ): Flow<ApiResponse> = createFlowRequest(requestId) {
+        client.post(url) {
+            contentType(ContentType.MultiPart.FormData)
+            params?.forEach { (key, value) ->
+                parameter(key, value)
+            }
+            headers(headers)
+            setBody(
+                MultiPartFormDataContent(
+                    formData {
+                        formFields.forEach { (key, value) ->
+                            append(key, value)
+                        }
+                    }
+                ))
         }
     }
 
@@ -181,17 +238,15 @@ class KtorFlowNetworkManager {
         body: Any,
         contentType: ContentType = ContentType.Application.Json,
         charset: String = "UTF-8",
+        headers: HeadersBuilder.() -> Unit = {}
     ): Flow<TextStreamResponse> = flow {
         emit(TextStreamResponse.Connecting)
         // 发送请求
-        val response: HttpResponse = client.post(url) {
+        val response: HttpResponse = clientWithoutLogging.post(url) {
             this.contentType(contentType)
             setBody(body)
-            headers {
-                append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZjU2NTdkYi04OGExLTRkZWUtOTJmNC1kY2UwOGU4OGU1YTIiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgzMDcwMDU1fQ.9BNiYmvpvMifCMdVQyCWEhFyML-IpN9IY_iDFJWFAKg")
-            }
+            headers(headers)
         }
-        Log.d(TAG, "Response status: ${response.status.value}")
         if (!response.status.isSuccess()) {
             throw IOException("HTTP error ${response.status.value}")
         }
@@ -208,7 +263,6 @@ class KtorFlowNetworkManager {
             }
             emit(TextStreamResponse.Completed)
         } catch (e: Exception) {
-            Log.d(TAG, "Error in streamTextPost catch: ${e.message}")
             if (currentCoroutineContext().isActive) {
                 emit(TextStreamResponse.Error(e.message ?: "Stream error"))
             }
@@ -219,7 +273,6 @@ class KtorFlowNetworkManager {
         }
     }
         .catch { e ->
-            Log.d(TAG, "Error in streamTextPost: ${e.message}")
             if (e is CancellationException) {
                 emit(TextStreamResponse.Cancelled)
             } else {
@@ -231,7 +284,7 @@ class KtorFlowNetworkManager {
             val job = currentCoroutineContext().job
             requestMap[requestId] = job
 
-            job.invokeOnCompletion {throwable ->
+            job.invokeOnCompletion { throwable ->
                 requestMap.remove(requestId)
             }
         }
@@ -290,6 +343,7 @@ sealed class ApiResponse {
     data class Success(val data: String) : ApiResponse()
     data class Error(val code: String, val message: String) : ApiResponse()
 }
+
 /**
  * 下载进度的密封类
  */
@@ -300,6 +354,7 @@ sealed class DownloadProgress {
     data class Completed(val file: File) : DownloadProgress()
     data class Failed(val error: String) : DownloadProgress()
 }
+
 /**
  * 文本流响应的密封类
  */

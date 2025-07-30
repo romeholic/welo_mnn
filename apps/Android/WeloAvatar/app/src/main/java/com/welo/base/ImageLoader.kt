@@ -18,45 +18,46 @@ import java.io.File
 
 /**
  * Glide图片加载工具类
- * 支持普通图片和GIF加载，提供播放控制功能
+ * 支持普通图片、GIF和Drawable加载，提供播放控制和Adapter便捷调用
  */
-class ImageLoader private constructor(private val context: Context){
+class ImageLoader private constructor(private val context: Context) {
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         @Volatile
         private var instance: ImageLoader? = null
 
-        /** 使用 Application Context 创建实例（适合全局单例） */
         fun getInstance(context: Context): ImageLoader {
             return instance ?: synchronized(this) {
                 instance ?: ImageLoader(context.applicationContext).also { instance = it }
             }
         }
 
-        /** 使用 View 生命周期创建实例（适合需要感知生命周期的场景） */
         fun withViewLifecycle(context: Context): ImageLoader = ImageLoader(context)
     }
 
-    // region 普通图片加载方法
-    fun loadImage(url: String, imageView: ImageView, options: Options.() -> Unit = {}) =
+    // region 加载方法（新增Drawable直接加载）
+    fun load(drawable: Drawable, imageView: ImageView, options: Options.() -> Unit = {}) =
+        loadDrawableInternal(drawable, imageView, options)
+
+    fun load(url: String, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadImageInternal(url, imageView, options)
 
-    fun loadImage(filePath: File, imageView: ImageView, options: Options.() -> Unit = {}) =
-        loadImageInternal(filePath, imageView, options)
+    fun load(file: File, imageView: ImageView, options: Options.() -> Unit = {}) =
+        loadImageInternal(file, imageView, options)
 
-    fun loadImage(@DrawableRes resId: Int, imageView: ImageView, options: Options.() -> Unit = {}) =
+    fun load(@DrawableRes resId: Int, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadImageInternal(resId, imageView, options)
 
-    fun loadImage(uri: Uri, imageView: ImageView, options: Options.() -> Unit = {}) =
+    fun load(uri: Uri, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadImageInternal(uri, imageView, options)
 
-
-    // region GIF图片加载方法
+    // region GIF加载方法
     fun loadGif(url: String, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadGifInternal(url, imageView, options)
 
-    fun loadGif(filePath: File, imageView: ImageView, options: Options.() -> Unit = {}) =
-        loadGifInternal(filePath, imageView, options)
+    fun loadGif(file: File, imageView: ImageView, options: Options.() -> Unit = {}) =
+        loadGifInternal(file, imageView, options)
 
     fun loadGif(@RawRes resId: Int, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadGifInternal(resId, imageView, options)
@@ -64,40 +65,28 @@ class ImageLoader private constructor(private val context: Context){
     fun loadGif(uri: Uri, imageView: ImageView, options: Options.() -> Unit = {}) =
         loadGifInternal(uri, imageView, options)
 
-    /** 播放GIF */
+    // region 控制方法
     fun playGif(imageView: ImageView) {
-        val drawable = imageView.drawable
-        if (drawable is GifDrawable) {
-            if (!drawable.isRunning) {
-                drawable.start()
-            }
-        }
+        (imageView.drawable as? GifDrawable)?.start()
     }
 
-    /** 暂停GIF */
     fun pauseGif(imageView: ImageView) {
-        val drawable = imageView.drawable
-        if (drawable is GifDrawable) {
-            if (drawable.isRunning) {
-                drawable.stop()
-            }
-        }
+        (imageView.drawable as? GifDrawable)?.stop()
     }
 
-    /** 清除加载请求并释放资源 */
     fun clear(imageView: ImageView) {
         Glide.with(context).clear(imageView)
     }
-    /** 清除所有加载请求并释放资源 */
-    fun pauseRequest(){
+
+    fun pauseRequests() {
         Glide.with(context).pauseRequests()
     }
-    /** 恢复所有加载请求 */
-    fun resumeRequest(){
+
+    fun resumeRequests() {
         Glide.with(context).resumeRequests()
     }
 
-    /** 图片加载配置选项 */
+    // region 配置选项
     data class Options(
         var placeholder: Drawable? = null,
         var error: Drawable? = null,
@@ -106,28 +95,33 @@ class ImageLoader private constructor(private val context: Context){
         var isCenterCrop: Boolean = false,
         var isFitCenter: Boolean = false,
         var isCircleCrop: Boolean = false,
-        var overrideWidth: Int = Target.SIZE_ORIGINAL,
-        var overrideHeight: Int = Target.SIZE_ORIGINAL
+        var overrideSize: Int = Target.SIZE_ORIGINAL,
+        var skipMemoryCache: Boolean = false
     )
 
-    // 私有内部实现方法
+    // region 私有实现
+    @SuppressLint("CheckResult")
+    private fun loadDrawableInternal(
+        drawable: Drawable,
+        imageView: ImageView,
+        options: Options.() -> Unit
+    ) {
+        val opts = Options().apply(options)
+        getRequestBuilder(drawable, opts, imageView)
+            .applyConfig(opts)
+            .into(imageView)
+    }
+
     @SuppressLint("CheckResult")
     private fun loadImageInternal(
         source: Any,
         imageView: ImageView,
-        options: Options.() -> Unit,
+        options: Options.() -> Unit
     ) {
         val opts = Options().apply(options)
         getRequestBuilder(source, opts, imageView)
             .diskCacheStrategy(opts.diskCacheStrategy)
-            .apply {
-                if (opts.isCenterCrop) centerCrop()
-                if (opts.isFitCenter) fitCenter()
-                if (opts.isCircleCrop) circleCrop()
-                if (opts.overrideWidth != Target.SIZE_ORIGINAL || opts.overrideHeight != Target.SIZE_ORIGINAL) {
-                    override(opts.overrideWidth, opts.overrideHeight)
-                }
-            }
+            .applyConfig(opts)
             .into(imageView)
     }
 
@@ -135,39 +129,42 @@ class ImageLoader private constructor(private val context: Context){
     private fun loadGifInternal(
         source: Any,
         imageView: ImageView,
-        options: Options.() -> Unit,
+        options: Options.() -> Unit
     ) {
         val opts = Options().apply(options)
         getRequestBuilder(source, opts, imageView)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .apply {
-                if (opts.isCenterCrop) centerCrop()
-                if (opts.isFitCenter) fitCenter()
-                if (opts.isCircleCrop) circleCrop()
-                if (opts.overrideWidth != Target.SIZE_ORIGINAL || opts.overrideHeight != Target.SIZE_ORIGINAL) {
-                    override(opts.overrideWidth, opts.overrideHeight)
-                }
-            }
+            .applyConfig(opts)
             .into(imageView)
     }
 
-    @SuppressLint("CheckResult")
+    private fun RequestBuilder<Drawable>.applyConfig(options: Options): RequestBuilder<Drawable> {
+        return this.apply {
+            if (options.isCenterCrop) centerCrop()
+            if (options.isFitCenter) fitCenter()
+            if (options.isCircleCrop) circleCrop()
+            if (options.overrideSize != Target.SIZE_ORIGINAL) {
+                override(options.overrideSize)
+            }
+            options.placeholder?.let { placeholder(it) }
+            options.error?.let { error(it) }
+            options.listener?.let { addListener(it) }
+            skipMemoryCache(options.skipMemoryCache)
+        }
+    }
+
     private fun getRequestBuilder(
         source: Any,
         options: Options,
         view: View
     ): RequestBuilder<Drawable> {
-        val requestManager = if (view.isAttachedToWindow) {
-            Glide.with(view) // 使用 View 的生命周期
+        return if (view.isAttachedToWindow) {
+            Glide.with(view).load(source)
         } else {
-            Glide.with(context) // 使用 Application Context（需要手动清理）
+            Glide.with(context).load(source)
+        }.apply {
+            options.placeholder?.let { placeholder(it) }
+            options.error?.let { error(it) }
         }
-
-        return requestManager.load(source)
-            .apply {
-                options.placeholder?.let { placeholder(it) }
-                options.error?.let { error(it) }
-                options.listener?.let { addListener(it) }
-            }
     }
 }

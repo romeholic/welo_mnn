@@ -140,6 +140,10 @@
 -keep interface io.ktor.** { *; }
 -dontwarn io.ktor.**
 
+# 保留 Ktor 日志类（避免混淆导致日志失效）
+-keep class io.ktor.client.plugins.logging.** { *; }
+-keep class ch.qos.logback.** { *; }
+
 # 保留Kotlin反射和协程
 -keep class kotlin.reflect.** { *; }
 -keep class kotlin.Metadata { *; }
@@ -195,6 +199,8 @@
 # 保留自定义实体类（根据项目调整包名）
 -keep class com.welo.model.** { *; }
 -keep class com.alibaba.mls.api.**{*;}
+-keep class com.welo.service.FloatingWindowService { *; }
+-keep class com.welo.service.RecordingForegroundService { *; }
 
 
 # 保留特定类和方法

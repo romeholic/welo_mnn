@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WheelPicker">
+        <!-- 可见项数量 -->
+        <attr name="wheel_visible_item_count" format="integer" />
+
+        <!-- 是否循环滚动 -->
+        <attr name="wheel_cyclic" format="boolean" />
+
+        <!-- 指示器相关 -->
+        <attr name="wheel_indicator" format="boolean" />
+        <attr name="wheel_indicator_size" format="dimension" />
+        <attr name="wheel_indicator_color" format="color" />
+
+        <!-- 幕布相关 -->
+        <attr name="wheel_curtain" format="boolean" />
+        <attr name="wheel_curtain_color" format="color" />
+
+        <!-- 空气感效果 -->
+        <attr name="wheel_atmospheric" format="boolean" />
+
+        <!-- 卷曲效果 -->
+        <attr name="wheel_curved" format="boolean" />
+
+        <!-- 对齐方式 -->
+        <attr name="wheel_item_align" format="enum">
+            <enum name="alignCenter" value="0" />
+            <enum name="alignLeft" value="1" />
+            <enum name="alignRight" value="2" />
+        </attr>
+
+        <!-- 图片相关属性 -->
+        <attr name="wheel_image_size" format="dimension" />
+        <attr name="wheel_image_scale_type" format="enum">
+            <enum name="fitCenter" value="0" />
+            <enum name="centerCrop" value="1" />
+            <enum name="centerInside" value="2" />
+        </attr>
+        <attr name="wheel_indicator_highlight_color" format="color" />
+        <attr name="wheel_indicator_corner_radius" format="dimension" />
+        <attr name="wheel_indicator_padding" format="dimension" />
+        <attr name="wheel_indicator_horizontal_padding" format="dimension" />
+        <attr name="wheel_indicator_vertical_padding" format="dimension" />
+    </declare-styleable>
+</resources>

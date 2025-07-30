@@ -8,9 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.taobao.meta.avatar.llm.FlowInputs
 import com.taobao.meta.avatar.llm.FlowRequest
 import com.welo.util.StringUtil
-import com.welo.base.KtorFlowNetworkManager
-import com.welo.base.TextStreamResponse
+import com.welo.base.net.NetworkManager
+import com.welo.base.net.TextStreamResponse
+import com.welo.constant.Constants
 import com.welo.entity.MessageData
+import com.welo.storage.AgentManager
+import com.welo.storage.TokenManager
 import com.welo.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,8 +41,8 @@ class MessageViewModel : ViewModel() {
     val aiResponseFlow: StateFlow<TextStreamResponse> = _aiResponseFlow.asStateFlow()
 
     // 收集到的完整文本
-    private val _collectedText = MutableSharedFlow<String>(replay = 0)
-    val collectedText: SharedFlow<String> = _collectedText.asSharedFlow()
+    private val _collectedText = MutableStateFlow<String>("")
+    val collectedText: StateFlow<String> = _collectedText.asStateFlow()
 
     private val _requestId = MutableStateFlow(0L)
     val requestId: StateFlow<Long> = _requestId.asStateFlow()
@@ -112,13 +115,15 @@ class MessageViewModel : ViewModel() {
                     session = "Session ${System.currentTimeMillis()}"
                 )
             )
-            val url =
-                "http://192.168.111.10:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct"
-            KtorFlowNetworkManager.Companion.instance.streamTextPost(
+            // TODO: 后续根据用户选择不同的Agent选择不同的URL，调用｛AgentManager.getSelectedAgent()｝
+            val url = Constants.getLlmPath(AgentManager.selectAgent(0)?.agentId?:"")
+            NetworkManager.Companion.instance.streamTextPost(
                 requestId.toString(),
                 url,
                 requestBody,
-            ).catch {
+            ) {
+                append("Authorization","Bearer ${TokenManager.getToken()}")
+            }.catch {
                 // 捕获异常并更新状态
                 _aiResponseFlow.value = TextStreamResponse.Error(it.message ?: "未知错误")
             }.collect { response ->
@@ -130,8 +135,8 @@ class MessageViewModel : ViewModel() {
                             val message = StringUtil.parseFlowResponse(json)
                             message?.let {
                                 _aiResponseFlow.value = TextStreamResponse.Data(it)
-                                withContext(Dispatchers.Main) {
                                     _collectedText.emit(it)
+                                withContext(Dispatchers.Main) {
                                 }
                             }
                         }
@@ -152,8 +157,8 @@ class MessageViewModel : ViewModel() {
 
     fun closeRequest(requestId: String) {
         // 重置状态
-        _aiResponseFlow.value = TextStreamResponse.Idle
-        KtorFlowNetworkManager.Companion.instance.cancelRequest(requestId)
+        _aiResponseFlow.value = TextStreamResponse.Cancelled
+        NetworkManager.Companion.instance.cancelRequest(requestId)
         _receivedStatus.value = true
     }
 

@@ -11,6 +11,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import android.util.Log
+import com.welo.util.LogUtil
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -172,18 +173,16 @@ class LlmPresenter(private val textResponse: TextView) {
     }
 
     private fun onScrollToBottom() {
-        if (textResponse.visibility != TextView.VISIBLE || textResponse.layout == null) {
+        if (textResponse.visibility != TextView.VISIBLE) {
             return
         }
-        val scrollAmount =
-            textResponse.layout.getLineTop(textResponse!!.lineCount) - textResponse!!.height
-        if (scrollAmount > 0) {
-            textResponse.scrollTo(
-                0,
-                scrollAmount + 100
-            )
-        } else {
-            textResponse.scrollTo(0, 0)
+        textResponse.post {
+            val scrollAmount = textResponse.layout.getLineTop(textResponse.lineCount) - textResponse.height
+            if (scrollAmount > 0) {
+                textResponse.scrollTo(0, scrollAmount)
+            } else {
+                textResponse.scrollTo(0, 0)
+            }
         }
     }
 

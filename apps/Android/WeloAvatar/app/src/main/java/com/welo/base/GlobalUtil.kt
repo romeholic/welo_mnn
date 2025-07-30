@@ -20,10 +20,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.mls.api.ApplicationProvider
+import com.welo.util.LogUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
@@ -152,6 +154,9 @@ fun <T> Flow<T>.observeInLifecycleWithDelay(
             withContext(Dispatchers.Main) {
                 action(value)
             }
+        }
+        .catch {
+                e -> LogUtil.e("GlobalUtil", "Flow collection error", e)
         }
         .launchIn(lifecycleOwner.lifecycleScope)
 }

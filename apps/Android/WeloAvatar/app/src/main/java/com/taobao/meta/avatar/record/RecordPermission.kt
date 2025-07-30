@@ -21,6 +21,8 @@ object RecordPermission {
     const val REQUEST_RECORD_AUDIO_PERMISSION = 200
     const val MANAGE_EXTERNAL_STORAGE_REQUEST_CODE = 1001
     const val READ_EXTERNAL_STORAGE_REQUEST_CODE = 1002
+
+    const val REQUEST_RECORD_OVERLAY_PERMISSION = 1003
     val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
 
     // 检查是否有存储权限

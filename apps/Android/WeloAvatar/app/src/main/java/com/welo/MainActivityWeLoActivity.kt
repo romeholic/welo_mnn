@@ -1,22 +1,15 @@
 package com.welo
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Rect
-import android.os.Build
-import android.os.Environment
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.view.marginBottom
@@ -33,14 +26,13 @@ import com.taobao.meta.avatar.databinding.ActivityMainWeLoBinding
 import com.taobao.meta.avatar.download.DownloadCallback
 import com.taobao.meta.avatar.download.DownloadModule
 import com.taobao.meta.avatar.record.RecordPermission
-import com.taobao.meta.avatar.record.RecordPermission.MANAGE_EXTERNAL_STORAGE_REQUEST_CODE
 import com.taobao.meta.avatar.record.RecordPermission.READ_EXTERNAL_STORAGE_REQUEST_CODE
 import com.taobao.meta.avatar.record.RecordPermission.REQUEST_RECORD_AUDIO_PERMISSION
 import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
 import com.welo.base.BaseActivity
-import com.welo.base.TextStreamResponse
-import com.welo.base.setupHideKeyboardOnOutsideTouch
+import com.welo.base.net.TextStreamResponse
+import com.welo.login.ui.login.LoginActivity
 import com.welo.util.AudioBlendShapePlayerUtil
 import com.welo.util.FeatureTourUtil
 import com.welo.util.InputMode
@@ -192,6 +184,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         }
         viewBinding.multifunctionalIv.setOnClickListener {
             Toast.makeText(this, "多功能按钮,敬请期待！", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         viewBinding.inputStateChange.apply {
@@ -476,17 +469,9 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
             }
         }
     }
+    // 处理权限申请结果
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == MANAGE_EXTERNAL_STORAGE_REQUEST_CODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    onDownloadClicked()
-                } else {
-                    Toast.makeText(this, "请开启权限以继续", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
 
     private suspend fun loadTTSModel() {
@@ -601,7 +586,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
         viewBinding.loadingText.visibility = View.GONE
     }
     companion object {
-        private const val TAG = "WELO#MainActivity"
+        const val TAG = "WELO#MainActivity"
         init {
             System.loadLibrary("taoavatar")
         }
