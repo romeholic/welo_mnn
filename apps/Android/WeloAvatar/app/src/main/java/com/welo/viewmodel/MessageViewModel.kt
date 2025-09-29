@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taobao.meta.avatar.llm.FlowInputs
 import com.taobao.meta.avatar.llm.FlowRequest
-import com.welo.util.StringUtil
 import com.welo.base.net.NetworkManager
 import com.welo.base.net.TextStreamResponse
 import com.welo.constant.Constants
 import com.welo.entity.MessageData
-import com.welo.storage.AgentManager
+import com.welo.launcher.entity.TaskBean
 import com.welo.storage.TokenManager
 import com.welo.util.LogUtil
+import com.welo.util.StringUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -30,7 +30,7 @@ import kotlinx.coroutines.withContext
 class MessageViewModel : ViewModel() {
 
     private val TAG = "MessageViewModel"
-    private val _sendData = MutableSharedFlow<String>(replay = 0)
+    private val _sendData = MutableSharedFlow<String>(replay = 3)
     val sendData: SharedFlow<String> = _sendData.asSharedFlow()
 
     private val _receivedStatus = MutableLiveData<Boolean>()
@@ -53,6 +53,9 @@ class MessageViewModel : ViewModel() {
     private val _messageList = MutableStateFlow<List<MessageData>>(emptyList())
     val messageList: StateFlow<List<MessageData>> = _messageList
 
+
+    private val _taskList = MutableStateFlow<List<TaskBean>>(emptyList())
+    val taskList: StateFlow<List<TaskBean>> = _taskList
     /**
      * 添加消息到列表，并根据消息ID进行去重
      *
@@ -91,9 +94,7 @@ class MessageViewModel : ViewModel() {
 
     fun sendMessage(message: String) {
         viewModelScope.launch {
-            if (message.isNotEmpty()) {
-                _sendData.emit(message)
-            }
+
         }
     }
 
@@ -102,9 +103,12 @@ class MessageViewModel : ViewModel() {
     }
 
     fun receivedMessage(text: String, requestId: Long) {
-        Log.d(TAG, "receivedMessage: $text, requestId: $requestId")
+        Log.d(TAG, "receivedMessage: $text, requestId: $requestId}")
 
         viewModelScope.launch {
+            if (text.isNotEmpty()) {
+                _sendData.emit(text)
+            }
             _requestId.value = requestId
             // 重置状态
             _aiResponseFlow.value = TextStreamResponse.Connecting
@@ -116,13 +120,13 @@ class MessageViewModel : ViewModel() {
                 )
             )
             // TODO: 后续根据用户选择不同的Agent选择不同的URL，调用｛AgentManager.getSelectedAgent()｝
-            val url = Constants.getLlmPath(AgentManager.selectAgent(0)?.agentId?:"")
+            val url = Constants.getLlmPath()
             NetworkManager.Companion.instance.streamTextPost(
                 requestId.toString(),
                 url,
                 requestBody,
             ) {
-                append("Authorization","Bearer ${TokenManager.getToken()}")
+                append("Authorization", "Bearer ${TokenManager.getToken()}")
             }.catch {
                 // 捕获异常并更新状态
                 _aiResponseFlow.value = TextStreamResponse.Error(it.message ?: "未知错误")
@@ -135,9 +139,7 @@ class MessageViewModel : ViewModel() {
                             val message = StringUtil.parseFlowResponse(json)
                             message?.let {
                                 _aiResponseFlow.value = TextStreamResponse.Data(it)
-                                    _collectedText.emit(it)
-                                withContext(Dispatchers.Main) {
-                                }
+                                _collectedText.emit(it)
                             }
                         }
                     }

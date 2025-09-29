@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentAiImageBinding
-import com.welo.viewmodel.GuideViewModel
+import com.welo.guide.viewmodel.GuideViewModel
 
 
 /**

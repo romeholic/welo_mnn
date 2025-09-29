@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Application.FullscreenTranslucentStatus" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="colorControlActivated">@color/colorControlActivated</item>
+        <item name="android:textColorHighlight">@color/colorControlActivated</item>
+        <item name="cursorColor">@color/colorControlActivated</item>
+        <item name="colorControlHighlight">@color/colorControlActivated</item>
+        <!-- 允许内容延伸到刘海屏/挖孔屏区域 -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowFullscreen">false</item>
+
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

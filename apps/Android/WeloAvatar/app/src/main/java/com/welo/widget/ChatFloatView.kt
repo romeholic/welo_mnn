@@ -29,7 +29,7 @@ import com.taobao.meta.avatar.tts.TtsService
 import com.welo.base.net.TextStreamResponse
 import com.welo.base.observeInLifecycleWithDelay
 import com.welo.callback.IChat
-import com.welo.login.ui.login.LoginActivity
+import com.welo.login.LoginActivity
 import com.welo.service.RecordingForegroundService
 import com.welo.service.ServiceInitializer
 import com.welo.util.AudioPlayerUtil
@@ -153,7 +153,6 @@ class ChatFloatView(
                             is TextStreamResponse.Error -> {
                                 LogUtil.d(TAG, "AI response error: ${state.message}")
                                 if (state.message.contains("405")) {
-                                    hideSoftKeyboard(inputEditView)
                                     val intent = Intent(context, LoginActivity::class.java)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     context.startActivity(intent)
@@ -207,8 +206,6 @@ class ChatFloatView(
         currentChatId = System.currentTimeMillis()
         answerSession++
         audioBlendShapePlayer.startNewSession(answerSession)
-        llmPresenter.setCurrentSessionId(currentChatId)
-        llmPresenter.onEndCall()
         scope.launch {
             messageViewModel.sendMessage(text)
             hideChatOutput()
@@ -306,7 +303,7 @@ class ChatFloatView(
         }
     }
 
-    override fun textSend(inputText: String) {
+    override fun recognitionResult(inputText: String) {
         processChatRequest(inputText)
     }
 

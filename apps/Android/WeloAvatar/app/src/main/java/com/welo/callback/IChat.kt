@@ -4,7 +4,7 @@ interface IChat {
 
     fun startRecord()
     fun stopRecord()
-    fun textSend(inputText: String)
+    fun recognitionResult(inputText: String)
 
     fun stopAnswer()
 

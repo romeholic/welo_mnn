@@ -6,16 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.welo.activity.GuideActivity">
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/guide_container"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    tools:context="com.welo.guide.GuideActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/guide_bg"
+        android:layout_width="@dimen/dp_202"
+        android:layout_height="@dimen/dp_184"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/guide_view_Page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:defaultNavHost="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_guide" />
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

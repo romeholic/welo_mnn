@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_304"
+    android:background="@drawable/bottom_sheet_background"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16">
+
+    <TextView
+        android:id="@+id/toot_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:gravity="center"
+        android:text="@string/ai_tools_title"
+        android:textColor="@color/ai_tool_title"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ai_tools_rv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
+        app:layout_constraintTop_toBottomOf="@id/toot_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

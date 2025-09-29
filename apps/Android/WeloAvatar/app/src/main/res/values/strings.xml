@@ -71,4 +71,37 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="try_these">试试这些:</string>
+    <string name="all_apps">所有应用</string>
+    <string name="ai_tools_title">选择技能</string>
+    <string name="text_hint">输入你想翻译的内容…</string>
+    <string name="input_bar_text">长按/点击说话…</string>
+    <string name="hold_to_talk">按住说话</string>
+    <string-array name="ai_tools_title_list">
+        <item>AI翻译</item>
+        <item>AI搜索</item>
+        <item>AI作曲</item>
+        <item>AI作图</item>
+        <item>AI写作</item>
+        <item>AI调研</item>
+        <item>AI答题</item>
+    </string-array>
+    <string-array name="ai_tools_desc_list">
+        <item>多语种选择</item>
+        <item>搜索网上的内容</item>
+        <item>创作全部类型音乐</item>
+        <item>创作图像</item>
+        <item>多种语言选择</item>
+        <item>市场洞察</item>
+        <item>解答疑难问题</item>
+    </string-array>
+    <string-array name="ai_tools_hint_list">
+        <item>支持中英互译,请输入要翻译的文本</item>
+        <item>搜索、提问、发消息</item>
+        <item>创作一首歌曲</item>
+        <item>请描述您想创作的内容,您可以描述画面尺寸如4:3、风格为写实</item>
+        <item>请输入主题和写作要求</item>
+        <item>请输入主题和报告要求</item>
+        <item>随手拍，随口问，我来答</item>
+    </string-array>
 </resources>

@@ -15,11 +15,24 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Application.FullscreenTranslucentStatus" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Application.FullscreenTranslucentStatus" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+
+        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="colorControlActivated">@color/colorControlActivated</item>
+        <item name="android:textColorHighlight">@color/colorControlActivated</item>
+
+        <item name="cursorColor">@color/colorControlActivated</item>
+        <item name="colorControlHighlight">@color/colorControlActivated</item>
+        <!-- 允许内容延伸到刘海屏/挖孔屏区域 -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowFullscreen">false</item>
+
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
     <style name="Theme.TaoAvatar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -32,5 +45,13 @@
     </style>
 
     <style name="Theme.WeloAvatar" parent="Theme.MaterialComponents.Light" />
+
+    <style name="AppDialogTheme" parent="Theme.Material3.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+    </style>
 </resources>
 

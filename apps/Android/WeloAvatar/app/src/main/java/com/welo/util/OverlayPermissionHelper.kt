@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.welo.service.FloatingWindowService
+import androidx.core.net.toUri
 
 /**
  * 悬浮窗权限帮助类
@@ -153,7 +154,7 @@ class OverlayPermissionHelper {
 
         private fun openAppDetailsSettings(context: Context) {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.parse("package:${context.packageName}")
+                data = "package:${context.packageName}".toUri()
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             context.startActivity(intent)
@@ -179,7 +180,7 @@ class OverlayPermissionHelper {
                 else -> {
                     val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).apply {
                         // 设置目标应用的包名
-                        data = Uri.fromParts("package", context.packageName, null)
+                        data = ("package:" + context.packageName).toUri()
                         addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                         addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
                     }

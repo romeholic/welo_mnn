@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary">#FF6200EE</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#329BEA</color>
     <color name="purple_700">#2889CC</color>
@@ -13,4 +14,15 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="gray">#CCCCCC</color>
+    <color name="theme_background">#F9F9F9</color>
+    <color name="ai_tool_desc_color">#585962</color>
+    <color name="option_dialog_bg">#EFEFEF80</color>
+
+    <color name="app_background">#141414</color>
+    <color name="hint_text_color">#767780</color>
+    <color name="ai_tool_title">#C4C5CC</color>
+    <color name="input_layout_bg_color">#383A3D</color>
+    <color name="input_edit_bg_color">#585A5C</color>
+    <color name="blurry_mask_color">#80141414</color>
+    <color name="colorControlActivated">#FF6727</color>
 </resources>

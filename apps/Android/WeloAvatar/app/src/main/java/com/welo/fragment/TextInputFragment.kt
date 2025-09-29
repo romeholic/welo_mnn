@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taobao.meta.avatar.databinding.FragmentTextInputBinding
-import com.welo.adapter.MessageAdapter
+import com.welo.launcher.adapter.MessageAdapter
 import com.welo.base.BaseFragment
 import com.welo.base.observeInLifecycleWithDelay
 import com.welo.entity.MessageData

@@ -3,8 +3,11 @@ package com.welo.base
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
@@ -159,4 +162,58 @@ fun <T> Flow<T>.observeInLifecycleWithDelay(
                 e -> LogUtil.e("GlobalUtil", "Flow collection error", e)
         }
         .launchIn(lifecycleOwner.lifecycleScope)
+}
+
+/**
+ * 设置View为可见状态（VISIBLE）
+ */
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+/**
+ * 设置View为不可见且不占用布局空间（GONE）
+ */
+fun View.gone() {
+    visibility = View.GONE
+}
+
+/**
+ * 可选：设置View为不可见但占用布局空间（INVISIBLE）
+ */
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+// IntentExtensions.kt
+inline fun <reified T : Parcelable> Intent.getParcelableArrayListExtraCompat(
+    key: String
+): ArrayList<T>? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getParcelableArrayListExtra(key, T::class.java)
+    } else {
+        @Suppress("DEPRECATION")
+        getParcelableArrayListExtra(key)
+    }
+}
+
+inline fun <reified T : Parcelable> Intent.getParcelableExtraCompat(
+    key: String
+): T? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getParcelableExtra(key, T::class.java)
+    } else {
+        @Suppress("DEPRECATION")
+        getParcelableExtra(key)
+    }
+}
+
+fun View.setOnDebouncedClickListener(interval: Long = 500, action: () -> Unit) {
+    var lastClickTime = 0L
+    setOnClickListener {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastClickTime >= interval) {
+            action()
+            lastClickTime = currentTime
+        }
+    }
 }

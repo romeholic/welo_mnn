@@ -1,9 +1,15 @@
 package com.welo.storage
 
+import com.welo.constant.Constants
+import com.welo.constant.Constants.AGENT_TYPE_WELO_CHAT
+import com.welo.constant.Constants.AGENT_TYPE_WELO_GUIDANCE
+import com.welo.constant.Constants.FEATURE_TOUR_KEY
 import com.welo.entity.AgentData
 import com.welo.entity.FlowItem
 import com.welo.entity.UserAgentBean
+import com.welo.util.FeatureTourUtil
 import com.welo.util.LogUtil
+import com.welo.util.PreferenceUtil
 import java.util.concurrent.CopyOnWriteArrayList
 
 object AgentManager {
@@ -56,20 +62,15 @@ object AgentManager {
      * @return 对应的UserAgentBean
      * @throws IndexOutOfBoundsException 如果索引超出范围
      */
-    fun selectAgent(index: Int = 0): UserAgentBean? {
-        runCatching {
-            // 检查列表是否为空
-            if (agentList.isEmpty()) {
-                throw IllegalStateException("Agent list is empty")
-            }
-            // 检查索引是否有效
-            if (index < 0 || index >= agentList.size) {
-                throw IndexOutOfBoundsException("Index $index out of bounds for size ${agentList.size}")
-            }
-            selectAgent = agentList[index]
-        }.onFailure {
-            LogUtil.d("AgentManager", "Error selecting agent: ${it.message}")
+    fun selectAgent(): UserAgentBean? {
+        // 检查列表是否为空
+        if (agentList.isEmpty()) {
+            throw IllegalStateException("Agent list is empty")
         }
+        selectAgent = agentList.first {
+            it.name == Constants.agentType
+        }
+        LogUtil.d("AgentManager", "Selected agent: $selectAgent")
         return selectAgent
     }
 
@@ -80,7 +81,8 @@ object AgentManager {
         return UserAgentBean(
             agentId = requireNotNull(id) { "Flow id cannot be null" },
             description = description, // 为description提供默认值
-            icon = icon ?: ""
+            icon = icon ?: "",
+            name = name
         )
     }
 

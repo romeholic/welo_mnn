@@ -1,0 +1,49 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.welo.guide.fragment.GuideFragment">
+
+    <TextView
+        android:id="@+id/guide_title"
+        android:layout_width="@dimen/dp_268"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/guide_desc"
+        android:layout_width="@dimen/dp_268"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guide_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_chat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_320"
+        android:layout_marginTop="@dimen/dp_40"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flex_box"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_320"
+        android:visibility="visible"
+        app:alignItems="center"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:justifyContent="space_around"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -209,10 +209,10 @@ class LlmService {
 
                 Log.d(TAG, "请求体: ${Json.encodeToString(FlowRequest.serializer(), requestBody)}")
 
-                Log.d(TAG, "准备发送请求到: http://192.168.111.10:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct")
+                Log.d(TAG, "准备发送请求到: http://192.168.110.37:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct")
 
                 val response: HttpResponse = client.post {
-                    url("http://192.168.111.10:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct")
+                    url("http://192.168.110.37:7860/api/v1/build/e3e07c37-49d7-44b7-be70-1ed17ea44851/flow?event_delivery=direct")
                     contentType(ContentType.Application.Json)
                     setBody(requestBody)
                     headers {
@@ -320,7 +320,7 @@ class LlmService {
 
             // 3. 发送POST请求到非流式接口
             val response: HttpResponse = client.post {
-                url("http://192.168.111.10:7860/api/v1/run/e3e07c37-49d7-44b7-be70-1ed17ea44851?stream=false")
+                url("http://192.168.110.37:7860/api/v1/run/e3e07c37-49d7-44b7-be70-1ed17ea44851?stream=false")
                 contentType(ContentType.Application.Json)
                 setBody(requestBody)
                 headers {

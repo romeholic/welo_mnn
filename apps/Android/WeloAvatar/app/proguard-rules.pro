@@ -105,7 +105,30 @@
 # Kotlin Android 扩展
 -keep class androidx.core.kotlin.** { *; }
 
+# Markwon keep rules
+-keep class io.noties.markwon.** { *; }
+-keep class org.commonmark.** { *; }
 
+# SVG keep rules
+-keep class com.caverock.androidsvg.** { *; }
+-keep class io.noties.markwon.image.svg.** { *; }
+
+# GIF keep rules
+-keep class pl.droidsonroids.gif.** { *; }
+-keep class io.noties.markwon.image.gif.** { *; }
+
+# Coil keep rules (如果使用Coil)
+-keep class coil.** { *; }
+-keep class kotlinx.coroutines.** { *; }
+
+# 或者 Glide keep rules (如果使用Glide)
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+    <init>(...);
+}
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
+
+-dontwarn pl.droidsonroids.gif.GifDrawable
 
 # ================================
 # 常见第三方库配置
@@ -201,6 +224,9 @@
 -keep class com.alibaba.mls.api.**{*;}
 -keep class com.welo.service.FloatingWindowService { *; }
 -keep class com.welo.service.RecordingForegroundService { *; }
+
+-keep class com.iflytek.sparkchain.** {*;}
+-keep class com.iflytek.sparkchain.**
 
 
 # 保留特定类和方法

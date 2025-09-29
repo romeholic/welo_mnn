@@ -25,8 +25,6 @@ import kotlinx.coroutines.launch
 class VoiceInputFragment : BaseFragment<FragmentVoiceInputBinding, MessageViewModel>() {
     private lateinit var llmPresenter: LlmPresenter
     private var currentChatId: Long = 0L
-    private val animationRes =
-        listOf("animation_1.json", "animation_2.json", "animation_3.json", "animation_4.json")
 
     override fun createBinding(
         inflater: LayoutInflater,

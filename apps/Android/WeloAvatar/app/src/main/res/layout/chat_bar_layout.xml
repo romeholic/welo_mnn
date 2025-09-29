@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/chat_bar_bg">
+
+    <!-- 图片预览区域 - 优化嵌套 -->
+    <HorizontalScrollView
+        android:id="@+id/layout_image_preview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:padding="@dimen/dp_4"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/image_preview"
+            android:layout_width="wrap_content"
+            android:clipChildren="true"
+            android:layout_height="@dimen/dp_60"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+
+    <!-- 底部输入区域 - 使用ConstraintLayout替代LinearLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_chat_input"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_94"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_image_preview">
+        <!-- 输入框 -->
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@null"
+            android:hint="@string/text_hint"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:textColorHint="@color/hint_text_color"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.welo.widget.ImageTextView
+                android:id="@+id/ai_tool_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_plus"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:src="@drawable/icon_plus"
+                app:layout_constraintRight_toLeftOf="@+id/iv_audio"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_audio"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:src="@drawable/icon_audio"
+                app:layout_constraintRight_toLeftOf="@+id/iv_send"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_send"
+                android:layout_width="@dimen/dp_32"
+                android:layout_height="@dimen/dp_32"
+                android:src="@drawable/icon_send_default"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_voice_input"
+        android:layout_width="@dimen/dp_327"
+        android:layout_height="@dimen/dp_78"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@drawable/chat_voice_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_16"
+            android:src="@drawable/icon_back" />
+
+        <com.welo.widget.WaveformView
+            android:id="@+id/view_waveform"
+            android:layout_width="@dimen/dp_183"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_24" />
+
+        <ImageView
+            android:id="@+id/iv_ok"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_16"
+            android:src="@drawable/icon_ok" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

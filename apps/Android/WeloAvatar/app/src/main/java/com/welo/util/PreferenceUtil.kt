@@ -32,6 +32,12 @@ class PreferenceUtil private constructor(context: Context, name: String = "app_p
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     /**
+     * 判断key是否存在
+     */
+    fun isKeyExists( key: String): Boolean {
+        return prefs.contains(key) // 直接检查key是否存在
+    }
+    /**
      * 存储布尔值
      */
     fun putBoolean(key: String, value: Boolean) {

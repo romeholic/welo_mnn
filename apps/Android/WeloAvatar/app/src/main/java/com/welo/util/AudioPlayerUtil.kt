@@ -26,7 +26,7 @@ import kotlin.coroutines.resume
 
 class AudioPlayerUtil(private val ttsService: TtsService) {
     companion object {
-        const val TAG = "WELO#AudioBlendShapePlayer"
+        const val TAG = "WELO#AudioPlayerUtil"
         const val DEBUG_VERBOSE = false
     }
 
@@ -262,7 +262,6 @@ class AudioPlayerUtil(private val ttsService: TtsService) {
     }
 
     fun playStreamText(currentText: String?) {
-        Log.d(TAG, "playStreamText: currentText=#${currentText}#")
         if (currentText == null) {
             flushPendingText()
             return
@@ -278,7 +277,6 @@ class AudioPlayerUtil(private val ttsService: TtsService) {
         val addedText = if (cleanedText.startsWith(lastProcessedFullText)) {
             cleanedText.substring(lastProcessedFullText.length)
         } else {
-            Log.w(TAG, "文本不匹配，可能服务端重置了回复")
             cleanedText
         }
 
@@ -342,10 +340,17 @@ class AudioPlayerUtil(private val ttsService: TtsService) {
 
     // 添加音频片段（移除动画帧相关逻辑）
     private suspend fun addAudioBlendShape(audioBlendShape: AudioBlendShapeData) {
-        Log.d(TAG, "AddAudio: ${audioBlendShape.id} text: ${audioBlendShape.text} audio size: ${audioBlendShape.audio.size}")
+        Log.d(TAG, "AddAudio is_last: ${audioBlendShape.is_last} text: ${audioBlendShape.text} audio size: ${audioBlendShape.audio.size}")
         audioBlendShapeMap[audioBlendShape.id] = audioBlendShape
         waitingBlendShapeMap[audioBlendShape.id]?.invoke()
         waitingBlendShapeMap.remove(audioBlendShape.id)
+        if (audioBlendShape.is_last) {
+            withContext(Dispatchers.Main) {
+                listeners.forEach { it.onPlayEnd() }
+                // 可选：自动调用stop清理资源，但注意不要重复调用
+                 this@AudioPlayerUtil.stop()
+            }
+        }
     }
 
     // 保留音频状态获取方法
@@ -398,6 +403,7 @@ class AudioPlayerUtil(private val ttsService: TtsService) {
         segmentTokenCount = 0
         waitingAudioCompleteMap.clear()
         waitingBlendShapeMap.clear()
+        markerCompleteTime.clear() // 添加清理
         listeners.forEach { it.onPlayEnd() }
     }
 

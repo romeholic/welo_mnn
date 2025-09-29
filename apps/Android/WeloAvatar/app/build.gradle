@@ -1,9 +1,16 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
+    id 'kotlin-kapt'
 }
-
+static def buildTime() {
+    DateFormat df = new SimpleDateFormat("yyyyMMddHHmm")
+    return df.format(Calendar.getInstance(Locale.CHINA).getTime())
+}
 task downloadAndUnzipNativeLibs {
     group = 'Pre-build'
     description = 'Downloads and unzips native libraries from CDN.'
@@ -54,7 +61,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "WeloAvatar-${variant.buildType.name}-v${variant.versionName}.apk"
+            outputFileName = "WeloAvatar-${variant.buildType.name}-v${variant.versionName}-${buildTime()}.apk"
         }
     }
 
@@ -63,13 +70,20 @@ android {
         minSdk 26
         targetSdk 35
         versionCode 1
-        versionName "0.2"
+        versionName "1.0.0"
+
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
 
         externalNativeBuild {
             cmake {
                 abiFilters 'arm64-v8a'
                 arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_shared'
             }
+        }
+
+        ndk {
+            abiFilters += "arm64-v8a"
         }
     }
     externalNativeBuild {
@@ -97,10 +111,15 @@ android {
         viewBinding true
     }
     buildToolsVersion '35.0.0'
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
-
 ext {
-    okdownload_version = '1.0.8-SNAPSHOT'
+    okdownload_version = '1.0.7'
+    room_version = "2.6.1"
 }
 
 dependencies {
@@ -116,6 +135,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.activity:activity-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
@@ -136,7 +156,41 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation 'com.airbnb.android:lottie:6.1.0'
+
     implementation 'com.github.bumptech.glide:glide:4.16.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
-//    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.3'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.16.0'
+    implementation 'androidx.work:work-runtime-ktx:2.10.3'
+    kapt 'com.github.bumptech.glide:compiler:4.16.0'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    //流式布局
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt  "androidx.room:room-compiler:$room_version"
+
+    //调试okhttp请求（建议debug使用）
+    implementation 'com.localebro:okhttpprofiler:1.0.8'
+
+    implementation "io.noties.markwon:core:4.6.2"
+    implementation "io.noties.markwon:image:4.6.2"
+    implementation "io.noties.markwon:linkify:4.6.2"
+    // 使用 Glide 插件替代 Coil
+    implementation "io.noties.markwon:image-coil:4.6.2"
+    implementation("io.coil-kt:coil:2.5.0")
+    implementation("io.coil-kt:coil-svg:2.5.0")
+    implementation("io.coil-kt:coil-gif:2.5.0")
+
+    //Google ML Kit 语言识别
+    implementation 'com.google.mlkit:language-id:17.0.4'
+
+    implementation("com.squareup.okhttp3:okhttp-sse:4.12.0")
+    //bytedance
+    implementation 'com.bytedance.boringssl.so:boringssl-so:1.3.7-16kb'
+    implementation('org.chromium.net:cronet:4.2.210.4-tob') {
+        exclude group: 'com.bytedance.common', module: 'wschannel'
+    }
+    implementation 'com.bytedance.frameworks.baselib:ttnet:4.2.210.4-tob'
+    implementation 'com.bytedance.speechengine:speechengine_tob:0.0.8.1-bugfix'
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
 }

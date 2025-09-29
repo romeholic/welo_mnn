@@ -26,6 +26,10 @@ object StringUtil {
                 "end" -> {
                     Log.d(TAG, "收到结束响应块: $jsonString")
                 }
+                "vertices_sorted" -> {
+                    Log.d(TAG, "收到顶点排序响应块: $jsonString")
+                    return "CHAT_START"
+                }
                 else -> {
                     Log.d(TAG, "收到未知事件响应块: ${response.event}")
                 }
@@ -41,5 +45,14 @@ object StringUtil {
             String(Character.toChars(codePoint))
         }
         return decodedText
+    }
+    fun stringToList(string: String?): List<String> {
+        // 处理空字符串情况
+        if (string.isNullOrEmpty()) {
+            return emptyList()
+        }
+
+        // 使用逗号分割字符串，并过滤可能的空项
+        return string.split(",").map { it.trim() }.filter { it.isNotEmpty() }
     }
 }

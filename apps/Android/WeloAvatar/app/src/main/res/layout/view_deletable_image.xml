@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp_52"
+    android:layout_height="@dimen/dp_52"
+    android:gravity="center">
+
+    <!-- 主体图片 -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/dp_4"
+        android:src="@drawable/avatar_x"
+        app:shapeAppearanceOverlay="@style/RoundedCornerStyle" />
+    <!-- 半透明覆盖层 -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:background="#80000000"
+        android:visibility="gone" />
+
+    <!-- 圆形进度条 -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:visibility="gone" />
+    <!-- 右上角关闭按钮 -->
+    <ImageView
+        android:id="@+id/closeBtn"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_gravity="top|end"
+        android:src="@drawable/icon_close" />
+</FrameLayout>

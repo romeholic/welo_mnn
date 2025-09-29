@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import android.util.Base64
+import io.ktor.util.decodeBase64Bytes
 import java.security.KeyFactory
 import java.security.spec.X509EncodedKeySpec
 import java.util.UUID
@@ -15,6 +16,11 @@ object EncryptionUtils {
             "FPqri0cb2JZfXJ/DgYSF6vUpwmJG8wVQZKjeGcjDOL5UlsuusFncCzWBQ7RKNUSesmQRMSGkVb1/\n" +
             "3j+skZ6UtW+5u09lHNsj6tQ51s1SPrCBkedbNf0Tp0GbMJDyR4e9T04ZZwIDAQAB"
 
+    // Base64 解码
+    fun base64Decode(encodedString: String): String {
+        val decodedBytes = encodedString.decodeBase64Bytes()
+        return String(decodedBytes, Charsets.UTF_8)
+    }
     /**
      * 使用RSA加密密码
      */

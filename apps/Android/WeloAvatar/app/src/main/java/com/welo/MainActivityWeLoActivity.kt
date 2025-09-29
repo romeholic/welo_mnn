@@ -32,7 +32,7 @@ import com.taobao.meta.avatar.tts.TtsService
 import com.taobao.meta.avatar.utils.MemoryMonitor
 import com.welo.base.BaseActivity
 import com.welo.base.net.TextStreamResponse
-import com.welo.login.ui.login.LoginActivity
+import com.welo.login.LoginActivity
 import com.welo.util.AudioBlendShapePlayerUtil
 import com.welo.util.FeatureTourUtil
 import com.welo.util.InputMode
@@ -82,7 +82,7 @@ class MainActivityWeLoActivity : BaseActivity<ActivityMainWeLoBinding, MessageVi
 
     override fun initView() {
         ApplicationProvider.set(application)
-        hideSystemBarsCompat()
+//        hideSystemBarsCompat()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.input_container) as NavHostFragment
         navController = navHostFragment.navController
         PreferenceUtil.init(this)

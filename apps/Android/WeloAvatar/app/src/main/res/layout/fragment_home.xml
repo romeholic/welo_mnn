@@ -1,56 +1,68 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.welo.fragment.HomeFragment">
+    android:fillViewport="true"
+    android:fitsSystemWindows="false">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/app_detail_card"
-        android:layout_width="@dimen/dp_246"
-        android:layout_height="@dimen/dp_246"
-        android:layout_marginStart="@dimen/dp_24"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <com.welo.widget.GuideView
+        android:id="@+id/guide_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context="com.welo.launcher.fragment.HomeFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/user_memory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToOutline="true"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/blurry_mask_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/app_icon"
-                android:layout_width="@dimen/dp_64"
-                android:layout_height="@dimen/dp_64"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginStart="@dimen/dp_16"
-                android:scaleType="fitXY"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-            <TextView
-                android:id="@+id/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_16"
-                app:layout_constraintTop_toTopOf="@id/app_icon"
-                app:layout_constraintBottom_toBottomOf="@id/app_icon"
-                app:layout_constraintLeft_toRightOf="@id/app_icon"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_16"
-                android:hint="@string/title_activity_login"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="0dp"
+            android:background="@drawable/blurry_mask"
+            android:fitsSystemWindows="false"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/input_bar_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
 
-    </androidx.cardview.widget.CardView>
-
-    <com.welo.widget.WheelPicker
-        android:id="@+id/view_pager"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_370"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:background="@drawable/out_put_background"
-        android:paddingStart="@dimen/dp_8"
-        android:paddingEnd="@dimen/dp_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/input_bar_layout"
+            app:layout_constraintVertical_weight="1" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.welo.widget.HomeInputBarView
+            android:id="@+id/input_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_24"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

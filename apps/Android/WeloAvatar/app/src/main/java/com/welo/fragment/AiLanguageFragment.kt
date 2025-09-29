@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.taobao.meta.avatar.R
 import com.welo.base.BaseFragment
 import com.taobao.meta.avatar.databinding.FragmentAiLanguageBinding
-import com.welo.viewmodel.GuideViewModel
+import com.welo.guide.viewmodel.GuideViewModel
 import com.welo.base.setColorText
 import com.welo.base.setOnScrollFinishedListener
 

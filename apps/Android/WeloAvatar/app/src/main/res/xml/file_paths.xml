@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-files-path name="welo_images" path="Pictures/Camera" />
+    <cache-path name="my_cache" path="/" />
+
+    <files-path name="files" path="." />
+
+    <!-- External files directory -->
+    <external-files-path name="external_files" path="." />
+
+    <!-- External cache directory -->
+    <external-cache-path name="external_cache" path="." />
+
+    <!-- For camera captures -->
+    <external-files-path name="camera" path="." />
+</paths>

@@ -6,22 +6,20 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
-import android.graphics.PixelFormat
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ViewModelProvider
 import com.taobao.meta.avatar.R
-import com.welo.HomeActivity
+import com.welo.launcher.HomeActivity
 import com.welo.util.LogUtil
 import com.welo.viewmodel.MessageViewModel
 import com.welo.widget.ChatFloatView
+import com.welo.widget.FloatingView
 
 
 class FloatingWindowService : Service() {
@@ -47,7 +45,6 @@ class FloatingWindowService : Service() {
         // 初始化悬浮窗
 //        setServiceInitializer()
     }
-    // 通过 Binder 或回调设置 ServiceInitializer
     @RequiresApi(Build.VERSION_CODES.Q)
     fun setServiceInitializer(initializer: ServiceInitializer) {
         this.serviceInitializer = initializer
@@ -57,16 +54,14 @@ class FloatingWindowService : Service() {
     private fun createChatFloatView() {
         messageViewModel = ViewModelProvider.NewInstanceFactory().create(MessageViewModel::class.java)
 
+        FloatingView(this)
         // 初始化悬浮窗，并传入ViewModel
-        serviceInitializer?.let {
-            chatFloatView = ChatFloatView(context = this, serviceInitializer = it).apply {
-                initWithViewModel(messageViewModel) // 自定义方法传入ViewModel
-            }
-        } ?: run {
-            LogUtil.e("FloatingWindowService", "ServiceInitializer is null, cannot create ChatFloatView")
-        }
-//        chatFloatView = ChatFloatView(context = this).apply {
-//            initWithViewModel(messageViewModel) // 自定义方法传入ViewModel
+//        serviceInitializer?.let {
+//            chatFloatView = ChatFloatView(context = this, serviceInitializer = it).apply {
+//                initWithViewModel(messageViewModel) // 自定义方法传入ViewModel
+//            }
+//        } ?: run {
+//            LogUtil.e("FloatingWindowService", "ServiceInitializer is null, cannot create ChatFloatView")
 //        }
     }
     @SuppressLint("ForegroundServiceType")
@@ -95,49 +90,6 @@ class FloatingWindowService : Service() {
         }
     }
 
-    // 初始化悬浮窗视图
-    @SuppressLint("InflateParams")
-    private fun initFloatingView() {
-        try {
-            floatingView = LayoutInflater.from(this).inflate(R.layout.chat_float_window, null).apply {
-                // 确保视图有内容尺寸
-                measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-            }
-
-            val params = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
-                            WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                    PixelFormat.TRANSLUCENT
-                )
-            } else {
-                WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_PHONE,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
-                            WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                    PixelFormat.TRANSLUCENT
-                )
-            }
-
-            params.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-            params.x = 0
-            params.y = resources.getDimensionPixelSize(R.dimen.dp_20)
-
-            windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-            windowManager?.addView(floatingView, params)
-
-            LogUtil.d("FloatingWindow", "Floating view added successfully")
-        } catch (e: Exception) {
-            LogUtil.e("FloatingWindow", "Failed to add floating view", e)
-        }
-    }
     // 在 Service 的 onStartCommand 中创建通知
     private fun createForegroundNotification(): Notification {
         val intent = Intent(this, HomeActivity::class.java).apply {

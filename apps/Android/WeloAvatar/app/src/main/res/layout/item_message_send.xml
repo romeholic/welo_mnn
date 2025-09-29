@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/out_put_background"
         android:padding="@dimen/dp_12"
-        android:textColor="@color/white"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:textColor="@color/black"
         android:textSize="@dimen/sp_16"
         tools:text="This is a sent message" />
 
