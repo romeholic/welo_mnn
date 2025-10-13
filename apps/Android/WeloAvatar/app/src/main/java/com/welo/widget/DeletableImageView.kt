@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import com.google.android.material.imageview.ShapeableImageView
 import com.taobao.meta.avatar.R
 import com.welo.base.ImageLoader
+import com.welo.util.JumpUtil
 import com.welo.util.LogUtil
 
 class DeletableImageView @JvmOverloads constructor(
@@ -24,6 +25,7 @@ class DeletableImageView @JvmOverloads constructor(
     private val progressBar: ProgressBar
     private val overlay: View
     private var currentUri: Uri? = null
+    private var currentUrl: String? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_deletable_image, this, true)
@@ -36,6 +38,10 @@ class DeletableImageView @JvmOverloads constructor(
             ImageLoader.getInstance(context).clear(imageView)
             // 可选：移除自身视图
             (parent as? android.view.ViewGroup)?.removeView(this)
+        }
+
+        imageView.setOnClickListener {
+            JumpUtil.jumpMediaActivity(context,currentUri,currentUrl)
         }
     }
 
@@ -68,6 +74,7 @@ class DeletableImageView @JvmOverloads constructor(
     }
 
     fun setImageUrl(url: String, showDeleteIcon: Boolean = true) {
+        currentUrl = url
         deleteButton.visibility = if (showDeleteIcon) VISIBLE else GONE
         ImageLoader.getInstance(context).load(url, imageView)
         LogUtil.d("DeletableImageView", "Loading image from URL: $url")

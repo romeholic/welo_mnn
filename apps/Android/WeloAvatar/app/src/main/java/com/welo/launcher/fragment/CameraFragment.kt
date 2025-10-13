@@ -34,6 +34,7 @@ import com.WeLoApplication
 import com.taobao.meta.avatar.databinding.FragmentCameraBinding
 import com.welo.base.BaseFragment
 import com.welo.launcher.HomeActivity
+import com.welo.launcher.viewmodel.ChatViewModel
 
 import com.welo.launcher.viewmodel.HomeViewModel
 import com.welo.util.JumpUtil
@@ -48,7 +49,7 @@ import java.util.concurrent.TimeUnit
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
+class CameraFragment : BaseFragment<FragmentCameraBinding, ChatViewModel>() {
     private var param1: String? = null
     private var param2: String? = null
     private var context: Context = WeLoApplication.getInstance()
@@ -77,6 +78,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
     // 预览尺寸
     private lateinit var previewSize: Size
     private lateinit var captureSize: Size
+    private var retryCount = 0
 
     // 方向处理
     private val ORIENTATIONS = SparseIntArray()
@@ -114,7 +116,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
         textureView = binding.textureView
         soundButton = binding.qaSound
         wordButton = binding.qaWord
-
+        textureView.requestLayout()
         wordButton.setOnClickListener {
             takePicture()
         }
@@ -157,9 +159,9 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
     }
 
     private fun startCamera() {
+        Log.d(TAG, "startCamera")
         try {
             startBackgroundThread()
-
             if (textureView.isAvailable) {
                 openCamera()
             } else {
@@ -168,20 +170,21 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
         }catch (e: Exception) {
             Log.d(TAG, "startCamera: $e")
         }
-
     }
 
     private val surfaceTextureListener = object : TextureView.SurfaceTextureListener {
         override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
             openCamera()
+            Log.d(TAG, "onSurfaceTextureAvailable")
         }
-
         override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
             configureTransform(width, height)
         }
-
-        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean = true
-        override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
+        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
+            Log.d(TAG, "onSurfaceTextureDestroyed")
+            return true
+        }
+        override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {Log.d(TAG, "onSurfaceTextureUpdated")}
     }
 
     @SuppressLint("MissingPermission")
@@ -223,9 +226,14 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
                 throw RuntimeException("等待相机超时")
             }
         } catch (e: Exception) {
+            Log.d(TAG, "无法打开相机，尝试重新打开Exception: $e")
             Toast.makeText(context, "无法打开相机", Toast.LENGTH_SHORT).show()
 //            requireActivity().finish()
+            openCamera()
             (activity as HomeActivity).viewPagerToHome()
+        } finally {
+            cameraStateLock.release()
+            Log.d(TAG, "无法打开相机，尝试重新打开")
         }
     }
 
@@ -252,6 +260,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
     }
 
     private fun createCameraPreviewSession() {
+        if(!backgroundThread.isAlive) {
+            Log.d(TAG, "!backgroundThread.isAlive FALSE,")
+            return
+        }
         val texture = textureView.surfaceTexture ?: return
         texture.setDefaultBufferSize(previewSize.width, previewSize.height)
         val surface = Surface(texture)
@@ -294,12 +306,9 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
     }
 
     private fun takePicture() {
-            Log.d(TAG, "isCapturing= :$isCapturing,")
+        Log.d(TAG, "isCapturing= :$isCapturing,")
         if (isCapturing) return
-
         isCapturing = true
-
-
         try {
             // 锁定自动对焦
             captureRequestBuilder.set(
@@ -324,7 +333,6 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
             result: TotalCaptureResult
         ) {
             super.onCaptureCompleted(session, request, result)
-            Log.d(TAG,"result.cameraId=${result.cameraId}")
             captureStillPicture()
             Toast.makeText(context, "拍照成功", Toast.LENGTH_SHORT).show()
             isCapturing =  false
@@ -397,9 +405,8 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
             )
 
             requireActivity().runOnUiThread {
-                Toast.makeText(context, "照片已保存", Toast.LENGTH_SHORT).show()
-                // 跳转到对话页面
-                JumpUtil.jumpToChatActivity(context = context,uris = arrayListOf(getUriFromAbsolutePath(context,imageFile.absolutePath))  )
+                (requireActivity() as? HomeActivity)?.viewPagerToHome()
+                viewModel.jumpToChat(imageFile.absolutePath)
             }
         } catch (e: Exception) {
             requireActivity().runOnUiThread {
@@ -436,25 +443,31 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
     }
 
     private fun configureTransform(viewWidth: Int, viewHeight: Int) {
-        val rotation = requireActivity().windowManager.defaultDisplay.rotation
-        val matrix = Matrix()
-        val viewRect = RectF(0f, 0f, viewWidth.toFloat(), viewHeight.toFloat())
-        val bufferRect = RectF(0f, 0f, previewSize.height.toFloat(), previewSize.width.toFloat())
-        val centerX = viewRect.centerX()
-        val centerY = viewRect.centerY()
+        try {
+            val rotation = requireActivity().windowManager.defaultDisplay.rotation
+            val matrix = Matrix()
+            val viewRect = RectF(0f, 0f, viewWidth.toFloat(), viewHeight.toFloat())
+            val bufferRect =
+                RectF(0f, 0f, previewSize.height.toFloat(), previewSize.width.toFloat())
+            val centerX = viewRect.centerX()
+            val centerY = viewRect.centerY()
 
-        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
-            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY())
-            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL)
-            val scale = maxOf(
-                viewHeight.toFloat() / previewSize.height,
-                viewWidth.toFloat() / previewSize.width
-            )
-            matrix.postScale(scale, scale, centerX, centerY)
-            matrix.postRotate((90 * (rotation - 2)).toFloat(), centerX, centerY)
+            if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+                bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY())
+                matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL)
+                val scale = maxOf(
+                    viewHeight.toFloat() / previewSize.height,
+                    viewWidth.toFloat() / previewSize.width
+                )
+                matrix.postScale(scale, scale, centerX, centerY)
+                matrix.postRotate((90 * (rotation - 2)).toFloat(), centerX, centerY)
+            }
+
+            textureView.setTransform(matrix)
+        } catch (e: Exception) {
+            Log.d(TAG, "无法打开相机，Exception: $e")
+
         }
-
-        textureView.setTransform(matrix)
     }
 
 
@@ -486,14 +499,19 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, HomeViewModel>() {
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "isAvailable in onResume1: ${textureView.isAvailable}")
+        textureView.requestLayout()
+        Log.d(TAG, "isAvailable in onResume2: ${textureView.isAvailable}")
         startCamera()
     }
 
     override fun onPause() {
         closeCamera()
         stopBackgroundThread()
+        Log.d(TAG, "isAvailable in onPause: ${textureView.isAvailable}")
         super.onPause()
     }
+
 
 
     companion object {

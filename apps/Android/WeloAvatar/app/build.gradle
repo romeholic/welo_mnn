@@ -58,7 +58,14 @@ android {
         jvmTarget = "17"
         freeCompilerArgs += ['-Xplugin:kotlin-serialization']
     }
-
+    signingConfigs {
+        weloo {
+            storeFile file('../platform.keystore')
+            storePassword 'weloo2025'
+            keyAlias 'weloo'
+            keyPassword 'weloo2025'
+        }
+    }
     applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "WeloAvatar-${variant.buildType.name}-v${variant.versionName}-${buildTime()}.apk"
@@ -95,12 +102,14 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.debug
+            shrinkResources false
+            signingConfig signingConfigs.weloo
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled true
             shrinkResources true
+            signingConfig signingConfigs.weloo
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

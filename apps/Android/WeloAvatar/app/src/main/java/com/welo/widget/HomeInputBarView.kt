@@ -11,8 +11,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -33,7 +33,6 @@ import com.welo.launcher.anim.AnimUtil
 import com.welo.launcher.listener.IInputBarListener
 import com.welo.launcher.ui.BottomOptionDialog
 import com.welo.util.KeyboardUtils
-import com.welo.util.LogUtil
 
 class HomeInputBarView @JvmOverloads constructor(
     context: Context,
@@ -61,17 +60,46 @@ class HomeInputBarView @JvmOverloads constructor(
     private var currentToolPosition = -1
 
     private var isShowTools = true
-    private var hasEditClick = false
+
+    private val resourceProvider = ResourceProvider.get()
+    private val pixelSize6 by lazy {
+        resourceProvider.getDimenPixelSize(R.dimen.dp_6)
+    }
+    private val pixelSize15 by lazy {
+        resourceProvider.getDimenPixelSize(R.dimen.dp_15)
+    }
+
+    private val pixelSize40 by lazy {
+        resourceProvider.getDimenPixelSize(R.dimen.dp_40)
+    }
+    private val pixelSize42 by lazy {
+        resourceProvider.getDimenPixelSize(R.dimen.dp_42)
+    }
+    private val pixelSize60 by lazy {
+        resourceProvider.getDimenPixelSize(R.dimen.dp_60)
+    }
+    private var inputType = InputType.VOICE
+
+    private val textGroupViews by lazy {
+        listOf(textInputLayout, iconVoiceButton)
+    }
+
+    private val audioGroupViews by lazy {
+        listOf<View>(binding.iconTextButton, binding.chatBarAudioText)
+    }
+
+    private val optionDialog by lazy {
+        BottomOptionDialog(context = context) { option ->
+            inputBarListener?.onFileClick(option)
+        }
+    }
 
     private val addImageView by lazy {
-        val horizontalSpacing = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_6)
-        val width = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_42)
-
         ImageView(context).apply {
             setImageResource(R.drawable.icon_add_pic)
             setOnClickListener { inputBarListener?.onFileClick("upload_image") }
-            layoutParams = LinearLayout.LayoutParams(width, width).apply {
-                marginEnd = horizontalSpacing
+            layoutParams = LinearLayout.LayoutParams(pixelSize42, pixelSize42).apply {
+                marginEnd = pixelSize6
                 gravity = Gravity.CENTER_VERTICAL
             }
 
@@ -86,7 +114,7 @@ class HomeInputBarView @JvmOverloads constructor(
 
     fun setViewListener(isShowTools: Boolean = true, listener: IInputBarListener) {
         this.isShowTools = isShowTools
-        inputBarListener = listener
+        this.inputBarListener = listener
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -119,9 +147,7 @@ class HomeInputBarView @JvmOverloads constructor(
                 MotionEvent.ACTION_MOVE -> {
                     // 判断是否上滑超过一定距离（例如100dp）
                     val deltaY = startY - event.rawY
-                    val cancelThreshold =
-                        ResourceProvider.get().getDimenPixelSize(R.dimen.dp_40) // 转换为像素
-                    if (deltaY > cancelThreshold) {
+                    if (deltaY > pixelSize40) {
                         // 上滑取消
                         if (!isCancelled) {
                             isCancelled = true
@@ -153,53 +179,46 @@ class HomeInputBarView @JvmOverloads constructor(
                     true
                 }
 
-                else -> false
-            }
-        }
-        chatBarEditText.setOnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
-                hasEditClick = true
-                editTextClick()
+                else -> {
+                    waveFormView.gone()
+                    waveFormView.stopAnimation()
+                    binding.chatBarAudioGroup.visible()
+                    false
+                }
             }
         }
         chatBarEditText.setOnClickListener {
-            hasEditClick = true
-            editTextClick()
+            inputClick()
         }
         binding.iconPlus.setOnClickListener {
             plusClick()
         }
     }
 
-    private fun editTextClick() {
-        if (hasEditClick) {
-            inputClick()
-        }
-        hasEditClick = false
-    }
-
     fun showTextInputMode() {
-        AnimUtil.showTextInputModeAnim(getTextGroupViews(), getAudioGroupViews(), width)
+        inputType = InputType.TEXT
+        AnimUtil.showTextInputModeAnim(textGroupViews, audioGroupViews, width)
     }
 
     fun showVoiceInputMode() {
-        AnimUtil.showVoiceInputMode(getTextGroupViews(), getAudioGroupViews(), width)
+        inputType = InputType.VOICE
+        AnimUtil.showVoiceInputMode(textGroupViews, audioGroupViews, width)
     }
 
     private fun plusClick() {
-        BottomOptionDialog(context = context) { option ->
-            inputBarListener?.onFileClick(option)
-        }.show(binding.iconPlus)
+        optionDialog.show(binding.iconPlus)
     }
 
     /**
      * 创建AI工具View
      */
     private fun toolsView() {
-        val horizontalSpacing = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_15)
         val toolsList = Constants.aiToolList
         binding.imagePreview.removeAllViews()
         toolViewList.clear()
+        binding.imagePreview.layoutParams = binding.imagePreview.layoutParams?.apply {
+            height = pixelSize40
+        }
         toolsList.forEachIndexed { index, optionItem ->
             val toolItemBinding =
                 ItemAiToolBinding.inflate(LayoutInflater.from(context), binding.imagePreview, false)
@@ -217,7 +236,7 @@ class HomeInputBarView @JvmOverloads constructor(
             ).apply {
                 // 除了最后一个元素，其他元素都添加右侧间距
                 if (index != toolsList.lastIndex) {
-                    marginEnd = horizontalSpacing
+                    marginEnd = pixelSize15
                 }
             }
 
@@ -239,7 +258,7 @@ class HomeInputBarView @JvmOverloads constructor(
         } else {
             null
         }
-        val textHint = aiOptionItem?.textHint?:ResourceProvider.get().getString(R.string.text_hint)
+        val textHint = aiOptionItem?.textHint ?: resourceProvider.getString(R.string.text_hint)
         chatBarEditText.hint = textHint
         inputBarListener?.toolItem(aiOptionItem)
     }
@@ -267,9 +286,8 @@ class HomeInputBarView @JvmOverloads constructor(
 
     fun setupTools() {
         binding.imagePreview.removeAllViews()
-        val previewHeight = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_40)
         binding.imagePreview.layoutParams = binding.imagePreview.layoutParams?.apply {
-            height = previewHeight
+            height = pixelSize40
         }
         if (toolViewList.isNotEmpty()) {
             if (binding.iconPlus.isVisible.not()) {
@@ -305,10 +323,8 @@ class HomeInputBarView @JvmOverloads constructor(
         }
 
         val context = context ?: return
-        val horizontalSpacing = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_6)
-        val previewHeight = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_60)
         binding.imagePreview.layoutParams = binding.imagePreview.layoutParams?.apply {
-            height = previewHeight
+            height = pixelSize60
         }
         uris.forEachIndexed { index, uri ->
             if (existingUris.contains(uri)) {
@@ -326,7 +342,6 @@ class HomeInputBarView @JvmOverloads constructor(
                         setupTools()
                     }
                 }
-                setOnClickListener { }
             }
             // 设置布局参数，添加水平间距
             val params = LayoutParams(
@@ -335,7 +350,7 @@ class HomeInputBarView @JvmOverloads constructor(
             ).apply {
                 // 除了最后一个元素，其他元素都添加右侧间距
                 if (index != uris.lastIndex) {
-                    marginEnd = horizontalSpacing
+                    marginEnd = pixelSize6
                 }
             }
 
@@ -353,10 +368,6 @@ class HomeInputBarView @JvmOverloads constructor(
     private fun updateAddButtonState() {
         val hasImageView = binding.imagePreview.getChildAt(0) is ImageView
         val realContentCount = getChildImageCount()
-        LogUtil.d(
-            TAG,
-            "updateAddButtonState hasImageView:$hasImageView realContentCount:$realContentCount"
-        )
         when {
             realContentCount == 0 -> {
                 // 没有内容时，移除添加按钮
@@ -468,32 +479,62 @@ class HomeInputBarView @JvmOverloads constructor(
 
     private fun sendMessage() {
         val message = chatBarEditText.text.toString().trim()
-        LogUtil.d(TAG, "Attempting to send message :$message")
-        if (message.isNotEmpty()) {
-            // 发送消息逻辑
-            onMessageSent(message)
-            // 清空输入框
-            chatBarEditText.setText("")
-            // 隐藏键盘
-            KeyboardUtils.hideKeyboard(chatBarEditText)
-        }
+        onMessageSent(message)
+        chatBarEditText.setText("")
+        KeyboardUtils.hideKeyboard(chatBarEditText)
     }
 
     private fun onMessageSent(message: String) {
         inputBarListener?.textSend(message)
     }
 
-    private fun getTextGroupViews(): List<View> {
-        return listOf(
-            textInputLayout,
-            iconVoiceButton
-        )
+    fun setViewEnable(clickEnable: Boolean) {
+        if (inputType == InputType.VOICE) {
+            binding.iconTextButton.isClickable = clickEnable
+            binding.waveFormView.isClickable = clickEnable
+            binding.waveFormView.isEnabled = clickEnable
+            binding.chatBarAudioText.isEnabled = clickEnable
+        } else {
+            binding.chatBarEditText.isClickable = clickEnable
+            binding.chatBarEditText.isFocusable = clickEnable
+            binding.chatBarEditText.isFocusableInTouchMode = clickEnable
+            if (clickEnable) {
+                binding.chatBarEditText.requestFocus()
+            }
+            binding.iconVoiceButton.isClickable = clickEnable
+        }
+        val alpha = if (clickEnable) 1f else 0.5f
+        binding.toolsLayout.alpha = alpha
+        binding.waveFormView.alpha = alpha
+        binding.iconTextButton.alpha = alpha
+        binding.chatBarEditText.alpha = alpha
+        binding.iconVoiceButton.alpha = alpha
+        binding.chatBarAudioText.alpha = alpha
+
+        binding.toolsLayout.setClickableWithChildren(clickEnable)
     }
 
-    private fun getAudioGroupViews(): List<View> {
-        return listOf(
-            binding.iconTextButton,
-            binding.chatBarAudioText
-        )
+    fun ViewGroup.setClickableWithChildren(clickable: Boolean) {
+        this.descendantFocusability = if (clickable) {
+            FOCUS_AFTER_DESCENDANTS
+        } else {
+            FOCUS_BLOCK_DESCENDANTS
+        }
+
+        this.isClickable = clickable
+        this.isEnabled = clickable
+
+        for (i in 0 until this.childCount) {
+            val child = this.getChildAt(i)
+            child.isClickable = clickable
+            child.isEnabled = clickable
+            if (child is ViewGroup) {
+                child.setClickableWithChildren(clickable)
+            }
+        }
     }
+}
+
+enum class InputType {
+    TEXT, VOICE
 }

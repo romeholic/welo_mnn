@@ -16,78 +16,96 @@
             android:layout_height="@dimen/dp_120"
             android:clipToOutline="true"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/message_list" />
-
-        <ImageView
-            android:id="@+id/blurry_mask"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            android:background="@drawable/blurry_mask"
-            app:layout_constraintBottom_toBottomOf="@id/guide_edit"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/message_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/dp_56"
-            android:maxHeight="@dimen/dp_230"
-            android:minHeight="@dimen/dp_230"
-            app:layout_constraintBottom_toBottomOf="@id/guide_edit" />
-
-        <RelativeLayout
-            android:id="@+id/guide_choose_input"
-            android:layout_width="@dimen/dp_343"
-            android:layout_height="@dimen/dp_56"
-            android:layout_margin="@dimen/dp_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:ignore="MissingConstraints">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/guide_text"
-                android:layout_width="@dimen/dp_163"
-                android:layout_height="@dimen/dp_48"
-                android:background="@drawable/chat_bar_edit_bg"
-                android:gravity="center"
-                android:text="打字告诉我"
-                android:textColor="#585A5C"
-                android:textSize="@dimen/sp_14" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/guide_voice"
-                android:layout_width="@dimen/dp_163"
-                android:layout_height="@dimen/dp_48"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_toRightOf="@+id/guide_text"
-                android:background="@drawable/chat_bar_audio_text_bg"
-                android:gravity="center"
-                android:text="说话告诉我"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
-
-        <com.welo.widget.HomeInputBarView
-            android:id="@+id/guide_edit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_56"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_24"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/main_sub"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_sub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="com.welo.launcher.fragment.HomeFragment">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/message_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/dp_64"
+                android:maxHeight="@dimen/dp_190"
+                android:minHeight="@dimen/dp_190"
+                app:layout_constraintBottom_toBottomOf="@id/guide_edit" />
+
+            <LinearLayout
+                android:id="@+id/guide_choose_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/guide_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/dp_48"
+                    android:background="@drawable/chat_bar_edit_bg"
+                    android:gravity="center"
+                    android:text="打字告诉我"
+                    android:textColor="#585A5C"
+                    android:textSize="@dimen/sp_14" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/guide_voice"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_toRightOf="@id/guide_text"
+                    android:background="@drawable/chat_bar_audio_text_bg"
+                    android:gravity="center"
+                    android:text="说话告诉我"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <com.welo.widget.HomeInputBarView
+                android:id="@+id/guide_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/guide_end_notice"
+                android:layout_width="@dimen/dp_335"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:background="@drawable/guide_end_bottom_title_bg"
+                android:gravity="center"
+                android:text="从今天开始我们的故事"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

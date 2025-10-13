@@ -14,6 +14,7 @@ import androidx.core.content.FileProvider
 import com.taobao.meta.avatar.R
 import com.welo.launcher.ByteDanceCallActivity
 import com.welo.launcher.ChatActivity
+import com.welo.launcher.MediaActivity
 import com.welo.launcher.entity.AIOptionItem
 import java.io.File
 import java.io.IOException
@@ -105,6 +106,15 @@ object JumpUtil {
     fun jumpAudioCall(context: Context){
         val intent = Intent(context, ByteDanceCallActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+    }
+
+    fun jumpMediaActivity(context: Context,uri: Uri? = null,stringPath: String? = null){
+        val intent = Intent(context, MediaActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            putExtra(MediaActivity.EXTRA_MEDIA_URI,uri)
+            putExtra(MediaActivity.EXTRA_MEDIA_PATH, stringPath)
         }
         context.startActivity(intent)
     }

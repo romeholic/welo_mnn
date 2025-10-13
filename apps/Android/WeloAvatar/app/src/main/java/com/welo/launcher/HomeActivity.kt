@@ -5,21 +5,18 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import android.provider.Settings
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.mls.api.ApplicationProvider
 import com.taobao.meta.avatar.asr.RecognizeService
 import com.taobao.meta.avatar.databinding.ActivityHomeBinding
 import com.taobao.meta.avatar.tts.TtsService
 import com.welo.base.BaseActivity
 import com.welo.constant.Constants
+import com.welo.constant.Constants.FEATURE_HOME_WELCOME
 import com.welo.constant.Constants.FEATURE_TOUR_KEY
 import com.welo.launcher.adapter.ViewPagerAdapter
 import com.welo.launcher.anim.DepthPageTransformer
@@ -109,14 +106,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), Service
 
         viewBinding.viewPager.setPageTransformer(ZoomOutPageTransformer())
         viewBinding.viewPager.setPageTransformer(DepthPageTransformer())
-        // 监听页面变化
-        viewBinding.viewPager.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                // 更新指示器状态
-            }
-        })
         if (PreferenceUtil.get()
                 .getBoolean(FEATURE_TOUR_KEY)
         ) viewBinding.viewPager.setUserInputEnabled(false) else viewBinding.viewPager.setUserInputEnabled(
@@ -128,12 +117,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), Service
         viewBinding.viewPager.currentItem = 1
     }
 
-    private fun setupLogin() {
+    fun setupLogin() {
         loginViewModel.login("ming", "000000")
         loginViewModel.loginResult.observe(this) { result ->
             if (result.success != null) {
                 agentModel.getAgent()
-		viewModel.setLoginState(true)
             }
             if (result.error != null){
                 loginViewModel.login("ming", "000000")
@@ -141,7 +129,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), Service
 
         }
     }
-
     private fun startAndBindService() {
         OverlayPermissionHelper.Companion.startFloatingService(this)
         try {
@@ -159,6 +146,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), Service
     }
 
     override fun observeViewModel() {
+
     }
     override fun adaptStatusBarTextColor() {
         // 强制使用浅色文字（适合深色背景）
@@ -208,6 +196,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), Service
     private fun initializeGuideModeTag() {
         if (!PreferenceUtil.get().isKeyExists(FEATURE_TOUR_KEY)) {
             PreferenceUtil.get().putBoolean(FEATURE_TOUR_KEY, true)
+        }
+        if (!PreferenceUtil.get().isKeyExists(FEATURE_HOME_WELCOME)) {
+            PreferenceUtil.get().putBoolean(FEATURE_HOME_WELCOME, true)
         }
     }
 

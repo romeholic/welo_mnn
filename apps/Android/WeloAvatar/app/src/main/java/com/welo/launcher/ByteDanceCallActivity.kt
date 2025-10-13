@@ -26,6 +26,7 @@ import com.bytedance.speech.speechengine.SpeechEngine.SpeechListener
 import com.bytedance.speech.speechengine.SpeechEngineDefines
 import com.bytedance.speech.speechengine.SpeechEngineGenerator
 import com.taobao.meta.avatar.R
+import com.welo.util.LogUtil
 
 import org.json.JSONObject
 import java.util.LinkedList
@@ -45,6 +46,8 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
     private lateinit var iv_scale_icon: ImageView
     private lateinit var iv_speaker: ImageView
     private lateinit var mainicon: LottieAnimationView
+    private lateinit var mic_bg: View
+    private lateinit var speaker_bg: View
     private lateinit var mSpeechEngine: SpeechEngine
 
     private var mStartEngineTimestamp: Long = -1
@@ -71,7 +74,6 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
         setContentView(R.layout.activity_call)
         setupViews()
         checkAndRequestPermissions()
-        startEngine()
         switchStatus(ActivityStatus.BEFORE_INIT)
     }
 
@@ -89,6 +91,7 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
         } else {
             Log.i(TAG, " permissions have beed granted,initEngine")
             initEngine()
+            startEngine()
         }
     }
 
@@ -112,6 +115,8 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
     }
 
     private fun setupViews() {
+        mic_bg = findViewById(R.id.btn_microphone_bg)
+        speaker_bg = findViewById(R.id.btn_speaker_bg)
         btn_end_call = findViewById(R.id.btn_end_call)
         btn_end_call.setOnClickListener(View.OnClickListener { v: View? -> endCall() })
         btn_speaker = findViewById(R.id.btn_speaker)
@@ -127,7 +132,7 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
         iv_speaker = findViewById(R.id.iv_speaker)
 
         mainicon = findViewById(R.id.main_icon)
-        mainicon.setAnimation("orb_anim.json")
+        mainicon.setAnimation("guide_0.json")
         mainicon.repeatCount = ValueAnimator.INFINITE
         mainicon.playAnimation()
         // 初始化按钮状态
@@ -140,8 +145,10 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
         updateButtonStates()
         // 实际应用中这里应该调用音频API
         if (isMicOn) {
+            mic_bg.setBackgroundResource(R.drawable.byte_mic_bg)
             Toast.makeText(this, "麦克风已打开", Toast.LENGTH_SHORT).show()
         } else {
+            mic_bg.setBackgroundResource(R.drawable.byte_speakerbg)
             Toast.makeText(this, "麦克风已关闭", Toast.LENGTH_SHORT).show()
         }
     }
@@ -155,8 +162,10 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
 
         // 实际应用中这里应该调用音频API
         if (isSpeakerOn) {
+            speaker_bg.setBackgroundResource(R.drawable.byte_mic_bg)
             Toast.makeText(this, "扬声器已打开", Toast.LENGTH_SHORT).show()
         } else {
+            speaker_bg.setBackgroundResource(R.drawable.byte_speakerbg)
             Toast.makeText(this, "扬声器已关闭", Toast.LENGTH_SHORT).show()
         }
     }
@@ -571,6 +580,7 @@ class ByteDanceCallActivity : AppCompatActivity(), SpeechListener {
     fun isSpeakerphoneEnabled(context: Context): Boolean {
         val audioManager: AudioManager =
             context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        LogUtil.d("AudioControl","isSpeakerphoneOn =${audioManager.isSpeakerphoneOn}")
         return audioManager.isSpeakerphoneOn
     }
 

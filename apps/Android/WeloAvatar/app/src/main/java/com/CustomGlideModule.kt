@@ -10,7 +10,6 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.Downsampler
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
-import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.welo.base.net.HeaderInterceptor
 import java.io.InputStream
 import okhttp3.OkHttpClient
@@ -21,7 +20,6 @@ class CustomGlideModule: AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(HeaderInterceptor())
-            .addInterceptor(OkHttpProfilerInterceptor())
             .build()
 
 

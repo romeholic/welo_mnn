@@ -762,5 +762,5 @@ sealed class TextStreamResponse {
      * @property message 错误描述信息，用于调试和用户提示
      * 可能包含网络错误、服务器错误、解析错误等详细信息
      */
-    data class Error(val message: String) : TextStreamResponse()
+    data class Error(val message: String,val errorCode: Int = -1) : TextStreamResponse()
 }

@@ -1,13 +1,10 @@
 package com.welo.launcher.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import ResourceProvider
 import androidx.lifecycle.ViewModel
-import com.WeLoApplication
 import com.taobao.meta.avatar.R
 import com.welo.constant.Constants
 import com.welo.launcher.entity.AIOptionItem
-import com.welo.launcher.work.TokenRefreshObserver
 
 class HomeViewModel: ViewModel() {
 
@@ -26,19 +23,6 @@ class HomeViewModel: ViewModel() {
 //            }
 //        }
 //    }
-    private val _logined = MutableLiveData<Boolean>()
-    val logined: LiveData<Boolean> = _logined
-
-    fun setLoginState(state: Boolean){
-        _logined.value = state
-    }
-     val captureSuccess = MutableLiveData<Boolean>()
-
-
-    fun updateCaptrueState(captrue_success: Boolean) {
-        captureSuccess.postValue(captrue_success)
-    }
-
     fun createAiToolsList(): List<AIOptionItem> {
         val options: MutableList<AIOptionItem> = mutableListOf()
         val desc = ResourceProvider.get().getStringArray(R.array.ai_tools_desc_list)

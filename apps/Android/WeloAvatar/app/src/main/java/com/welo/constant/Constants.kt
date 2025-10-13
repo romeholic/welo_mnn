@@ -8,6 +8,7 @@ import com.WeLoApplication
 import com.alibaba.mls.api.ApplicationProvider
 import com.welo.launcher.entity.AIOptionItem
 import com.welo.storage.AgentManager
+import com.welo.util.SystemUtils
 
 
 object Constants {
@@ -15,7 +16,6 @@ object Constants {
     const val chatSessionId = 10086L
     const val sessionId = "ming"
     const val guidesessionId = "guidance"
-
     /**
      * 默认
      */
@@ -42,6 +42,10 @@ object Constants {
      * 用户引导TAG
      */
     const val FEATURE_TOUR_KEY = "feature_tour_key"
+    /**
+     * 用户引导结束后第一次进入home显示的欢迎词tag
+     */
+    const val FEATURE_HOME_WELCOME = "home_welcome_key"
     /**
      * 获取LLM模型的URL
      * @return 完整的LLM模型URL
@@ -86,6 +90,10 @@ object Constants {
      * 获取agent列表
      */
     const val AGENT_LIST = "$BASE_URL/api/v1/projects/welo"
+    /**
+     * 引导页的动画duration ，ms
+     */
+    const val GUIDE_ANIMATOR_DURATION = 3000L
 
     var aiToolList: List<AIOptionItem> = listOf()
 

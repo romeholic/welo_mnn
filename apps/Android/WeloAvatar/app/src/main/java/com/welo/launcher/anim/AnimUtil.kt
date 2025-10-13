@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taobao.meta.avatar.R
 import com.welo.base.gone
 import com.welo.base.visible
-import com.welo.util.LogUtil
 
 object AnimUtil {
     private const val ANIMATION_DURATION = 300L

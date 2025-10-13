@@ -37,7 +37,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, GuideViewModel>() , Ser
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun initView() {
         viewBinding.guideBg.apply {
-            setAnimation("orb_anim.json")
+            setAnimation("guide_0.json")
             repeatCount = ValueAnimator.INFINITE
             playAnimation()
         }

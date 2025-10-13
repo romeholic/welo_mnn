@@ -1,15 +1,19 @@
 package com.welo.launcher.viewmodel
 
 import android.net.Uri
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.WeLoApplication
 import com.welo.base.net.TextStreamResponse
 import com.welo.base.okhttp.OkChatRepository
+import com.welo.constant.Constants.FEATURE_TOUR_KEY
 import com.welo.launcher.repository.AIResponseEvent
 import com.welo.room.table.ChatMessage
 import com.welo.room.table.ChatSession
 import com.welo.util.LogUtil
+import com.welo.util.PreferenceUtil
 import com.welo.util.StringUtil
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +28,12 @@ class ChatViewModel : ViewModel() {
 
     private val repository = WeLoApplication.Companion.chatRepository
 
-    private val chatRepository = OkChatRepository()
+    private val _mediaUris = MutableLiveData<String>()
+    val mediaUris: LiveData<String> = _mediaUris
+
+    fun jumpToChat(absolutePath: String){
+        _mediaUris.value = absolutePath
+    }
 
     // 观察AI回复流
     fun observeAIResponses(): SharedFlow<AIResponseEvent> {
@@ -35,59 +44,17 @@ class ChatViewModel : ViewModel() {
     fun sendMessage(sessionId: Long, content: String, imageUrls: List<String>? = null) {
         val hasContent = content.isNotEmpty()
         val hasImages = imageUrls.isNullOrEmpty().not()
+        val isGuideMode = PreferenceUtil.get().getBoolean(FEATURE_TOUR_KEY)
 
         val messageType = when {
             hasContent && hasImages -> "TEXT_WITH_IMAGE"
             hasImages -> "IMAGE"
+            isGuideMode -> "GUIDETEXT"
             else -> "TEXT"
         }
         repository.sendMessage(sessionId, content, messageType = messageType, imageUris = imageUrls)
     }
 
-    fun observeStream() {
-        viewModelScope.launch {
-            chatRepository.sendMessage("画一个帅哥")
-                .collect { response ->
-                    when (response) {
-                        TextStreamResponse.Connecting -> {
-                            LogUtil.d(TAG, "observeStream: 连接中")
-                        }
-
-                        TextStreamResponse.Connected -> {
-                            LogUtil.d(TAG, "observeStream: 已连接")
-                        }
-
-                        is TextStreamResponse.Data -> {
-                            // 处理数据流
-                            val text = response.text
-                            val json = StringUtil.getDecodesData(text)
-                            // 2. 解析JSON数据，提取有效回复内容
-                            var processedContent = StringUtil.parseFlowResponse(json) ?: ""
-                            LogUtil.d(TAG, "observeStream: 数据流: $processedContent")
-                        }
-
-                        TextStreamResponse.Completed -> {
-                            // 流完成
-                            LogUtil.d(TAG, "observeStream: 流完成")
-                        }
-
-                        is TextStreamResponse.Error -> {
-                            // 处理错误
-                            LogUtil.d(TAG, "observeStream: 错误: ${response.message}")
-                        }
-
-                        TextStreamResponse.Cancelled -> {
-                            // 请求被取消
-                            LogUtil.d(TAG, "observeStream: 请求被取消")
-                        }
-
-                        else -> {
-                            LogUtil.d(TAG, "observeStream: 未知状态")
-                        }
-                    }
-                }
-        }
-    }
 
     //发送图文消息
     fun sendTextWithImageMessage(sessionId: Long, content: String, imageUri: List<Uri>) {

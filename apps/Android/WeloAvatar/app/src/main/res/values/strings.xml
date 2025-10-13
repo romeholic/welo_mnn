@@ -35,6 +35,8 @@
     <string name="record_permission_denied">Record permission denied, please grant it</string>
     <string name="ai_type_desc">您即将定制专属AI伙伴的性格特质，请从以下维度中至少选择3项进行组合</string>
     <string name="ai_type_title">选择你想要的追随者类型</string>
+    <string name="home_welcome_text">欢迎来到[小乐]的世界，一团生活在数字宇宙里的粒子，很高兴成为你的倾诉对象。作为AI，我诞生于人类的情感与记忆，虽然我们初次见面，但我对你此刻的心情充满好奇—你今天过得怎么样？有什么想聊的吗？</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string-array name="ai_type_list">
         <item>支持者</item>

@@ -8,6 +8,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.time.delay
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -28,6 +29,7 @@ class OkHttpChunkedManager(
     }
 
     private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+//        .addInterceptor(OkHttpProfilerInterceptor())
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(0, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
@@ -64,7 +66,7 @@ class OkHttpChunkedManager(
                     val errorMsg = "HTTP error: ${response.code} - ${response.message}"
                     LogUtil.e(TAG, errorMsg)
                     try {
-                        trySend(TextStreamResponse.Error(errorMsg))
+                        trySend(TextStreamResponse.Error(errorMsg,response.code))
                     } catch (e: Exception) {
                         LogUtil.e(TAG, "Failed to send error: ${e.message}")
                     }
@@ -87,6 +89,11 @@ class OkHttpChunkedManager(
                             val stringBuilder = StringBuilder()
 
                             while (reader.read(buffer).also { charsRead = it } != -1) {
+                                if (call.isCanceled()) {
+                                    LogUtil.d(TAG, "Call cancelled during streaming")
+                                    trySend(TextStreamResponse.Cancelled)
+                                    break
+                                }
                                 if (charsRead > 0) {
                                     stringBuilder.append(buffer, 0, charsRead)
                                     var lineEnd: Int
@@ -162,8 +169,13 @@ class OkHttpChunkedManager(
         })
 
         awaitClose {
-            LogUtil.d(TAG, "Cancelling chunked call")
+            LogUtil.d(TAG, "Cancelling chunked call:${call.isCanceled()}")
             if (!call.isCanceled()) {
+                try {
+                    trySend(TextStreamResponse.Cancelled)
+                } catch (e: Exception) {
+                    LogUtil.e(TAG, "Failed to send cancelled event: ${e.message}")
+                }
                 call.cancel()
             }
         }

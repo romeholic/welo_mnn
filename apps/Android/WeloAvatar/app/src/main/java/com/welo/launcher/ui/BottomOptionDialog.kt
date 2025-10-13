@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.PopupWindow
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,11 +25,17 @@ class BottomOptionDialog(
     private lateinit var popupWindow: PopupWindow
     private var overlayView: View? = null
 
+    private lateinit var popupWindowView: View
+
+    private var anchorView: View? = null
+    private var globalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener? = null
+
     fun show(anchorView: View) {
+        this.anchorView = anchorView
         createOverlay(anchorView.rootView as ViewGroup)
 
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet, null)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_options)
+        popupWindowView = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_sheet, null)
+        val recyclerView = popupWindowView.findViewById<RecyclerView>(R.id.rv_options)
 
         val options = listOf(
             OptionItem(R.drawable.ic_upload_file, "上传文件") {
@@ -58,7 +65,7 @@ class BottomOptionDialog(
         recyclerView.adapter = OptionAdapter(options)
 
         popupWindow = PopupWindow(
-            view,
+            popupWindowView,
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT,
             true
@@ -72,12 +79,9 @@ class BottomOptionDialog(
             }
         }
 
-        // 使点击外部可关闭
-//        popupWindow.isOutsideTouchable = true
-
-        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val popupHeight = view.measuredHeight
-        val popupWidth = view.measuredWidth
+        popupWindowView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val popupHeight = popupWindowView.measuredHeight
+        val popupWidth = popupWindowView.measuredWidth
 
         // 获取按钮在屏幕上的位置
         val location = IntArray(2)
@@ -92,7 +96,33 @@ class BottomOptionDialog(
 
         // 在按钮上方显示
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, x, y)
+
+        setupGlobalLayoutListener(anchorView.rootView as ViewGroup)
     }
+
+    private fun updatePosition() {
+        anchorView?.let { anchor ->
+            updateWindowView(anchor)
+        }
+    }
+
+    private fun updateWindowView(anchorView: View) {
+        if (!::popupWindowView.isInitialized) return
+
+        popupWindowView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val popupHeight = popupWindowView.measuredHeight
+        val popupWidth = popupWindowView.measuredWidth
+
+        val location = IntArray(2)
+        anchorView.getLocationOnScreen(location)
+
+        val offset = ResourceProvider.get().getDimenPixelSize(R.dimen.dp_20)
+        val y = location[1] - popupHeight - offset
+        val x = location[0] + anchorView.width - popupWidth
+
+        popupWindow.update(x, y, popupWidth, popupHeight)
+    }
+
     private fun createOverlay(rootView: ViewGroup) {
         overlayView = View(context).apply {
             setBackgroundColor("#80000000".toColorInt()) // 半透明黑色
@@ -114,7 +144,25 @@ class BottomOptionDialog(
             overlayView = null
         }
     }
+
+    private fun setupGlobalLayoutListener(rootView: ViewGroup) {
+        globalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
+            updatePosition()
+        }
+        rootView.viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
+    }
+
+    private fun removeGlobalLayoutListener(rootView: ViewGroup) {
+        globalLayoutListener?.let {
+            rootView.viewTreeObserver.removeOnGlobalLayoutListener(it)
+        }
+        globalLayoutListener = null
+    }
+
     fun dismiss() {
+        anchorView?.let {
+            removeGlobalLayoutListener(it.rootView as ViewGroup)
+        }
         if (::popupWindow.isInitialized) {
             popupWindow.dismiss()
         }

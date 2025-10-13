@@ -16,6 +16,7 @@ object StringUtil {
             Log.w(TAG, "空JSON字符串，跳过解析")
             return null
         }
+        LogUtil.d(TAG,"parseFlowResponse jsonString:$jsonString")
         try {
             val response = sharedJson.decodeFromString<FlowResponse>(jsonString)
             when (response.event) {

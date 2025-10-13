@@ -18,6 +18,7 @@ import com.welo.storage.TokenManager
 import com.welo.util.LogUtil
 import com.welo.util.PreferenceUtil
 import com.welo.util.StringUtil
+import com.welo.util.SystemUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -427,6 +428,7 @@ class ChatRepository(
 
                     // 取消：处理AI请求取消（更新消息状态），发送取消事件
                     is TextStreamResponse.Cancelled -> {
+                        LogUtil.d(TAG,"Cancelled aiMessageId:$aiMessageId")
                         if (aiMessageId != -1L) {
                             _aiResponseStream.emit(
                                 AIResponseEvent.Cancelled(sessionId, aiMessageId)
@@ -439,12 +441,13 @@ class ChatRepository(
 
                     // 错误：分阶段处理错误（连接阶段/数据阶段），发送错误事件
                     is TextStreamResponse.Error -> {
-                        LogUtil.d(TAG, "getRealAIResponse Error:${streamResponse.message}")
+                        LogUtil.d(TAG, "getRealAIResponse Error:${streamResponse.message} :${streamResponse.errorCode}")
                         if (aiMessageId != -1L) {
                             _aiResponseStream.emit(
                                 AIResponseEvent.Error(
                                     sessionId = sessionId,
-                                    message = "AI回复错误: ${streamResponse.message}"
+                                    message = "AI回复错误: ${streamResponse.message}",
+                                    streamResponse.errorCode
                                 )
                             )
                             handleAIError(sessionId, aiMessageId, streamResponse.message)
@@ -537,7 +540,9 @@ class ChatRepository(
             files = imagePath ?: emptyList(),
             inputs = FlowInputs(
                 input_value = userMessage,
-                session =if (PreferenceUtil.get().getBoolean(FEATURE_TOUR_KEY)) "Session ${Constants.guidesessionId}" else "Session ${Constants.sessionId}"
+                session = if (PreferenceUtil.get()
+                        .getBoolean(FEATURE_TOUR_KEY)
+                ) "Session ${Constants.guidesessionId + SystemUtils.getDeviceSN()}" else "Session ${Constants.sessionId + SystemUtils.getDeviceSN()}"
             )
         )
     }
@@ -676,7 +681,6 @@ class ChatRepository(
                     if (incrementalContent.isNotBlank()) {
                         // 5. 更新数据库中的AI消息完整内容
                         chatDao.updateMessageContent(aiMessageId, processedContent)
-                        LogUtil.d(TAG,"updateMessageContent:$processedContent")
                         // 6. 发送增量数据事件到UI层
                         _aiResponseStream.emit(
                             AIResponseEvent.Chunk(
@@ -860,6 +864,8 @@ class ChatRepository(
         coroutineScope.launch {
             val requestId = activeAIRequests[sessionId]
             if (requestId != null) {
+                _aiResponseStream.emit(AIResponseEvent.Cancelled(sessionId, -1L))
+
                 networkManager.cancelRequest(requestId)
                 activeAIRequests.remove(sessionId)
 
@@ -869,6 +875,14 @@ class ChatRepository(
                     val sendingMessages = chatDao.getMessagesBySessionIdAndStatus(sessionId, "SENDING")
                     sendingMessages.forEach { message ->
                         chatDao.updateMessageStatus(message.id, "CANCELLED")
+                    }
+
+                    val generatingMessages = chatDao.getMessagesBySessionIdAndStatus(sessionId, "GENERATING")
+                    generatingMessages.forEach { message ->
+                        chatDao.updateMessageStatus(message.id, "CANCELLED")
+                        if (message.content.isEmpty()){
+                            chatDao.updateMessageContent(message.id, "对话已取消")
+                        }
                     }
                 }
             }
@@ -1061,7 +1075,7 @@ sealed class AIResponseEvent {
      * @param sessionId 会话ID
      * @param message 错误描述信息（用于UI层展示）
      */
-    data class Error(val sessionId: Long, val message: String) : AIResponseEvent()
+    data class Error(val sessionId: Long, val message: String,val errorCode: Int = -1) : AIResponseEvent()
 
     /**
      * AI回复取消事件

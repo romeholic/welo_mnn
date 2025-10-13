@@ -4,10 +4,7 @@ import ResourceProvider
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +17,6 @@ import androidx.core.view.setPadding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.WeLoApplication
 import com.taobao.meta.avatar.R
 import com.taobao.meta.avatar.databinding.ItemChatMessageBinding
 import com.welo.base.gone
@@ -113,12 +109,10 @@ class ChatAdapter(
     private fun updateGuideLayout(binding: ItemChatMessageBinding){
         if (guideMode) {
             binding.aiMessageContent.setBackgroundResource(0)
-            binding.aiMessageContent.setTextSize(18f)
             binding.aiMessageContent.setPadding(0)
             binding.userMessageTime.gone()
             binding.aiMessageTime.gone()
         } else {
-            binding.aiMessageContent.setTextSize(14f)
             binding.aiMessageContent.setPadding(12)
             binding.aiMessageContent.setBackgroundResource(R.drawable.out_put_background)
             binding.userMessageTime.visible()
@@ -151,7 +145,6 @@ class ChatAdapter(
             currentMessageId = message.id
             currentDisplayedContent = message.content
             currentAnimator?.cancel()
-
             when (message.senderType) {
                 "USER" -> bindUserMessage(message)
                 "AI" -> bindAIMessage(message, isLastItemLoading)
@@ -206,17 +199,17 @@ class ChatAdapter(
                 else -> {
                     binding.aiMessageContent.visible()
                     binding.aiTypingIndicator.gone()
-                    updateGuideLayout(binding)
+                    //updateGuideLayout(binding)
                     binding.aiMessageContent
                 }
             }
 
             val currentText = targetTextView.text.toString()
             if (!currentText.endsWith(newContentChunk) || newContentChunk.length > 1) {
-                targetTextView.append(newContentChunk)
                 currentDisplayedContent += newContentChunk
+                renderMarkdown(targetTextView,currentDisplayedContent)
             } else {
-                targetTextView.text = newContentChunk
+                renderMarkdown(targetTextView,newContentChunk)
                 currentDisplayedContent = newContentChunk
             }
         }
@@ -263,9 +256,18 @@ class ChatAdapter(
             LogUtil.d(TAG, "bindUserMessage content:${message}")
 
             with(binding) {
+                if (guideMode && message.content == "Hi、") {
+                    hideUserLayout()
+                    return
+                }
                 showUserLayout()
                 hideAILayout()
-                setupMessageContent(message, userMessageContent, userMessageImageScroll,userMessageImageContainer)
+                setupMessageContent(
+                    message,
+                    userMessageContent,
+                    userMessageImageScroll,
+                    userMessageImageContainer
+                )
                 if (!guideMode) userMessageTime.text = TimeUtils.formatTime(message.timestamp)
                 updateUserMessageStatus(message.status)
                 scrollToBottomIfNeeded(adapterPosition)
@@ -286,7 +288,6 @@ class ChatAdapter(
                 currentAnimator?.cancel()
                 val shouldAnimate =
                     message.status == "GENERATING" && showTyping && message.content.isNotEmpty()
-
                 if (shouldAnimate) {
                     animateTextReveal(aiMessageContent, message.content, adapterPosition)
                 } else {
@@ -311,6 +312,7 @@ class ChatAdapter(
             aiLoadingLayout: LinearLayout? = null
         ) {
             when (message.messageType) {
+                "GUIDETEXT",
                 "TEXT" -> {
                     if (message.content.isEmpty()){
                         return
@@ -365,7 +367,6 @@ class ChatAdapter(
          * 显示AI消息布局
          */
         private fun showAILayout(message: String) {
-            LogUtil.d(TAG, "showAILayout: $message")
             binding.aiMessageLayout.visible()
             if (message.isEmpty()){
                 binding.aiMessageContent.gone()

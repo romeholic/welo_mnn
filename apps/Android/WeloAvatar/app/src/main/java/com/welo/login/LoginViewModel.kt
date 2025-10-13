@@ -20,7 +20,6 @@ class LoginViewModel() : ViewModel() {
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
-
     fun register(username: String, password: String) {
         viewModelScope.launch {
             loginRepository.getRegister("",username,password) .collect { response ->

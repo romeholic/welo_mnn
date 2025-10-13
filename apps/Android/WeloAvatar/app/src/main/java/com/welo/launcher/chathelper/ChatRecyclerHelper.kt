@@ -92,13 +92,21 @@ class ChatRecyclerHelper(private val recyclerView: RecyclerView) {
 
                 override fun onSingleTapUp(e: MotionEvent): Boolean {
                     val isEmptySpace = isTapOnEmptySpace(e)
-                    LogUtil.d("ChatRecyclerHelper", "onSingleTapUp: isEmptySpace = $isEmptySpace")
                     // 检查是否点击在空白处
                     if (isEmptySpace) {
                         onEmptySpaceClickListener?.invoke()
                         return true
                     }
                     return false
+                }
+
+                override fun onScroll(
+                    e1: MotionEvent?,
+                    e2: MotionEvent,
+                    distanceX: Float,
+                    distanceY: Float
+                ): Boolean {
+                    return super.onScroll(e1, e2, distanceX, distanceY)
                 }
             })
         recyclerView.apply {
@@ -161,7 +169,7 @@ class ChatRecyclerHelper(private val recyclerView: RecyclerView) {
         // 检查是否点击在任何可见的子视图上
         for (i in 0 until constraintLayout.childCount) {
             val child = constraintLayout.getChildAt(i)
-            if (child.visibility == View.VISIBLE) {
+            if (child.isVisible) {
                 val childRect = Rect()
                 child.getHitRect(childRect)
 
@@ -170,22 +178,12 @@ class ChatRecyclerHelper(private val recyclerView: RecyclerView) {
                     if (child.isClickable || child.isLongClickable ||
                         child.isFocusableInTouchMode || child is EditText
                     ) {
-                        LogUtil.d(
-                            "ChatRecyclerHelper",
-                            "点击在可交互视图: ${child.javaClass.simpleName}"
-                        )
                         return false
                     }
-                    LogUtil.d(
-                        "ChatRecyclerHelper",
-                        "点击在非交互子视图: ${child.javaClass.simpleName}"
-                    )
                     return false
                 }
             }
         }
-
-        LogUtil.d("ChatRecyclerHelper", "点击在 ConstraintLayout 空白区域")
         return true
     }
 
@@ -207,7 +205,6 @@ class ChatRecyclerHelper(private val recyclerView: RecyclerView) {
     }
 
     fun notifyItemChanged(payload: Any?) {
-        LogUtil.d(TAG,"notifyItemChanged isLoading:${isLoading()}")
         val position = chatAdapter.itemCount - 1
         chatAdapter.notifyItemChanged(position, payload)
         if (position == chatAdapter.itemCount - 1) {
@@ -216,7 +213,6 @@ class ChatRecyclerHelper(private val recyclerView: RecyclerView) {
     }
 
     fun submitMessages(messages: List<ChatMessage>, sessionId: Long) {
-        LogUtil.d(TAG,"submitMessages isLoading:${isLoading()}")
         chatAdapter.submitListWithSession(messages, sessionId)
         scheduleScrollToBottom()
     }
